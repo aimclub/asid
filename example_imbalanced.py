@@ -1,5 +1,5 @@
-from automl_imbalanced.ilc import ImbalancedLearningClassifier
-from automl_imbalanced.abb import AutoBalanceBoost
+from asid.automl_imbalanced.ilc import ImbalancedLearningClassifier
+from asid.automl_imbalanced.abb import AutoBalanceBoost
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score

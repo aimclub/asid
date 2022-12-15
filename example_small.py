@@ -1,4 +1,4 @@
-from automl_small.gm import GenerativeModel
+from asid.automl_small.gm import GenerativeModel
 from sklearn.datasets import load_iris
 from pathlib import Path
 
