@@ -1,3 +1,7 @@
+"""
+This module contains functions for exception handling.
+"""
+
 import numpy as np
 
 

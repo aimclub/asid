@@ -1,3 +1,7 @@
+"""
+This module contains ImbalancedLearningClassifier class.
+"""
+
 from .tools_ilc import choose_and_fit_ilc, calc_leaderboard
 from .check_tools import check_num_type, check_eval_metric_list, check_x_y, check_ilc_fitted
 from datetime import datetime
@@ -80,7 +84,7 @@ class ImbalancedLearningClassifier(object):
         self.classifer_, self.classifer_label_, self.score_, self.scaler_, self.evaluated_models_scores_, \
         self.evaluated_models_time_ = choose_and_fit_ilc(self, X, y)
         print("The best generative model is " + self.classifer_label_)
-        print("Leader "+self.eval_metric + " score: " + str(round(self.score_, 4)))
+        print("Leader " + self.eval_metric + " score: " + str(round(self.score_, 4)))
         print("Fitting time: ", datetime.now() - t0)
         return self
 

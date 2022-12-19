@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>asid.automl_imbalanced.ilc API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="This module contains ImbalancedLearningClassifier class." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,11 +22,16 @@
 <h1 class="title">Module <code>asid.automl_imbalanced.ilc</code></h1>
 </header>
 <section id="section-intro">
+<p>This module contains ImbalancedLearningClassifier class.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from .tools_ilc import choose_and_fit_ilc, calc_leaderboard
+<pre><code class="python">&#34;&#34;&#34;
+This module contains ImbalancedLearningClassifier class.
+&#34;&#34;&#34;
+
+from .tools_ilc import choose_and_fit_ilc, calc_leaderboard
 from .check_tools import check_num_type, check_eval_metric_list, check_x_y, check_ilc_fitted
 from datetime import datetime
 
@@ -108,7 +113,7 @@ class ImbalancedLearningClassifier(object):
         self.classifer_, self.classifer_label_, self.score_, self.scaler_, self.evaluated_models_scores_, \
         self.evaluated_models_time_ = choose_and_fit_ilc(self, X, y)
         print(&#34;The best generative model is &#34; + self.classifer_label_)
-        print(&#34;Leader &#34;+self.eval_metric + &#34; score: &#34; + str(round(self.score_, 4)))
+        print(&#34;Leader &#34; + self.eval_metric + &#34; score: &#34; + str(round(self.score_, 4)))
         print(&#34;Fitting time: &#34;, datetime.now() - t0)
         return self
 
@@ -312,7 +317,7 @@ hyper-parameters for balancing procedures.</dd>
         self.classifer_, self.classifer_label_, self.score_, self.scaler_, self.evaluated_models_scores_, \
         self.evaluated_models_time_ = choose_and_fit_ilc(self, X, y)
         print(&#34;The best generative model is &#34; + self.classifer_label_)
-        print(&#34;Leader &#34;+self.eval_metric + &#34; score: &#34; + str(round(self.score_, 4)))
+        print(&#34;Leader &#34; + self.eval_metric + &#34; score: &#34; + str(round(self.score_, 4)))
         print(&#34;Fitting time: &#34;, datetime.now() - t0)
         return self
 
@@ -435,7 +440,7 @@ hyper-parameters for balancing procedures.</dd>
     self.classifer_, self.classifer_label_, self.score_, self.scaler_, self.evaluated_models_scores_, \
     self.evaluated_models_time_ = choose_and_fit_ilc(self, X, y)
     print(&#34;The best generative model is &#34; + self.classifer_label_)
-    print(&#34;Leader &#34;+self.eval_metric + &#34; score: &#34; + str(round(self.score_, 4)))
+    print(&#34;Leader &#34; + self.eval_metric + &#34; score: &#34; + str(round(self.score_, 4)))
     print(&#34;Fitting time: &#34;, datetime.now() - t0)
     return self</code></pre>
 </details>

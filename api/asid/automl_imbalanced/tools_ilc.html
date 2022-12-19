@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>asid.automl_imbalanced.tools_ilc API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="This module contains helping functions for ImbalancedLearningClassifier class." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,11 +22,16 @@
 <h1 class="title">Module <code>asid.automl_imbalanced.tools_ilc</code></h1>
 </header>
 <section id="section-intro">
+<p>This module contains helping functions for ImbalancedLearningClassifier class.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">import random
+<pre><code class="python">&#34;&#34;&#34;
+This module contains helping functions for ImbalancedLearningClassifier class.
+&#34;&#34;&#34;
+
+import random
 from sklearn.model_selection import StratifiedKFold, StratifiedShuffleSplit
 from sklearn.preprocessing import StandardScaler
 from imblearn.pipeline import Pipeline
@@ -57,7 +62,7 @@ classificator_dict = {&#34;XGB&#34;: xgb.XGBClassifier(seed=10, verbosity=0, use
                       &#34;catboost&#34;: CatBoostClassifier(random_seed=42, verbose=False)}
 
 path = Path.cwd()
-with open(&#34;/&#34;.join(str(path).split(&#34;\\&#34;))+&#39;/asid/automl_imbalanced/sampling_hyperparameters_space.pickle&#39;, &#39;rb&#39;) as f:
+with open(&#34;/&#34;.join(str(path).split(&#34;\\&#34;)) + &#39;/asid/automl_imbalanced/sampling_hyperparameters_space.pickle&#39;, &#39;rb&#39;) as f:
     space_dict = pickle.load(f)
 
 
@@ -572,11 +577,13 @@ def choose_and_fit_ilc(self, X, y):
     option_list = []
     for alg in [&#34;catboost&#34;, &#34;RF&#34;, &#34;LGBM&#34;, &#34;XGB&#34;]:
         for bal_alg in [&#34;RandomOverSampler&#34;, &#34;SMOTE&#34;, &#34;RandomUnderSampler&#34;, &#34;ADASYN&#34;]:
-            score_list, time_list = fit_alg(cv_type, X, y, bal_alg, alg, self.hyperopt_time, self.split_num, self.eval_metric)
+            score_list, time_list = fit_alg(cv_type, X, y, bal_alg, alg, self.hyperopt_time, self.split_num,
+                                            self.eval_metric)
             option_list.append(bal_alg + &#34;+&#34; + alg)
             score_dict[option_list[-1]] = score_list
             res_dict[option_list[-1]] = np.mean(score_list)
-    score_list, time_list = fit_alg(cv_type, X, y, None, &#34;AutoBalanceBoost&#34;, self.hyperopt_time, self.split_num, self.eval_metric)
+    score_list, time_list = fit_alg(cv_type, X, y, None, &#34;AutoBalanceBoost&#34;, self.hyperopt_time, self.split_num,
+                                    self.eval_metric)
     option_list.append(&#34;AutoBalanceBoost&#34;)
     score_dict[option_list[-1]] = score_list
     time_dict[option_list[-1]] = time_list
@@ -1120,11 +1127,13 @@ def calc_leaderboard(self):
     option_list = []
     for alg in [&#34;catboost&#34;, &#34;RF&#34;, &#34;LGBM&#34;, &#34;XGB&#34;]:
         for bal_alg in [&#34;RandomOverSampler&#34;, &#34;SMOTE&#34;, &#34;RandomUnderSampler&#34;, &#34;ADASYN&#34;]:
-            score_list, time_list = fit_alg(cv_type, X, y, bal_alg, alg, self.hyperopt_time, self.split_num, self.eval_metric)
+            score_list, time_list = fit_alg(cv_type, X, y, bal_alg, alg, self.hyperopt_time, self.split_num,
+                                            self.eval_metric)
             option_list.append(bal_alg + &#34;+&#34; + alg)
             score_dict[option_list[-1]] = score_list
             res_dict[option_list[-1]] = np.mean(score_list)
-    score_list, time_list = fit_alg(cv_type, X, y, None, &#34;AutoBalanceBoost&#34;, self.hyperopt_time, self.split_num, self.eval_metric)
+    score_list, time_list = fit_alg(cv_type, X, y, None, &#34;AutoBalanceBoost&#34;, self.hyperopt_time, self.split_num,
+                                    self.eval_metric)
     option_list.append(&#34;AutoBalanceBoost&#34;)
     score_dict[option_list[-1]] = score_list
     time_dict[option_list[-1]] = time_list

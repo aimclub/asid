@@ -1,3 +1,7 @@
+"""
+This module contains helping functions for AutoBalanceBoost class.
+"""
+
 from sklearn.model_selection import StratifiedShuffleSplit
 import numpy as np
 from sklearn import tree
@@ -87,7 +91,7 @@ def get_newds(pred_proba, ts, X, Y, num_mod, balanced, num_feat, feat_gen, feat_
                     sum_proba_class = np.sum(pred_proba_res_norm[Y == class_val])
                     diff_sum = sum_proba_class - target_share
                     pred_proba_res_balanced[Y == class_val] = pred_proba_res_balanced[Y == class_val] * (
-                                1 - diff_sum / sum_proba_class)
+                            1 - diff_sum / sum_proba_class)
                 new_train_ind = np.random.choice(list(range(X.shape[0])), int(X.shape[0] * ts_opt), replace=True,
                                                  p=pred_proba_res_balanced)
             else:
@@ -101,7 +105,7 @@ def get_newds(pred_proba, ts, X, Y, num_mod, balanced, num_feat, feat_gen, feat_
                     sum_proba_class = np.sum(pred_proba_res_norm[Y == class_val])
                     diff_sum = sum_proba_class - target_share
                     pred_proba_res_balanced[Y == class_val] = pred_proba_res_balanced[Y == class_val] * (
-                                1 - diff_sum / sum_proba_class)
+                            1 - diff_sum / sum_proba_class)
                 new_train_ind = np.random.choice(list(range(X.shape[0])), int(X.shape[0] * ts_opt), replace=True,
                                                  p=pred_proba_res_balanced)
         else:

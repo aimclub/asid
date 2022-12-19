@@ -1,3 +1,7 @@
+"""
+This module contains functions for generative models estimation.
+"""
+
 import numpy as np
 import pandas as pd
 from sklearn.mixture import GaussianMixture, BayesianGaussianMixture

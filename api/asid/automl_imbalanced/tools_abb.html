@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>asid.automl_imbalanced.tools_abb API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="This module contains helping functions for AutoBalanceBoost class." />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,11 +22,16 @@
 <h1 class="title">Module <code>asid.automl_imbalanced.tools_abb</code></h1>
 </header>
 <section id="section-intro">
+<p>This module contains helping functions for AutoBalanceBoost class.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from sklearn.model_selection import StratifiedShuffleSplit
+<pre><code class="python">&#34;&#34;&#34;
+This module contains helping functions for AutoBalanceBoost class.
+&#34;&#34;&#34;
+
+from sklearn.model_selection import StratifiedShuffleSplit
 import numpy as np
 from sklearn import tree
 from sklearn.metrics import f1_score
@@ -115,7 +120,7 @@ def get_newds(pred_proba, ts, X, Y, num_mod, balanced, num_feat, feat_gen, feat_
                     sum_proba_class = np.sum(pred_proba_res_norm[Y == class_val])
                     diff_sum = sum_proba_class - target_share
                     pred_proba_res_balanced[Y == class_val] = pred_proba_res_balanced[Y == class_val] * (
-                                1 - diff_sum / sum_proba_class)
+                            1 - diff_sum / sum_proba_class)
                 new_train_ind = np.random.choice(list(range(X.shape[0])), int(X.shape[0] * ts_opt), replace=True,
                                                  p=pred_proba_res_balanced)
             else:
@@ -129,7 +134,7 @@ def get_newds(pred_proba, ts, X, Y, num_mod, balanced, num_feat, feat_gen, feat_
                     sum_proba_class = np.sum(pred_proba_res_norm[Y == class_val])
                     diff_sum = sum_proba_class - target_share
                     pred_proba_res_balanced[Y == class_val] = pred_proba_res_balanced[Y == class_val] * (
-                                1 - diff_sum / sum_proba_class)
+                            1 - diff_sum / sum_proba_class)
                 new_train_ind = np.random.choice(list(range(X.shape[0])), int(X.shape[0] * ts_opt), replace=True,
                                                  p=pred_proba_res_balanced)
         else:
@@ -2054,7 +2059,7 @@ def get_feat_imp(model_list):
                     sum_proba_class = np.sum(pred_proba_res_norm[Y == class_val])
                     diff_sum = sum_proba_class - target_share
                     pred_proba_res_balanced[Y == class_val] = pred_proba_res_balanced[Y == class_val] * (
-                                1 - diff_sum / sum_proba_class)
+                            1 - diff_sum / sum_proba_class)
                 new_train_ind = np.random.choice(list(range(X.shape[0])), int(X.shape[0] * ts_opt), replace=True,
                                                  p=pred_proba_res_balanced)
             else:
@@ -2068,7 +2073,7 @@ def get_feat_imp(model_list):
                     sum_proba_class = np.sum(pred_proba_res_norm[Y == class_val])
                     diff_sum = sum_proba_class - target_share
                     pred_proba_res_balanced[Y == class_val] = pred_proba_res_balanced[Y == class_val] * (
-                                1 - diff_sum / sum_proba_class)
+                            1 - diff_sum / sum_proba_class)
                 new_train_ind = np.random.choice(list(range(X.shape[0])), int(X.shape[0] * ts_opt), replace=True,
                                                  p=pred_proba_res_balanced)
         else:

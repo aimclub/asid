@@ -1,3 +1,7 @@
+"""
+This module contains AutoBalanceBoost class.
+"""
+
 from .tools_abb import boosting_of_bagging_procedure, get_pred, get_pred_proba, get_feat_imp
 from .check_tools import check_num_type, check_x_y, check_abb_fitted
 

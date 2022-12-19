@@ -1,3 +1,7 @@
+"""
+This module contains helping functions for ImbalancedLearningClassifier class.
+"""
+
 import random
 from sklearn.model_selection import StratifiedKFold, StratifiedShuffleSplit
 from sklearn.preprocessing import StandardScaler
@@ -29,7 +33,7 @@ classificator_dict = {"XGB": xgb.XGBClassifier(seed=10, verbosity=0, use_label_e
                       "catboost": CatBoostClassifier(random_seed=42, verbose=False)}
 
 path = Path.cwd()
-with open("/".join(str(path).split("\\"))+'/asid/automl_imbalanced/sampling_hyperparameters_space.pickle', 'rb') as f:
+with open("/".join(str(path).split("\\")) + '/asid/automl_imbalanced/sampling_hyperparameters_space.pickle', 'rb') as f:
     space_dict = pickle.load(f)
 
 
@@ -544,11 +548,13 @@ def choose_and_fit_ilc(self, X, y):
     option_list = []
     for alg in ["catboost", "RF", "LGBM", "XGB"]:
         for bal_alg in ["RandomOverSampler", "SMOTE", "RandomUnderSampler", "ADASYN"]:
-            score_list, time_list = fit_alg(cv_type, X, y, bal_alg, alg, self.hyperopt_time, self.split_num, self.eval_metric)
+            score_list, time_list = fit_alg(cv_type, X, y, bal_alg, alg, self.hyperopt_time, self.split_num,
+                                            self.eval_metric)
             option_list.append(bal_alg + "+" + alg)
             score_dict[option_list[-1]] = score_list
             res_dict[option_list[-1]] = np.mean(score_list)
-    score_list, time_list = fit_alg(cv_type, X, y, None, "AutoBalanceBoost", self.hyperopt_time, self.split_num, self.eval_metric)
+    score_list, time_list = fit_alg(cv_type, X, y, None, "AutoBalanceBoost", self.hyperopt_time, self.split_num,
+                                    self.eval_metric)
     option_list.append("AutoBalanceBoost")
     score_dict[option_list[-1]] = score_list
     time_dict[option_list[-1]] = time_list

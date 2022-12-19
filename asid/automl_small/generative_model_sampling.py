@@ -1,3 +1,7 @@
+"""
+This module contains functions for sampling from fitted generative models.
+"""
+
 import numpy as np
 import torch
 import os

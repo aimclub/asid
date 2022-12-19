@@ -1,3 +1,7 @@
+"""
+This module contains GenerativeModel class.
+"""
+
 from .tools import choose_and_fit_model, check_gen_model_list, check_sim_metric_list, check_num_type, check_x_y, \
     check_gm_fitted
 from .generative_model_estimation import fit_model
