@@ -190,11 +190,11 @@ def calc_sdv_acc(params, data, alg):
     for index in skf.split(data):
         x_train, x_test = data.iloc[index[0]], data.iloc[index[1]]
         if alg == "ctgan":
-            model = CTGAN(batch_size=int(params["batch_size"]))
+            model = CTGAN(batch_size=int(params["batch_size"]), cuda=False)
         elif alg == "copulagan":
-            model = CopulaGAN(batch_size=int(params["batch_size"]))
+            model = CopulaGAN(batch_size=int(params["batch_size"]), cuda=False)
         elif alg == "tvae":
-            model = TVAE(batch_size=int(params["batch_size"]))
+            model = TVAE(batch_size=int(params["batch_size"]), cuda=False)
         model.fit(x_train)
         sub_metric_list = []
         for i in range(10):
@@ -224,7 +224,7 @@ def get_ctgan_model(data, hyp_time):
     """
     if hyp_time < 15:
         data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
-        model = CTGAN()
+        model = CTGAN(cuda=False)
         model.fit(data)
     else:
         space = {"batch_size": hp.quniform("batch_size", 300, 800, 50)}
@@ -256,7 +256,7 @@ def get_copulagan_model(data, hyp_time):
     """
     if hyp_time < 15:
         data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
-        model = CopulaGAN()
+        model = CopulaGAN(cuda=False)
         model.fit(data)
     else:
         space = {"batch_size": hp.quniform("batch_size", 300, 800, 50)}
@@ -288,7 +288,7 @@ def get_tvae_model(data, hyp_time):
     """
     if hyp_time < 15:
         data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
-        model = TVAE()
+        model = TVAE(cuda=False)
         model.fit(data)
     else:
         space = {"batch_size": hp.quniform("batch_size", 300, 800, 50)}
