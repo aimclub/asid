@@ -49,7 +49,7 @@ from .abb import AutoBalanceBoost
 from hyperopt import hp
 from scipy.stats import rankdata
 from datetime import datetime
-from pathlib import Path
+import os
 
 balance_dict = {&#34;SMOTE&#34;: SMOTE(random_state=42),
                 &#34;RandomOverSampler&#34;: RandomOverSampler(random_state=42),
@@ -61,8 +61,8 @@ classificator_dict = {&#34;XGB&#34;: xgb.XGBClassifier(seed=10, verbosity=0, use
                       &#34;LGBM&#34;: lgb.LGBMClassifier(random_state=42),
                       &#34;catboost&#34;: CatBoostClassifier(random_seed=42, verbose=False)}
 
-path = Path.cwd()
-with open(&#34;/&#34;.join(str(path).split(&#34;\\&#34;)) + &#39;/asid/automl_imbalanced/sampling_hyperparameters_space.pickle&#39;, &#39;rb&#39;) as f:
+with open(&#34;/&#34;.join(str(os.path.realpath(__file__)).split(&#34;\\&#34;)).split(&#34;automl_imbalanced&#34;)[
+              0] + &#39;automl_imbalanced/sampling_hyperparameters_space.pickle&#39;, &#39;rb&#39;) as f:
     space_dict = pickle.load(f)
 
 

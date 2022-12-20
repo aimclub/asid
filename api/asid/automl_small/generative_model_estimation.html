@@ -219,11 +219,11 @@ def calc_sdv_acc(params, data, alg):
     for index in skf.split(data):
         x_train, x_test = data.iloc[index[0]], data.iloc[index[1]]
         if alg == &#34;ctgan&#34;:
-            model = CTGAN(batch_size=int(params[&#34;batch_size&#34;]))
+            model = CTGAN(batch_size=int(params[&#34;batch_size&#34;]), cuda=False)
         elif alg == &#34;copulagan&#34;:
-            model = CopulaGAN(batch_size=int(params[&#34;batch_size&#34;]))
+            model = CopulaGAN(batch_size=int(params[&#34;batch_size&#34;]), cuda=False)
         elif alg == &#34;tvae&#34;:
-            model = TVAE(batch_size=int(params[&#34;batch_size&#34;]))
+            model = TVAE(batch_size=int(params[&#34;batch_size&#34;]), cuda=False)
         model.fit(x_train)
         sub_metric_list = []
         for i in range(10):
@@ -253,7 +253,7 @@ def get_ctgan_model(data, hyp_time):
     &#34;&#34;&#34;
     if hyp_time &lt; 15:
         data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
-        model = CTGAN()
+        model = CTGAN(cuda=False)
         model.fit(data)
     else:
         space = {&#34;batch_size&#34;: hp.quniform(&#34;batch_size&#34;, 300, 800, 50)}
@@ -285,7 +285,7 @@ def get_copulagan_model(data, hyp_time):
     &#34;&#34;&#34;
     if hyp_time &lt; 15:
         data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
-        model = CopulaGAN()
+        model = CopulaGAN(cuda=False)
         model.fit(data)
     else:
         space = {&#34;batch_size&#34;: hp.quniform(&#34;batch_size&#34;, 300, 800, 50)}
@@ -317,7 +317,7 @@ def get_tvae_model(data, hyp_time):
     &#34;&#34;&#34;
     if hyp_time &lt; 15:
         data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
-        model = TVAE()
+        model = TVAE(cuda=False)
         model.fit(data)
     else:
         space = {&#34;batch_size&#34;: hp.quniform(&#34;batch_size&#34;, 300, 800, 50)}
@@ -662,11 +662,11 @@ def fit_model(gen_algorithm, data, hyp_time):
     for index in skf.split(data):
         x_train, x_test = data.iloc[index[0]], data.iloc[index[1]]
         if alg == &#34;ctgan&#34;:
-            model = CTGAN(batch_size=int(params[&#34;batch_size&#34;]))
+            model = CTGAN(batch_size=int(params[&#34;batch_size&#34;]), cuda=False)
         elif alg == &#34;copulagan&#34;:
-            model = CopulaGAN(batch_size=int(params[&#34;batch_size&#34;]))
+            model = CopulaGAN(batch_size=int(params[&#34;batch_size&#34;]), cuda=False)
         elif alg == &#34;tvae&#34;:
-            model = TVAE(batch_size=int(params[&#34;batch_size&#34;]))
+            model = TVAE(batch_size=int(params[&#34;batch_size&#34;]), cuda=False)
         model.fit(x_train)
         sub_metric_list = []
         for i in range(10):
@@ -876,7 +876,7 @@ Generative algorithm label.</dd>
     &#34;&#34;&#34;
     if hyp_time &lt; 15:
         data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
-        model = CopulaGAN()
+        model = CopulaGAN(cuda=False)
         model.fit(data)
     else:
         space = {&#34;batch_size&#34;: hp.quniform(&#34;batch_size&#34;, 300, 800, 50)}
@@ -929,7 +929,7 @@ Generative algorithm label.</dd>
     &#34;&#34;&#34;
     if hyp_time &lt; 15:
         data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
-        model = CTGAN()
+        model = CTGAN(cuda=False)
         model.fit(data)
     else:
         space = {&#34;batch_size&#34;: hp.quniform(&#34;batch_size&#34;, 300, 800, 50)}
@@ -1031,7 +1031,7 @@ Generative algorithm label.</dd>
     &#34;&#34;&#34;
     if hyp_time &lt; 15:
         data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
-        model = TVAE()
+        model = TVAE(cuda=False)
         model.fit(data)
     else:
         space = {&#34;batch_size&#34;: hp.quniform(&#34;batch_size&#34;, 300, 800, 50)}

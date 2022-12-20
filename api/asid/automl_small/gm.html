@@ -216,6 +216,9 @@ class GenerativeModel(object):
         check_x_y(train_data)
         if test_data is not None:
             check_x_y(test_data)
+        else:
+            if similarity_metric==&#34;zu&#34;:
+                raise ValueError(&#34;Test data is required for zu calculation.&#34;)
         check_sim_metric_list(similarity_metric, &#34;score&#34;)
         random.seed(42)
         seed_val = random.sample(list(range(100000)), self.num_syn_samples)
@@ -468,6 +471,9 @@ metrics of generative adversarial networks” arXiv preprint arXiv:1806.07755.</
         check_x_y(train_data)
         if test_data is not None:
             check_x_y(test_data)
+        else:
+            if similarity_metric==&#34;zu&#34;:
+                raise ValueError(&#34;Test data is required for zu calculation.&#34;)
         check_sim_metric_list(similarity_metric, &#34;score&#34;)
         random.seed(42)
         seed_val = random.sample(list(range(100000)), self.num_syn_samples)
@@ -680,6 +686,9 @@ Association, 46(253): 68-78.</p></div>
     check_x_y(train_data)
     if test_data is not None:
         check_x_y(test_data)
+    else:
+        if similarity_metric==&#34;zu&#34;:
+            raise ValueError(&#34;Test data is required for zu calculation.&#34;)
     check_sim_metric_list(similarity_metric, &#34;score&#34;)
     random.seed(42)
     seed_val = random.sample(list(range(100000)), self.num_syn_samples)

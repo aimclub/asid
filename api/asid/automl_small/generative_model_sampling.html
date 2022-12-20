@@ -190,9 +190,10 @@ def sample_sdv_procedure(model, sample_len, seed_list, scaling):
     for seed in seed_list:
         np.random.seed(seed)
         torch.manual_seed(seed)
-        if os.path.exists(&#34;gmss/sample.csv.tmp&#34;):
-            os.remove(&#34;gmss/sample.csv.tmp&#34;)
-        sampled_data = model.sample(sample_len, output_file_path=&#34;gmss/sample.csv.tmp&#34;)
+        cp = &#34;/&#34;.join(str(os.path.realpath(__file__)).split(&#34;\\&#34;)).split(&#34;automl_small&#34;)[0]
+        if os.path.exists(cp + &#34;automl_small/sample.csv.tmp&#34;):
+            os.remove(cp + &#34;automl_small/sample.csv.tmp&#34;)
+        sampled_data = model.sample(sample_len, output_file_path=cp + &#34;automl_small/sample.csv.tmp&#34;)
         if scaling:
             sampled_data = scaling.inverse_transform(sampled_data)
         sampled_data_list.append(sampled_data)
@@ -420,9 +421,10 @@ Generative algorithm label.</dd>
     for seed in seed_list:
         np.random.seed(seed)
         torch.manual_seed(seed)
-        if os.path.exists(&#34;gmss/sample.csv.tmp&#34;):
-            os.remove(&#34;gmss/sample.csv.tmp&#34;)
-        sampled_data = model.sample(sample_len, output_file_path=&#34;gmss/sample.csv.tmp&#34;)
+        cp = &#34;/&#34;.join(str(os.path.realpath(__file__)).split(&#34;\\&#34;)).split(&#34;automl_small&#34;)[0]
+        if os.path.exists(cp + &#34;automl_small/sample.csv.tmp&#34;):
+            os.remove(cp + &#34;automl_small/sample.csv.tmp&#34;)
+        sampled_data = model.sample(sample_len, output_file_path=cp + &#34;automl_small/sample.csv.tmp&#34;)
         if scaling:
             sampled_data = scaling.inverse_transform(sampled_data)
         sampled_data_list.append(sampled_data)

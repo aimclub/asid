@@ -5,7 +5,6 @@ This module contains functions for sampling from fitted generative models.
 import numpy as np
 import torch
 import os
-from pathlib import Path
 
 
 def simple_sample_sklearn_procedure(model, sample_len, seed_list, scaling):
@@ -162,11 +161,10 @@ def sample_sdv_procedure(model, sample_len, seed_list, scaling):
     for seed in seed_list:
         np.random.seed(seed)
         torch.manual_seed(seed)
-        path = Path.cwd()
-        if os.path.exists("/".join(str(path).split("\\")) + "/asid/automl_small/sample.csv.tmp"):
-            os.remove("/".join(str(path).split("\\")) + "/asid/automl_small/sample.csv.tmp")
-        sampled_data = model.sample(sample_len, output_file_path="/".join(
-            str(path).split("\\")) + "/asid/automl_small/sample.csv.tmp")
+        cp = "/".join(str(os.path.realpath(__file__)).split("\\")).split("automl_small")[0]
+        if os.path.exists(cp + "automl_small/sample.csv.tmp"):
+            os.remove(cp + "automl_small/sample.csv.tmp")
+        sampled_data = model.sample(sample_len, output_file_path=cp + "automl_small/sample.csv.tmp")
         if scaling:
             sampled_data = scaling.inverse_transform(sampled_data)
         sampled_data_list.append(sampled_data)
