@@ -187,6 +187,9 @@ class GenerativeModel(object):
         check_x_y(train_data)
         if test_data is not None:
             check_x_y(test_data)
+        else:
+            if similarity_metric=="zu":
+                raise ValueError("Test data is required for zu calculation.")
         check_sim_metric_list(similarity_metric, "score")
         random.seed(42)
         seed_val = random.sample(list(range(100000)), self.num_syn_samples)
