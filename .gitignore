@@ -3,4 +3,5 @@ catboost_info
 .idea
 .git
 /*.tmp
+/examples/catboost_info
 
