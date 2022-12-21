@@ -1,7 +1,7 @@
 # ASID: AutoML for Small and Imbalanced Datasets
 ASID library comprises autoML tools for small and imbalanced tabular datasets.
 
-For **small datasets** we propose a [`GenerativeModel`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_small/gm.py) estimator, that searches for an optimal generative algorithm, which outputs similar synthetic samples and does not overfit. Main features of this tool are:
+For **small datasets** we propose a [`GenerativeModel`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_small/gm.py) estimator that searches for an optimal generative algorithm, which outputs similar synthetic samples and does not overfit. Main features of this tool are:
 * It includes 9 popular generative approaches for small tabular datasets such as kernel density estimation, gaussian mixture models, copulas and deep learning models;
 * It is easy-to-use and does not require time-consuming tuning;
 * It includes a Hyperopt tuning procedure, which could be controlled by a runtime parameter;
@@ -13,7 +13,7 @@ For **imbalanced datasets** ASID library includes a tailored ensemble classifier
 * It is easy-to-use and does not require time-consuming tuning;
 * Empirical analysis shows that ABB demonstrates a robust performance and on average outperforms its competitors.
 
-For **imbalanced datasets** we also propose an [`ImbalancedLearningClassifier`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_imbalanced/ilc.py) estimator, that searches for the optimal classifier for a given imbalanced task. Main features of this tool are:
+For **imbalanced datasets** we also propose an [`ImbalancedLearningClassifier`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_imbalanced/ilc.py) estimator that searches for the optimal classifier for a given imbalanced task. Main features of this tool are:
 * It includes AutoBalanceBoost and combinations of SOTA ensemble algorithms and balancing procedures from imbalanced-learn library;
 * It is easy-to-use and does not require time-consuming tuning;
 * It includes a Hyperopt tuning procedure for balancing procedures, which could be controlled by a runtime parameter;
