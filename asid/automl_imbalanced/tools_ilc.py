@@ -21,6 +21,7 @@ from hyperopt import hp
 from scipy.stats import rankdata
 from datetime import datetime
 import os
+from copy import deepcopy
 
 balance_dict = {"SMOTE": SMOTE(random_state=42),
                 "RandomOverSampler": RandomOverSampler(random_state=42),
@@ -160,8 +161,8 @@ def calc_pipeline_acc(params, X, y, bal_alg, alg, metric):
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
         estimator = Pipeline([
-            ('balancing', balance_dict[bal_alg]),
-            ('classification', classificator_dict[alg])])
+            ('balancing', deepcopy(balance_dict[bal_alg])),
+            ('classification', deepcopy(classificator_dict[alg]))])
         if count == 0:
             count_class = np.unique(y_train, return_counts=True)
             params["balancing__sampling_strategy"] = get_sampl_strat_for_case(params["balancing__sampling_strategy"],
@@ -286,8 +287,8 @@ def balance_exp(X, y, skf, bal_alg, alg, hyperopt_time, metric):
             balance_params = None
         X_train_scaled, scaler = scale_data(X_train)
         estimator = Pipeline([
-            ('balancing', balance_dict[bal_alg]),
-            ('classification', classificator_dict[alg])])
+            ('balancing', deepcopy(balance_dict[bal_alg])),
+            ('classification', deepcopy(classificator_dict[alg]))])
         if balance_params:
             estimator.set_params(**balance_params)
         t0 = datetime.now()
@@ -502,8 +503,8 @@ def fit_res_model(option_label, X, y, hyp_time, metric):
             balance_params = None
         X_scaled, scaler = scale_data(X)
         model = Pipeline([
-            ('balancing', balance_dict[bal_alg]),
-            ('classification', classificator_dict[alg])])
+            ('balancing', deepcopy(balance_dict[bal_alg])),
+            ('classification', deepcopy(classificator_dict[alg]))])
         if balance_params:
             balance_params["balancing__sampling_strategy"] = get_sampl_strat_for_case(
                 balance_params["balancing__sampling_strategy"], np.unique(y, return_counts=True), bal_alg)

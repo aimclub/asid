@@ -180,8 +180,8 @@ class GenerativeModel(object):
         Lopez-Paz, D., & Oquab, M. (2017) “Revisiting classifier two-sample tests” International Conference on Learning
         Representations.
 
-         Massey Jr, F. J. (1951) “The Kolmogorov-Smirnov test for goodness of fit” Journal of the American statistical
-         Association, 46(253): 68-78.
+        Massey Jr, F. J. (1951) “The Kolmogorov-Smirnov test for goodness of fit” Journal of the American statistical
+        Association, 46(253): 68-78.
         """
         check_gm_fitted(self)
         check_x_y(train_data)
