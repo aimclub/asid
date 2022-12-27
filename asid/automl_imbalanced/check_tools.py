@@ -34,15 +34,18 @@ def check_x_y(X, y=None):
 
 
 def check_abb_fitted(self):
+    # [suggestion] и почему бы это не сделать методом класса!?
     if not self.ensemble_:
         raise ValueError("AutoBalanceBoost is not fitted.")
 
 
 def check_ilc_fitted(self):
+    # [suggestion] и почему бы это не сделать методом класса, вроде _check_ilc_fitted(...)!?
     if not self.classifer_:
         raise ValueError("ImbalancedLearningClassifier is not fitted.")
 
 
 def check_eval_metric_list(metric):
+    # [suggestion] и почему бы это не сделать методом класса!?
     if metric not in ["accuracy", "roc_auc", "log_loss", "f1_macro", "f1_micro", "f1_weighted"]:
         raise ValueError("Metric " + str(metric) + " is not implemented.")

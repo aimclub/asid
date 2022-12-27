@@ -223,17 +223,28 @@ def get_ctgan_model(data, hyp_time):
         Fitted generative model.
     """
     if hyp_time < 15:
+        # [suggestion] pd.DataFrame(...) у тебя одинаковый, я бы вынес, и model.fit тоже вынести можно из условий
         data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
         model = CTGAN(cuda=False)
         model.fit(data)
     else:
         space = {"batch_size": hp.quniform("batch_size", 300, 800, 50)}
         data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        # [suggestion] А можно определение best отдельно вынести? Там отличий по минимуму
         best = fmin(fn=lambda params: calc_sdv_acc(params, data, "ctgan"), space=space,
                     algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
         best = space_eval(space, best)
+        # [suggestion] А почему здесь cuda=False нет
         model = CTGAN(batch_size=int(best["batch_size"]))
         model.fit(data)
+
+    # [suggestion] Если всё учесть, то у тебя такие методы одинаковые получатся и маленькие
+    # data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+    # model_kwargs = dict(cuda=False)
+    # hyp_time >= 15:
+    #     model_kwargs['batch_size'] = detect_best_batch_size(data, method, space, hyp_tyme)
+    # return CTGAN(**model_kwargs).fit(data)
+
     return model
 
 
@@ -320,7 +331,7 @@ def calc_kde_acc(params, data):
     """
     skf = KFold(n_splits=3, random_state=42, shuffle=True)
     res_metric = []
-    for index in skf.split(data):
+    for index in skf.split(data):  # [suggestion] для нагляности можно написать for index_train, index_test in skf.split(...):
         x_train, x_test = data[index[0], :], data[index[1], :]
         model = KernelDensity(kernel="gaussian", bandwidth=params['bandwidth'])
         model.fit(x_train)
@@ -420,4 +431,5 @@ def fit_model(gen_algorithm, data, hyp_time):
         model = get_copulagan_model(data, hyp_time)
     elif gen_algorithm == "tvae":
         model = get_tvae_model(data, hyp_time)
+    # [suggestion] нет проверки, что gen_algorithm не правильно указали
     return model

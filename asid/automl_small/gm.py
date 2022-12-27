@@ -65,6 +65,8 @@ class GenerativeModel(object):
     """
 
     def __init__(self, gen_model_type="optimize", similarity_metric="zu", num_syn_samples=100, hyperopt_time=0):
+        # [suggestion] Можно и так делать, но мне нравится подход, namespace указал, легче понять что от куда идет,
+        # вроде small_tools.check_gen_model_list
         check_gen_model_list(gen_model_type)
         check_sim_metric_list(similarity_metric, gen_model_type)
         check_num_type(num_syn_samples, int, "positive")
@@ -93,7 +95,10 @@ class GenerativeModel(object):
         self : GenerativeModel instance
             Fitted generative model.
         """
+        # [suggestion] тип бы прописал, для удобства, вроде "def fit(self, data: np.ndarray)"
         check_x_y(data)
+
+        # [suggestion] почему сразу не сделать "self.scaler_ = StandardScaler().fit(data)"?
         scaler = StandardScaler()
         scaler.fit(data)
         self.scaler_ = scaler
@@ -107,6 +112,9 @@ class GenerativeModel(object):
             self.gen_model_label_ = gen_alg_label
             self.score_ = score
             self.info_ = {"gen_models": log_dict}
+
+            # [suggestion] не оч хорошая практика print использовать, лучше logger какой нибудь, чтобы при использовании
+            # чувак смог сам настроить куда выводить инфу отладочную и выводить ли ее вообще.
             print("The best generative model is " + self.gen_model_label_)
             print(self.similarity_metric + " metric: " + str(self.score_))
             print("Training time: ", datetime.now() - t0)
@@ -138,6 +146,8 @@ class GenerativeModel(object):
         check_gm_fitted(self)
         check_num_type(sample_size, int, "positive")
         check_num_type(random_state, int, "positive")
+        # [suggestion] вот здесь так с ходу брать ()[0] - опасно, особенно что у тебя внутри не проверяется,
+        # нужный ли метод вызван. + если внутри что-то сломается и пустой список вернется?
         sampled_data = get_sampled_data(self.gen_model_, sample_size, [random_state],
                                         self.gen_model_label_, self.scaler_)[0]
         print("Synthetic sample is generated. The shape of sampled dataset: ", sampled_data.shape)
@@ -188,14 +198,17 @@ class GenerativeModel(object):
         if test_data is not None:
             check_x_y(test_data)
         else:
-            if similarity_metric=="zu":
+            if similarity_metric=="zu":  # пробелы
                 raise ValueError("Test data is required for zu calculation.")
         check_sim_metric_list(similarity_metric, "score")
+        # [suggestion] захардкоженные цифры не огонь. Не обязетльно их делать аргументами, но лучше вынести в отдельный
+        # файл с константами, вроде constants.py, и от туда подтягивать. А там уже комментарием можно описать, почему
+        # именно это число используется. Я про 42 и про 100000
         random.seed(42)
         seed_val = random.sample(list(range(100000)), self.num_syn_samples)
         sampled_data = get_sampled_data(self.gen_model_, train_data.shape[0], seed_val,
                                         self.gen_model_label_, self.scaler_)
-        if similarity_metric in ["ks_test"]:
+        if similarity_metric in ["ks_test"]:  # [suggestion] почему не similarity_metric == "ks_test"
             score_list = []
             p_val = []
             for sd in sampled_data:

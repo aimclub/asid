@@ -161,6 +161,8 @@ def sample_sdv_procedure(model, sample_len, seed_list, scaling):
     for seed in seed_list:
         np.random.seed(seed)
         torch.manual_seed(seed)
+        # [suggestion] надо еще на linux проверить, смущает меня этот "\\"
+        # И я бы на pathlib.Path перешел бы, проще вроде как в чтении "str(pathlib.Path(__file__).parent.parent)"
         cp = "/".join(str(os.path.realpath(__file__)).split("\\")).split("automl_small")[0]
         if os.path.exists(cp + "automl_small/sample.csv.tmp"):
             os.remove(cp + "automl_small/sample.csv.tmp")
@@ -206,4 +208,6 @@ def get_sampled_data(model, sample_len, seed_list, method, scaling):
         sampled_data_list = gmm_sample_procedure(model, sample_len, scaling, len(seed_list))
     elif method in ["ctgan", "copula", "copulagan", "tvae"]:
         sampled_data_list = sample_sdv_procedure(model, sample_len, seed_list, scaling)
+    # [suggestion] Ой опасно, совершишь ошибку в вызове (не тот метод укажешь), и все сломается.
+    # нужен финальный else с raise ValueError, что не правильно метод указан
     return sampled_data_list

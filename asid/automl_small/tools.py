@@ -52,6 +52,8 @@ def choose_and_fit_model(data, similarity_metric, scaler, data_scaled, num_syn_s
     log_dict : dict
         Score and time data series for the range of estimated generative models.
     """
+    # [suggestion] тут все слилось в одну полосу кода. Выделить бы блоки кода по логическому смыслу, чтобы
+    # код читать было лучше
     best_model = None
     best_score = +math.inf
     best_alg_label = None
@@ -62,6 +64,11 @@ def choose_and_fit_model(data, similarity_metric, scaler, data_scaled, num_syn_s
                      "copula", "copulagan", "tvae"]:
         log_dict[gen_meth] = {}
         if similarity_metric == "c2st_acc":
+            # [suggestion] Со временем можно отдльеный класс выделить таймера, будет что то вроде
+            # with Timer() as timer:
+            #     gen_model = fit_model(gen_meth, data_scaled, hyp_time)
+            #     log_dict[gen_meth]["train_time"] = timer.delta
+            # По коду в целом тоже выходит, но выглядит более по блокам. Если интересно - покажу как сделать
             t0 = datetime.now()
             gen_model = fit_model(gen_meth, data_scaled, hyp_time)
             log_dict[gen_meth]["train_time"] = datetime.now() - t0
@@ -107,12 +114,16 @@ def choose_and_fit_model(data, similarity_metric, scaler, data_scaled, num_syn_s
 
 
 def check_gen_model_list(metric):
+    # [suggestion] gen - generation? Лучше расшифровать, и этот метод используется только в gm. Я бы туда и перенес
+    # притом можно сделать его protected, типо "@staticmetod def _check_gen_model_list(metric: str):"
+    # А вот ["optimize", "sklearn_kde"...] - тоже бы вынес куда-нибудь в отдельное место
     if metric not in ["optimize", "sklearn_kde", "stats_kde_cv_ml", "stats_kde_cv_ls", "gmm", "bayesian_gmm", "ctgan",
                       "copula", "copulagan", "tvae"]:
         raise ValueError("Generative model " + str(metric) + " is not implemented.")
 
 
 def check_sim_metric_list(metric, mtype):
+    # [suggestion] те же предложения
     if mtype == "optimize":
         if metric not in ["zu", "c2st_acc"]:
             raise ValueError("Metric " + str(metric) + " is not implemented.")
@@ -122,6 +133,7 @@ def check_sim_metric_list(metric, mtype):
 
 
 def check_num_type(x, num_type, num_cl):
+    # [suggestion] num_cl сделать бы Enum, строки быстро и удобно, но со временем сложнее отлаживать и использовать
     if isinstance(x, num_type):
         if num_cl == "positive" and x <= 0:
             raise ValueError("The parameter should be " + num_cl + ".")
