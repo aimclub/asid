@@ -553,6 +553,7 @@ def choose_and_fit_ilc(self, X, y):
                                             self.eval_metric)
             option_list.append(bal_alg + "+" + alg)
             score_dict[option_list[-1]] = score_list
+            time_dict[option_list[-1]] = time_list
             res_dict[option_list[-1]] = np.mean(score_list)
     score_list, time_list = fit_alg(cv_type, X, y, None, "AutoBalanceBoost", self.hyperopt_time, self.split_num,
                                     self.eval_metric)
