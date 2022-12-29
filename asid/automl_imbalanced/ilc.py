@@ -5,6 +5,7 @@ This module contains ImbalancedLearningClassifier class.
 from .tools_ilc import choose_and_fit_ilc, calc_leaderboard
 from .check_tools import check_num_type, check_eval_metric_list, check_x_y, check_ilc_fitted
 from datetime import datetime
+from sklearn import preprocessing
 
 
 class ImbalancedLearningClassifier(object):
@@ -41,6 +42,12 @@ class ImbalancedLearningClassifier(object):
     scaler_ : instance
         Fitted scaler that is applied prior to classifier estimation.
 
+    encoder_ : instance
+        Fitted label encoder.
+
+    classes_ : array-like
+        Class labels.
+
     evaluated_models_scores_ : dict
         Score series for the range of estimated classifiers.
 
@@ -58,6 +65,8 @@ class ImbalancedLearningClassifier(object):
         self.hyperopt_time = hyperopt_time
         self.score_ = None
         self.scaler_ = None
+        self.encoder_ = None
+        self.classes_ = None
         self.evaluated_models_scores_ = None
         self.evaluated_models_time_ = None
         self.eval_metric = eval_metric
@@ -81,6 +90,11 @@ class ImbalancedLearningClassifier(object):
         """
         check_x_y(X, y)
         t0 = datetime.now()
+        le = preprocessing.LabelEncoder()
+        le.fit(y)
+        y = le.transform(y)
+        self.classes_ = le.classes_
+        self.encoder_ = le
         self.classifer_, self.classifer_label_, self.score_, self.scaler_, self.evaluated_models_scores_, \
         self.evaluated_models_time_ = choose_and_fit_ilc(self, X, y)
         print("The best generative model is " + self.classifer_label_)
@@ -109,6 +123,7 @@ class ImbalancedLearningClassifier(object):
         else:
             X_scaled = self.scaler_.transform(X)
             pred = self.classifer_.predict(X_scaled)
+        pred = self.encoder_.inverse_transform(pred)
         return pred
 
     def predict_proba(self, X):
