@@ -95,14 +95,18 @@ def get_gmm_model(data, hyp_time):
     gmm : instance
         Fitted generative model.
     &#34;&#34;&#34;
-    space = {&#34;n_components&#34;: hp.quniform(&#34;n_components&#34;, 1, int(round(data.shape[0] / 3 * 2) - 1), 1),
-             &#34;covariance_type&#34;: hp.choice(&#34;covariance_type&#34;, [&#39;full&#39;, &#39;tied&#39;, &#39;diag&#39;, &#39;spherical&#39;])}
-    best = fmin(fn=lambda params: calc_gmm_acc(params, data), space=space,
-                algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
-    best = space_eval(space, best)
-    gmm = GaussianMixture(n_components=int(best[&#34;n_components&#34;]), covariance_type=best[&#39;covariance_type&#39;],
-                          random_state=42)
-    gmm.fit(data)
+    if hyp_time == 0:
+        gmm = GaussianMixture(random_state=42)
+        gmm.fit(data)
+    else:
+        space = {&#34;n_components&#34;: hp.quniform(&#34;n_components&#34;, 1, int(round(data.shape[0] / 3 * 2) - 1), 1),
+                 &#34;covariance_type&#34;: hp.choice(&#34;covariance_type&#34;, [&#39;full&#39;, &#39;tied&#39;, &#39;diag&#39;, &#39;spherical&#39;])}
+        best = fmin(fn=lambda params: calc_gmm_acc(params, data), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        gmm = GaussianMixture(n_components=int(best[&#34;n_components&#34;]), covariance_type=best[&#39;covariance_type&#39;],
+                              random_state=42)
+        gmm.fit(data)
     return gmm
 
 
@@ -155,18 +159,22 @@ def get_bayesian_gmm_model(data, hyp_time):
     gmm : instance
         Fitted generative model.
     &#34;&#34;&#34;
-    space = {&#34;n_components&#34;: hp.quniform(&#34;n_components&#34;, 1, int(round(data.shape[0] / 3 * 2) - 1), 1),
-             &#34;covariance_type&#34;: hp.choice(&#34;covariance_type&#34;, [&#39;full&#39;, &#39;tied&#39;, &#39;diag&#39;, &#39;spherical&#39;]),
-             &#34;weight_concentration_prior_type&#34;: hp.choice(&#34;weight_concentration_prior_type&#34;,
-                                                          [&#39;dirichlet_process&#39;, &#39;dirichlet_distribution&#39;]),
-             &#39;weight_concentration_prior&#39;: hp.uniform(&#39;weight_concentration_prior&#39;, 0.0001, 10000)}
-    best = fmin(fn=lambda params: calc_bayesian_gmm_acc(params, data), space=space,
-                algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
-    best = space_eval(space, best)
-    gmm = BayesianGaussianMixture(n_components=int(best[&#34;n_components&#34;]), covariance_type=best[&#39;covariance_type&#39;],
-                                  weight_concentration_prior_type=best[&#39;weight_concentration_prior_type&#39;],
-                                  weight_concentration_prior=best[&#39;weight_concentration_prior&#39;], random_state=42)
-    gmm.fit(data)
+    if hyp_time == 0:
+        gmm = BayesianGaussianMixture(random_state=42)
+        gmm.fit(data)
+    else:
+        space = {&#34;n_components&#34;: hp.quniform(&#34;n_components&#34;, 1, int(round(data.shape[0] / 3 * 2) - 1), 1),
+                 &#34;covariance_type&#34;: hp.choice(&#34;covariance_type&#34;, [&#39;full&#39;, &#39;tied&#39;, &#39;diag&#39;, &#39;spherical&#39;]),
+                 &#34;weight_concentration_prior_type&#34;: hp.choice(&#34;weight_concentration_prior_type&#34;,
+                                                              [&#39;dirichlet_process&#39;, &#39;dirichlet_distribution&#39;]),
+                 &#39;weight_concentration_prior&#39;: hp.uniform(&#39;weight_concentration_prior&#39;, 0.0001, 10000)}
+        best = fmin(fn=lambda params: calc_bayesian_gmm_acc(params, data), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        gmm = BayesianGaussianMixture(n_components=int(best[&#34;n_components&#34;]), covariance_type=best[&#39;covariance_type&#39;],
+                                      weight_concentration_prior_type=best[&#39;weight_concentration_prior_type&#39;],
+                                      weight_concentration_prior=best[&#39;weight_concentration_prior&#39;], random_state=42)
+        gmm.fit(data)
     return gmm
 
 
@@ -781,18 +789,22 @@ Generative algorithm label.</dd>
     gmm : instance
         Fitted generative model.
     &#34;&#34;&#34;
-    space = {&#34;n_components&#34;: hp.quniform(&#34;n_components&#34;, 1, int(round(data.shape[0] / 3 * 2) - 1), 1),
-             &#34;covariance_type&#34;: hp.choice(&#34;covariance_type&#34;, [&#39;full&#39;, &#39;tied&#39;, &#39;diag&#39;, &#39;spherical&#39;]),
-             &#34;weight_concentration_prior_type&#34;: hp.choice(&#34;weight_concentration_prior_type&#34;,
-                                                          [&#39;dirichlet_process&#39;, &#39;dirichlet_distribution&#39;]),
-             &#39;weight_concentration_prior&#39;: hp.uniform(&#39;weight_concentration_prior&#39;, 0.0001, 10000)}
-    best = fmin(fn=lambda params: calc_bayesian_gmm_acc(params, data), space=space,
-                algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
-    best = space_eval(space, best)
-    gmm = BayesianGaussianMixture(n_components=int(best[&#34;n_components&#34;]), covariance_type=best[&#39;covariance_type&#39;],
-                                  weight_concentration_prior_type=best[&#39;weight_concentration_prior_type&#39;],
-                                  weight_concentration_prior=best[&#39;weight_concentration_prior&#39;], random_state=42)
-    gmm.fit(data)
+    if hyp_time == 0:
+        gmm = BayesianGaussianMixture(random_state=42)
+        gmm.fit(data)
+    else:
+        space = {&#34;n_components&#34;: hp.quniform(&#34;n_components&#34;, 1, int(round(data.shape[0] / 3 * 2) - 1), 1),
+                 &#34;covariance_type&#34;: hp.choice(&#34;covariance_type&#34;, [&#39;full&#39;, &#39;tied&#39;, &#39;diag&#39;, &#39;spherical&#39;]),
+                 &#34;weight_concentration_prior_type&#34;: hp.choice(&#34;weight_concentration_prior_type&#34;,
+                                                              [&#39;dirichlet_process&#39;, &#39;dirichlet_distribution&#39;]),
+                 &#39;weight_concentration_prior&#39;: hp.uniform(&#39;weight_concentration_prior&#39;, 0.0001, 10000)}
+        best = fmin(fn=lambda params: calc_bayesian_gmm_acc(params, data), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        gmm = BayesianGaussianMixture(n_components=int(best[&#34;n_components&#34;]), covariance_type=best[&#39;covariance_type&#39;],
+                                      weight_concentration_prior_type=best[&#39;weight_concentration_prior_type&#39;],
+                                      weight_concentration_prior=best[&#39;weight_concentration_prior&#39;], random_state=42)
+        gmm.fit(data)
     return gmm</code></pre>
 </details>
 </dd>
@@ -980,14 +992,18 @@ Generative algorithm label.</dd>
     gmm : instance
         Fitted generative model.
     &#34;&#34;&#34;
-    space = {&#34;n_components&#34;: hp.quniform(&#34;n_components&#34;, 1, int(round(data.shape[0] / 3 * 2) - 1), 1),
-             &#34;covariance_type&#34;: hp.choice(&#34;covariance_type&#34;, [&#39;full&#39;, &#39;tied&#39;, &#39;diag&#39;, &#39;spherical&#39;])}
-    best = fmin(fn=lambda params: calc_gmm_acc(params, data), space=space,
-                algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
-    best = space_eval(space, best)
-    gmm = GaussianMixture(n_components=int(best[&#34;n_components&#34;]), covariance_type=best[&#39;covariance_type&#39;],
-                          random_state=42)
-    gmm.fit(data)
+    if hyp_time == 0:
+        gmm = GaussianMixture(random_state=42)
+        gmm.fit(data)
+    else:
+        space = {&#34;n_components&#34;: hp.quniform(&#34;n_components&#34;, 1, int(round(data.shape[0] / 3 * 2) - 1), 1),
+                 &#34;covariance_type&#34;: hp.choice(&#34;covariance_type&#34;, [&#39;full&#39;, &#39;tied&#39;, &#39;diag&#39;, &#39;spherical&#39;])}
+        best = fmin(fn=lambda params: calc_gmm_acc(params, data), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        gmm = GaussianMixture(n_components=int(best[&#34;n_components&#34;]), covariance_type=best[&#39;covariance_type&#39;],
+                              random_state=42)
+        gmm.fit(data)
     return gmm</code></pre>
 </details>
 </dd>

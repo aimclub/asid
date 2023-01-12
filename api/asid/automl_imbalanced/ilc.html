@@ -34,6 +34,7 @@ This module contains ImbalancedLearningClassifier class.
 from .tools_ilc import choose_and_fit_ilc, calc_leaderboard
 from .check_tools import check_num_type, check_eval_metric_list, check_x_y, check_ilc_fitted
 from datetime import datetime
+from sklearn import preprocessing
 
 
 class ImbalancedLearningClassifier(object):
@@ -70,11 +71,20 @@ class ImbalancedLearningClassifier(object):
     scaler_ : instance
         Fitted scaler that is applied prior to classifier estimation.
 
+    encoder_ : instance
+        Fitted label encoder.
+
+    classes_ : array-like
+        Class labels.
+
     evaluated_models_scores_ : dict
         Score series for the range of estimated classifiers.
 
     evaluated_models_time_ : dict
         Time data for the range of estimated classifiers.
+
+    conf_int_ : tuple
+        95% confidence interval for the out-of-fold value of eval_metric for the optimal classifier.
     &#34;&#34;&#34;
 
     def __init__(self, split_num=5, hyperopt_time=0, eval_metric=&#34;f1_macro&#34;):
@@ -87,9 +97,12 @@ class ImbalancedLearningClassifier(object):
         self.hyperopt_time = hyperopt_time
         self.score_ = None
         self.scaler_ = None
+        self.encoder_ = None
+        self.classes_ = None
         self.evaluated_models_scores_ = None
         self.evaluated_models_time_ = None
         self.eval_metric = eval_metric
+        self.conf_int_ = None
 
     def fit(self, X, y):
         &#34;&#34;&#34;
@@ -110,8 +123,13 @@ class ImbalancedLearningClassifier(object):
         &#34;&#34;&#34;
         check_x_y(X, y)
         t0 = datetime.now()
+        le = preprocessing.LabelEncoder()
+        le.fit(y)
+        y = le.transform(y)
+        self.classes_ = le.classes_
+        self.encoder_ = le
         self.classifer_, self.classifer_label_, self.score_, self.scaler_, self.evaluated_models_scores_, \
-        self.evaluated_models_time_ = choose_and_fit_ilc(self, X, y)
+        self.evaluated_models_time_, self.conf_int_ = choose_and_fit_ilc(self, X, y)
         print(&#34;The best generative model is &#34; + self.classifer_label_)
         print(&#34;Leader &#34; + self.eval_metric + &#34; score: &#34; + str(round(self.score_, 4)))
         print(&#34;Fitting time: &#34;, datetime.now() - t0)
@@ -138,6 +156,7 @@ class ImbalancedLearningClassifier(object):
         else:
             X_scaled = self.scaler_.transform(X)
             pred = self.classifer_.predict(X_scaled)
+        pred = self.encoder_.inverse_transform(pred)
         return pred
 
     def predict_proba(self, X):
@@ -231,10 +250,16 @@ hyper-parameters for balancing procedures.</dd>
 <dd>Averaged out-of-fold value of eval_metric for the optimal classifier.</dd>
 <dt><strong><code>scaler_</code></strong> :&ensp;<code>instance</code></dt>
 <dd>Fitted scaler that is applied prior to classifier estimation.</dd>
+<dt><strong><code>encoder_</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Fitted label encoder.</dd>
+<dt><strong><code>classes_</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Class labels.</dd>
 <dt><strong><code>evaluated_models_scores_</code></strong> :&ensp;<code>dict</code></dt>
 <dd>Score series for the range of estimated classifiers.</dd>
 <dt><strong><code>evaluated_models_time_</code></strong> :&ensp;<code>dict</code></dt>
 <dd>Time data for the range of estimated classifiers.</dd>
+<dt><strong><code>conf_int_</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>95% confidence interval for the out-of-fold value of eval_metric for the optimal classifier.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -274,11 +299,20 @@ hyper-parameters for balancing procedures.</dd>
     scaler_ : instance
         Fitted scaler that is applied prior to classifier estimation.
 
+    encoder_ : instance
+        Fitted label encoder.
+
+    classes_ : array-like
+        Class labels.
+
     evaluated_models_scores_ : dict
         Score series for the range of estimated classifiers.
 
     evaluated_models_time_ : dict
         Time data for the range of estimated classifiers.
+
+    conf_int_ : tuple
+        95% confidence interval for the out-of-fold value of eval_metric for the optimal classifier.
     &#34;&#34;&#34;
 
     def __init__(self, split_num=5, hyperopt_time=0, eval_metric=&#34;f1_macro&#34;):
@@ -291,9 +325,12 @@ hyper-parameters for balancing procedures.</dd>
         self.hyperopt_time = hyperopt_time
         self.score_ = None
         self.scaler_ = None
+        self.encoder_ = None
+        self.classes_ = None
         self.evaluated_models_scores_ = None
         self.evaluated_models_time_ = None
         self.eval_metric = eval_metric
+        self.conf_int_ = None
 
     def fit(self, X, y):
         &#34;&#34;&#34;
@@ -314,8 +351,13 @@ hyper-parameters for balancing procedures.</dd>
         &#34;&#34;&#34;
         check_x_y(X, y)
         t0 = datetime.now()
+        le = preprocessing.LabelEncoder()
+        le.fit(y)
+        y = le.transform(y)
+        self.classes_ = le.classes_
+        self.encoder_ = le
         self.classifer_, self.classifer_label_, self.score_, self.scaler_, self.evaluated_models_scores_, \
-        self.evaluated_models_time_ = choose_and_fit_ilc(self, X, y)
+        self.evaluated_models_time_, self.conf_int_ = choose_and_fit_ilc(self, X, y)
         print(&#34;The best generative model is &#34; + self.classifer_label_)
         print(&#34;Leader &#34; + self.eval_metric + &#34; score: &#34; + str(round(self.score_, 4)))
         print(&#34;Fitting time: &#34;, datetime.now() - t0)
@@ -342,6 +384,7 @@ hyper-parameters for balancing procedures.</dd>
         else:
             X_scaled = self.scaler_.transform(X)
             pred = self.classifer_.predict(X_scaled)
+        pred = self.encoder_.inverse_transform(pred)
         return pred
 
     def predict_proba(self, X):
@@ -437,8 +480,13 @@ hyper-parameters for balancing procedures.</dd>
     &#34;&#34;&#34;
     check_x_y(X, y)
     t0 = datetime.now()
+    le = preprocessing.LabelEncoder()
+    le.fit(y)
+    y = le.transform(y)
+    self.classes_ = le.classes_
+    self.encoder_ = le
     self.classifer_, self.classifer_label_, self.score_, self.scaler_, self.evaluated_models_scores_, \
-    self.evaluated_models_time_ = choose_and_fit_ilc(self, X, y)
+    self.evaluated_models_time_, self.conf_int_ = choose_and_fit_ilc(self, X, y)
     print(&#34;The best generative model is &#34; + self.classifer_label_)
     print(&#34;Leader &#34; + self.eval_metric + &#34; score: &#34; + str(round(self.score_, 4)))
     print(&#34;Fitting time: &#34;, datetime.now() - t0)
@@ -530,6 +578,7 @@ hyper-parameters for balancing procedures.</dd>
     else:
         X_scaled = self.scaler_.transform(X)
         pred = self.classifer_.predict(X_scaled)
+    pred = self.encoder_.inverse_transform(pred)
     return pred</code></pre>
 </details>
 </dd>
