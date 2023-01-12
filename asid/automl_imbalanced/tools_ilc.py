@@ -568,7 +568,8 @@ def choose_and_fit_ilc(self, X, y):
     option_label = list(res_dict.keys())[0]
     score = list(res_dict.values())[0]
     classifier, scaler = fit_res_model(option_label, X, y, self.hyperopt_time, self.eval_metric)
-    return classifier, option_label, score, scaler, score_dict, time_dict
+    conf_int = (np.percentile(score_dict[option_label], 2.5), np.percentile(score_dict[option_label], 97.5))
+    return classifier, option_label, score, scaler, score_dict, time_dict, conf_int
 
 
 def calc_leaderboard(self):
