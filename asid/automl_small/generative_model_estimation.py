@@ -240,7 +240,7 @@ def get_ctgan_model(data, hyp_time):
         best = fmin(fn=lambda params: calc_sdv_acc(params, data, "ctgan"), space=space,
                     algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
         best = space_eval(space, best)
-        model = CTGAN(batch_size=int(best["batch_size"]))
+        model = CTGAN(batch_size=int(best["batch_size"]), cuda=False)
         model.fit(data)
     return model
 
@@ -272,7 +272,7 @@ def get_copulagan_model(data, hyp_time):
         best = fmin(fn=lambda params: calc_sdv_acc(params, data, "copulagan"), space=space,
                     algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
         best = space_eval(space, best)
-        model = CopulaGAN(batch_size=int(best["batch_size"]))
+        model = CopulaGAN(batch_size=int(best["batch_size"]), cuda=False)
         model.fit(data)
     return model
 
@@ -304,7 +304,7 @@ def get_tvae_model(data, hyp_time):
         best = fmin(fn=lambda params: calc_sdv_acc(params, data, "tvae"), space=space,
                     algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
         best = space_eval(space, best)
-        model = TVAE(batch_size=int(best["batch_size"]))
+        model = TVAE(batch_size=int(best["batch_size"]), cuda=False)
         model.fit(data)
     return model
 
