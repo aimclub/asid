@@ -1,40 +1,41 @@
-# ASID: AutoML for Small and Imbalanced Datasets
-ASID library comprises autoML tools for small and imbalanced tabular datasets.
 
-For **small datasets** we propose a [`GenerativeModel`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_small/gm.py) estimator that searches for an optimal generative algorithm, which outputs similar synthetic samples and does not overfit. Main features of this tool:
-* It includes 9 popular generative approaches for small tabular datasets such as kernel density estimation, gaussian mixture models, copulas and deep learning models;
-* It is easy-to-use and does not require time-consuming tuning;
-* It includes a Hyperopt tuning procedure, which could be controlled by a runtime parameter;
-* Several overfitting indicators are available.
+# ASID: Автоматическое обучение для малых и несбалансированных выборок
+Библиотека ASID включает в себя инструменты автоматического обучения на малых и несбалансированных выборках в табличном формате.
 
-For **imbalanced datasets** ASID library includes a tailored ensemble classifier - [`AutoBalanceBoost`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_imbalanced/abb.py). It combines a consistent ensemble classifier with an oversampling technique. ABB key features include:
-* It exploits both popular ensemble approaches: bagging and boosting;
-* It comprises an embedded sequential parameter tuning scheme, which allows to get the high accuracy without time-consuming tuning;
-* It is easy-to-use and does not require time-consuming tuning;
-* Empirical analysis shows that ABB demonstrates a robust performance and on average outperforms its competitors.
+Для **малых выборок** библиотека содержит алгоритм [`GenerativeModel`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_small/gm.py). Он обучает оптимальную генеративную модель, которая сэмплирует схожие синтетические выборки и не переобучается. Основные преимущества алгоритма:
+* Он включает в себя 9 наиболее популярных генеративных алгоритмов для табличных данных: ядерная оценка плотности, Гауссовы смеси распределений, копулы и модели глубокого обучения;
+* Инструмент достаточно прост в использовании и не требует длительного подбора гиперпараметров;
+* Имеет встроенную процедуру подбора гиперпараметров с помощью Hyperopt, время работы которого может контролироваться пользователем;
+* Доступны несколько метрик, которые позволяют оценить степень переобучения генеративных моделей.
 
-For **imbalanced datasets** we also propose an [`ImbalancedLearningClassifier`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_imbalanced/ilc.py) estimator that searches for the optimal classifier for a given imbalanced task. Main features of this tool:
-* It includes AutoBalanceBoost and combinations of SOTA ensemble algorithms and balancing procedures from imbalanced-learn library;
-* It is easy-to-use and does not require time-consuming tuning;
-* It includes a Hyperopt tuning procedure for balancing procedures, which could be controlled by a runtime parameter;
-* Several classification accuracy metrics are available.
+Для **несбалансированных выборок** ASID содержит ансамблевый классификационный алгоритм - [`AutoBalanceBoost`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_imbalanced/abb.py) (ABB). Он сочетает в себе устойчивый ансамблевый классификатор с процедурой сэмплирования. Основные преимущества ABB:
+* Включает в себя два популярных ансамблевых алгоритма: бэггинг и бустинг;
+* Содержит встроенную процедуру последовательного подбора гиперпараметров, которая позволяет получить модель высокого качества без длительного перебора гиперпараметров;
+* Инструмент прост в использовании;
+* Эмпирический анализ показывает, что ABB демонстрирует устойчивую работу и в среднем выдает качество выше, чем аналогичные алгоритмы.
+
+Для **несбалансированных выборок** также разработан [`ImbalancedLearningClassifier`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_imbalanced/ilc.py), который подбирает оптимальную комбинацию балансирующей процедуры и классификатора для данной задачи. Основные преимущества инструмента:
+* Включает в себя AutoBalanceBoost, а также комбинации наиболее популярных ансамблевых алгоритмов и балансирующих процедур из библиотеки imbalanced-learn;
+* Инструмент достаточно прост в использовании и не требует длительного подбора гиперпараметров;
+* Имеет встроенную процедуру подбора гиперпараметров для балансирующих процедур с помощью Hyperopt, время работы которого может контролироваться пользователем;
+* Доступны несколько метрик оценки качества классификации.
 
 <img src='https://user-images.githubusercontent.com/54841419/207874240-c961a176-1d29-4e7c-8107-47ff3ede8711.png' width='800'>
 
-# How to install
-Requirements: Python 3.8.
+# Установка
+Требования к версии Python: Python 3.8.
 
-1. Install requirements from [requirements.txt](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/requirements.txt)
+1. Установите требования из файла [requirements.txt](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/requirements.txt)
 
     ```
     pip install -r requirements.txt
     ```
-2. Install ASID library as a package
+2. Установите библиотеку ASID
     ```
     pip install https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets-master.zip
     ```
-# Usage examples
-Fitting a GenerativeModel instance on small sample and generating a synthetic dataset:
+# Примеры использования
+Обучение модели по малой выборке с помощью GenerativeModel и генерация синтетического датасета:
 ```python
 from asid.automl_small.gm import GenerativeModel
 from sklearn.datasets import load_iris
@@ -44,7 +45,7 @@ genmod = GenerativeModel()
 genmod.fit(X)
 genmod.sample(1000)
 ```
-AutoBalanceBoost usage example:
+Пример использования AutoBalanceBoost:
 ```python
 from asid.automl_imbalanced.abb import AutoBalanceBoost
 from sklearn.datasets import make_classification
@@ -60,7 +61,7 @@ clf.fit(X_train, y_train)
 pred = clf.predict(X_test)
 score = f1_score(y_test, pred, average="macro")
 ```
-Fitting an ImbalancedLearningClassifier instance on imbalanced dataset:
+Обучение модели на несбалансированном датасете с помощью ImbalancedLearningClassifier:
 ```python
 from asid.automl_imbalanced.ilc import ImbalancedLearningClassifier
 from sklearn.datasets import make_classification
@@ -76,18 +77,17 @@ clf.fit(X_train, y_train)
 pred = clf.predict(X_test)
 score = f1_score(y_test, pred, average="macro")
 ```
-# Documentation
-Documentation about ASID could be found in [wiki](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/wiki).
+# Документация
+Документация для ASID опубликована на странице [wiki](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/wiki).
 
-Library API is available [here](https://ekplesovskaya.github.io/automl-for-small-and-imbalanced-datasets/api/asid/index.html).
+С API можно ознакомиться [здесь](https://ekplesovskaya.github.io/automl-for-small-and-imbalanced-datasets/api/asid/index.html).
 
-Examples of usage could be obtained from [examples](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/tree/master/examples).
-# Citation
+Примеры использования доступны по этой [ссылке](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/tree/master/examples).
+# Цитирование
 Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
-# Supported by
-The study is supported by Research Center [**Strong Artificial Intelligence in Industry**](<https://sai.itmo.ru/>)
-of [**ITMO University**](https://itmo.ru) (Saint Petersburg, Russia)
-# Contacts
-[Ekaterina Plesovskaya](https://scholar.google.com/citations?user=PdydDtQAAAAJ&hl=ru), ekplesovskaya@gmail.com
+# Поддержка
+Библиотека разработана при поддержке исследовательского центра [**"Сильный ИИ в промышленности"**](<https://sai.itmo.ru/>) [**Университета ИТМО**](https://itmo.ru) (г. Санкт-Петербург, Россия)
+# Контакты
+[Екатерина Плесовская](https://scholar.google.com/citations?user=PdydDtQAAAAJ&hl=ru), ekplesovskaya@gmail.com
 
-[Sergey Ivanov](https://scholar.google.com/citations?user=BkNV9w0AAAAJ&hl=ru), sergei.v.ivanov@gmail.com
+[Сергей Иванов](https://scholar.google.com/citations?user=BkNV9w0AAAAJ&hl=ru), sergei.v.ivanov@gmail.com
