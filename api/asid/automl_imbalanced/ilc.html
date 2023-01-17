@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>asid.automl_imbalanced.ilc API documentation</title>
+<meta name="description" content="This module contains ImbalancedLearningClassifier class." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>asid.automl_imbalanced.ilc</code></h1>
+</header>
+<section id="section-intro">
+<p>This module contains ImbalancedLearningClassifier class.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+This module contains ImbalancedLearningClassifier class.
+&#34;&#34;&#34;
+
+from .tools_ilc import choose_and_fit_ilc, calc_leaderboard
+from .check_tools import check_num_type, check_eval_metric_list, check_x_y, check_ilc_fitted
+from datetime import datetime
+from sklearn import preprocessing
+
+
+class ImbalancedLearningClassifier(object):
+    &#34;&#34;&#34;
+    ImbalancedLearningClassifier finds an optimal classifier among the combinations of balancing
+    procedures from imbalanced-learn library (with Hyperopt optimization) and state-of-the-art ensemble classifiers,
+    and the tailored classifier AutoBalanceBoost.
+
+    Parameters
+    ----------
+    split_num : int, default=5
+        The number of splitting iterations for obtaining an out-of-fold score. If the number is a 5-fold, then
+        StratifiedKFold with 5 splits is repeated with the required number of seeds, otherwise StratifiedShuffleSplit
+        with split_num splits is used.
+
+    hyperopt_time : int, default=0
+        The runtime setting (in seconds) for Hyperopt optimization. Hyperopt is used to find the optimal
+        hyper-parameters for balancing procedures.
+
+    eval_metric : {&#34;accuracy&#34;, &#34;roc_auc&#34;, &#34;log_loss&#34;, &#34;f1_macro&#34;, &#34;f1_micro&#34;, &#34;f1_weighted&#34;}, default=&#34;f1_macro&#34;
+        Metric that is used to evaluate the model performance and to choose the best option.
+
+    Attributes
+    ----------
+    classifer_ : instance
+        Optimal fitted classifier.
+
+    classifer_label_ : str
+        Optimal classifier label.
+
+    score_ : float
+        Averaged out-of-fold value of eval_metric for the optimal classifier.
+
+    scaler_ : instance
+        Fitted scaler that is applied prior to classifier estimation.
+
+    encoder_ : instance
+        Fitted label encoder.
+
+    classes_ : array-like
+        Class labels.
+
+    evaluated_models_scores_ : dict
+        Score series for the range of estimated classifiers.
+
+    evaluated_models_time_ : dict
+        Time data for the range of estimated classifiers.
+
+    conf_int_ : tuple
+        95% confidence interval for the out-of-fold value of eval_metric for the optimal classifier.
+    &#34;&#34;&#34;
+
+    def __init__(self, split_num=5, hyperopt_time=0, eval_metric=&#34;f1_macro&#34;):
+        check_num_type(split_num, int, &#34;positive&#34;)
+        check_num_type(hyperopt_time, int, &#34;non-negative&#34;)
+        check_eval_metric_list(eval_metric)
+        self.classifer_ = None
+        self.classifer_label_ = None
+        self.split_num = split_num
+        self.hyperopt_time = hyperopt_time
+        self.score_ = None
+        self.scaler_ = None
+        self.encoder_ = None
+        self.classes_ = None
+        self.evaluated_models_scores_ = None
+        self.evaluated_models_time_ = None
+        self.eval_metric = eval_metric
+        self.conf_int_ = None
+
+    def fit(self, X, y):
+        &#34;&#34;&#34;
+        Fits ImbalancedLearningClassifier model.
+
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features)
+            Training sample.
+
+        y : array-like
+            The target values.
+
+        Returns
+        -------
+        self : ImbalancedLearningClassifier instance
+            Fitted estimator.
+        &#34;&#34;&#34;
+        check_x_y(X, y)
+        t0 = datetime.now()
+        le = preprocessing.LabelEncoder()
+        le.fit(y)
+        y = le.transform(y)
+        self.classes_ = le.classes_
+        self.encoder_ = le
+        self.classifer_, self.classifer_label_, self.score_, self.scaler_, self.evaluated_models_scores_, \
+        self.evaluated_models_time_, self.conf_int_ = choose_and_fit_ilc(self, X, y)
+        print(&#34;The best generative model is &#34; + self.classifer_label_)
+        print(&#34;Leader &#34; + self.eval_metric + &#34; score: &#34; + str(round(self.score_, 4)))
+        print(&#34;Fitting time: &#34;, datetime.now() - t0)
+        return self
+
+    def predict(self, X):
+        &#34;&#34;&#34;
+        Predicts class label.
+
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features)
+            Test sample.
+
+        Returns
+        -------
+        pred : array-like
+            The predicted class.
+        &#34;&#34;&#34;
+        check_ilc_fitted(self)
+        check_x_y(X)
+        if self.classifer_label_ == &#34;AutoBalanceBoost&#34;:
+            pred = self.classifer_.predict(X)
+        else:
+            X_scaled = self.scaler_.transform(X)
+            pred = self.classifer_.predict(X_scaled)
+        pred = self.encoder_.inverse_transform(pred)
+        return pred
+
+    def predict_proba(self, X):
+        &#34;&#34;&#34;
+        Predicts class label probability.
+
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features)
+            Test sample.
+
+        Returns
+        -------
+        pred_proba : array-like of shape (n_samples, n_classes)
+            The predicted class probabilities.
+        &#34;&#34;&#34;
+        check_ilc_fitted(self)
+        check_x_y(X)
+        if self.classifer_label_ == &#34;AutoBalanceBoost&#34;:
+            pred_proba = self.classifer_.predict_proba(X)
+        else:
+            X_scaled = self.scaler_.transform(X)
+            pred_proba = self.classifer_.predict_proba(X_scaled)
+        return pred_proba
+
+    def leaderboard(self):
+        &#34;&#34;&#34;
+        Calculates the leaderboard statistics.
+
+        Returns
+        -------
+        ls : dict
+            The leaderboard statistics that includes sorted lists in accordance with the following indicators:
+            &#34;Mean score&#34;, &#34;Mean rank&#34;, &#34;Share of experiments with the first place, %&#34;,
+            &#34;Average difference with the leader, %&#34;.
+        &#34;&#34;&#34;
+        check_ilc_fitted(self)
+        ls = calc_leaderboard(self)
+        print(&#34;Leaderboard statistics&#34;)
+        print(&#34;&#34;)
+        print(&#34;Mean score&#34;)
+        print(ls[&#34;Mean score&#34;])
+        print(&#34;&#34;)
+        print(&#34;Mean rank&#34;)
+        print(ls[&#34;Mean rank&#34;])
+        print(&#34;&#34;)
+        print(&#34;Share of experiments with the first place, %&#34;)
+        print(ls[&#34;Share of experiments with the first place, %&#34;])
+        print(&#34;&#34;)
+        print(&#34;Average difference with the leader, %&#34;)
+        print(ls[&#34;Average difference with the leader, %&#34;])
+        return ls</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier"><code class="flex name class">
+<span>class <span class="ident">ImbalancedLearningClassifier</span></span>
+<span>(</span><span>split_num=5, hyperopt_time=0, eval_metric='f1_macro')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>ImbalancedLearningClassifier finds an optimal classifier among the combinations of balancing
+procedures from imbalanced-learn library (with Hyperopt optimization) and state-of-the-art ensemble classifiers,
+and the tailored classifier AutoBalanceBoost.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>split_num</code></strong> :&ensp;<code>int</code>, default=<code>5</code></dt>
+<dd>The number of splitting iterations for obtaining an out-of-fold score. If the number is a 5-fold, then
+StratifiedKFold with 5 splits is repeated with the required number of seeds, otherwise StratifiedShuffleSplit
+with split_num splits is used.</dd>
+<dt><strong><code>hyperopt_time</code></strong> :&ensp;<code>int</code>, default=<code>0</code></dt>
+<dd>The runtime setting (in seconds) for Hyperopt optimization. Hyperopt is used to find the optimal
+hyper-parameters for balancing procedures.</dd>
+<dt><strong><code>eval_metric</code></strong> :&ensp;<code>{"accuracy", "roc_auc", "log_loss", "f1_macro", "f1_micro", "f1_weighted"}</code>, default=<code>"f1_macro"</code></dt>
+<dd>Metric that is used to evaluate the model performance and to choose the best option.</dd>
+</dl>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>classifer_</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Optimal fitted classifier.</dd>
+<dt><strong><code>classifer_label_</code></strong> :&ensp;<code>str</code></dt>
+<dd>Optimal classifier label.</dd>
+<dt><strong><code>score_</code></strong> :&ensp;<code>float</code></dt>
+<dd>Averaged out-of-fold value of eval_metric for the optimal classifier.</dd>
+<dt><strong><code>scaler_</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Fitted scaler that is applied prior to classifier estimation.</dd>
+<dt><strong><code>encoder_</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Fitted label encoder.</dd>
+<dt><strong><code>classes_</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Class labels.</dd>
+<dt><strong><code>evaluated_models_scores_</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Score series for the range of estimated classifiers.</dd>
+<dt><strong><code>evaluated_models_time_</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Time data for the range of estimated classifiers.</dd>
+<dt><strong><code>conf_int_</code></strong> :&ensp;<code>tuple</code></dt>
+<dd>95% confidence interval for the out-of-fold value of eval_metric for the optimal classifier.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ImbalancedLearningClassifier(object):
+    &#34;&#34;&#34;
+    ImbalancedLearningClassifier finds an optimal classifier among the combinations of balancing
+    procedures from imbalanced-learn library (with Hyperopt optimization) and state-of-the-art ensemble classifiers,
+    and the tailored classifier AutoBalanceBoost.
+
+    Parameters
+    ----------
+    split_num : int, default=5
+        The number of splitting iterations for obtaining an out-of-fold score. If the number is a 5-fold, then
+        StratifiedKFold with 5 splits is repeated with the required number of seeds, otherwise StratifiedShuffleSplit
+        with split_num splits is used.
+
+    hyperopt_time : int, default=0
+        The runtime setting (in seconds) for Hyperopt optimization. Hyperopt is used to find the optimal
+        hyper-parameters for balancing procedures.
+
+    eval_metric : {&#34;accuracy&#34;, &#34;roc_auc&#34;, &#34;log_loss&#34;, &#34;f1_macro&#34;, &#34;f1_micro&#34;, &#34;f1_weighted&#34;}, default=&#34;f1_macro&#34;
+        Metric that is used to evaluate the model performance and to choose the best option.
+
+    Attributes
+    ----------
+    classifer_ : instance
+        Optimal fitted classifier.
+
+    classifer_label_ : str
+        Optimal classifier label.
+
+    score_ : float
+        Averaged out-of-fold value of eval_metric for the optimal classifier.
+
+    scaler_ : instance
+        Fitted scaler that is applied prior to classifier estimation.
+
+    encoder_ : instance
+        Fitted label encoder.
+
+    classes_ : array-like
+        Class labels.
+
+    evaluated_models_scores_ : dict
+        Score series for the range of estimated classifiers.
+
+    evaluated_models_time_ : dict
+        Time data for the range of estimated classifiers.
+
+    conf_int_ : tuple
+        95% confidence interval for the out-of-fold value of eval_metric for the optimal classifier.
+    &#34;&#34;&#34;
+
+    def __init__(self, split_num=5, hyperopt_time=0, eval_metric=&#34;f1_macro&#34;):
+        check_num_type(split_num, int, &#34;positive&#34;)
+        check_num_type(hyperopt_time, int, &#34;non-negative&#34;)
+        check_eval_metric_list(eval_metric)
+        self.classifer_ = None
+        self.classifer_label_ = None
+        self.split_num = split_num
+        self.hyperopt_time = hyperopt_time
+        self.score_ = None
+        self.scaler_ = None
+        self.encoder_ = None
+        self.classes_ = None
+        self.evaluated_models_scores_ = None
+        self.evaluated_models_time_ = None
+        self.eval_metric = eval_metric
+        self.conf_int_ = None
+
+    def fit(self, X, y):
+        &#34;&#34;&#34;
+        Fits ImbalancedLearningClassifier model.
+
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features)
+            Training sample.
+
+        y : array-like
+            The target values.
+
+        Returns
+        -------
+        self : ImbalancedLearningClassifier instance
+            Fitted estimator.
+        &#34;&#34;&#34;
+        check_x_y(X, y)
+        t0 = datetime.now()
+        le = preprocessing.LabelEncoder()
+        le.fit(y)
+        y = le.transform(y)
+        self.classes_ = le.classes_
+        self.encoder_ = le
+        self.classifer_, self.classifer_label_, self.score_, self.scaler_, self.evaluated_models_scores_, \
+        self.evaluated_models_time_, self.conf_int_ = choose_and_fit_ilc(self, X, y)
+        print(&#34;The best generative model is &#34; + self.classifer_label_)
+        print(&#34;Leader &#34; + self.eval_metric + &#34; score: &#34; + str(round(self.score_, 4)))
+        print(&#34;Fitting time: &#34;, datetime.now() - t0)
+        return self
+
+    def predict(self, X):
+        &#34;&#34;&#34;
+        Predicts class label.
+
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features)
+            Test sample.
+
+        Returns
+        -------
+        pred : array-like
+            The predicted class.
+        &#34;&#34;&#34;
+        check_ilc_fitted(self)
+        check_x_y(X)
+        if self.classifer_label_ == &#34;AutoBalanceBoost&#34;:
+            pred = self.classifer_.predict(X)
+        else:
+            X_scaled = self.scaler_.transform(X)
+            pred = self.classifer_.predict(X_scaled)
+        pred = self.encoder_.inverse_transform(pred)
+        return pred
+
+    def predict_proba(self, X):
+        &#34;&#34;&#34;
+        Predicts class label probability.
+
+        Parameters
+        ----------
+        X : array-like of shape (n_samples, n_features)
+            Test sample.
+
+        Returns
+        -------
+        pred_proba : array-like of shape (n_samples, n_classes)
+            The predicted class probabilities.
+        &#34;&#34;&#34;
+        check_ilc_fitted(self)
+        check_x_y(X)
+        if self.classifer_label_ == &#34;AutoBalanceBoost&#34;:
+            pred_proba = self.classifer_.predict_proba(X)
+        else:
+            X_scaled = self.scaler_.transform(X)
+            pred_proba = self.classifer_.predict_proba(X_scaled)
+        return pred_proba
+
+    def leaderboard(self):
+        &#34;&#34;&#34;
+        Calculates the leaderboard statistics.
+
+        Returns
+        -------
+        ls : dict
+            The leaderboard statistics that includes sorted lists in accordance with the following indicators:
+            &#34;Mean score&#34;, &#34;Mean rank&#34;, &#34;Share of experiments with the first place, %&#34;,
+            &#34;Average difference with the leader, %&#34;.
+        &#34;&#34;&#34;
+        check_ilc_fitted(self)
+        ls = calc_leaderboard(self)
+        print(&#34;Leaderboard statistics&#34;)
+        print(&#34;&#34;)
+        print(&#34;Mean score&#34;)
+        print(ls[&#34;Mean score&#34;])
+        print(&#34;&#34;)
+        print(&#34;Mean rank&#34;)
+        print(ls[&#34;Mean rank&#34;])
+        print(&#34;&#34;)
+        print(&#34;Share of experiments with the first place, %&#34;)
+        print(ls[&#34;Share of experiments with the first place, %&#34;])
+        print(&#34;&#34;)
+        print(&#34;Average difference with the leader, %&#34;)
+        print(ls[&#34;Average difference with the leader, %&#34;])
+        return ls</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.fit"><code class="name flex">
+<span>def <span class="ident">fit</span></span>(<span>self, X, y)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Fits ImbalancedLearningClassifier model.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>X</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The target values.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>self</code></strong> :&ensp;<code><a title="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier">ImbalancedLearningClassifier</a> instance</code></dt>
+<dd>Fitted estimator.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit(self, X, y):
+    &#34;&#34;&#34;
+    Fits ImbalancedLearningClassifier model.
+
+    Parameters
+    ----------
+    X : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    Returns
+    -------
+    self : ImbalancedLearningClassifier instance
+        Fitted estimator.
+    &#34;&#34;&#34;
+    check_x_y(X, y)
+    t0 = datetime.now()
+    le = preprocessing.LabelEncoder()
+    le.fit(y)
+    y = le.transform(y)
+    self.classes_ = le.classes_
+    self.encoder_ = le
+    self.classifer_, self.classifer_label_, self.score_, self.scaler_, self.evaluated_models_scores_, \
+    self.evaluated_models_time_, self.conf_int_ = choose_and_fit_ilc(self, X, y)
+    print(&#34;The best generative model is &#34; + self.classifer_label_)
+    print(&#34;Leader &#34; + self.eval_metric + &#34; score: &#34; + str(round(self.score_, 4)))
+    print(&#34;Fitting time: &#34;, datetime.now() - t0)
+    return self</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.leaderboard"><code class="name flex">
+<span>def <span class="ident">leaderboard</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculates the leaderboard statistics.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>ls</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The leaderboard statistics that includes sorted lists in accordance with the following indicators:
+"Mean score", "Mean rank", "Share of experiments with the first place, %",
+"Average difference with the leader, %".</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def leaderboard(self):
+    &#34;&#34;&#34;
+    Calculates the leaderboard statistics.
+
+    Returns
+    -------
+    ls : dict
+        The leaderboard statistics that includes sorted lists in accordance with the following indicators:
+        &#34;Mean score&#34;, &#34;Mean rank&#34;, &#34;Share of experiments with the first place, %&#34;,
+        &#34;Average difference with the leader, %&#34;.
+    &#34;&#34;&#34;
+    check_ilc_fitted(self)
+    ls = calc_leaderboard(self)
+    print(&#34;Leaderboard statistics&#34;)
+    print(&#34;&#34;)
+    print(&#34;Mean score&#34;)
+    print(ls[&#34;Mean score&#34;])
+    print(&#34;&#34;)
+    print(&#34;Mean rank&#34;)
+    print(ls[&#34;Mean rank&#34;])
+    print(&#34;&#34;)
+    print(&#34;Share of experiments with the first place, %&#34;)
+    print(ls[&#34;Share of experiments with the first place, %&#34;])
+    print(&#34;&#34;)
+    print(&#34;Average difference with the leader, %&#34;)
+    print(ls[&#34;Average difference with the leader, %&#34;])
+    return ls</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict"><code class="name flex">
+<span>def <span class="ident">predict</span></span>(<span>self, X)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Predicts class label.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>X</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Test sample.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>pred</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The predicted class.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def predict(self, X):
+    &#34;&#34;&#34;
+    Predicts class label.
+
+    Parameters
+    ----------
+    X : array-like of shape (n_samples, n_features)
+        Test sample.
+
+    Returns
+    -------
+    pred : array-like
+        The predicted class.
+    &#34;&#34;&#34;
+    check_ilc_fitted(self)
+    check_x_y(X)
+    if self.classifer_label_ == &#34;AutoBalanceBoost&#34;:
+        pred = self.classifer_.predict(X)
+    else:
+        X_scaled = self.scaler_.transform(X)
+        pred = self.classifer_.predict(X_scaled)
+    pred = self.encoder_.inverse_transform(pred)
+    return pred</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict_proba"><code class="name flex">
+<span>def <span class="ident">predict_proba</span></span>(<span>self, X)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Predicts class label probability.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>X</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Test sample.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>pred_proba</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_classes)</code></dt>
+<dd>The predicted class probabilities.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def predict_proba(self, X):
+    &#34;&#34;&#34;
+    Predicts class label probability.
+
+    Parameters
+    ----------
+    X : array-like of shape (n_samples, n_features)
+        Test sample.
+
+    Returns
+    -------
+    pred_proba : array-like of shape (n_samples, n_classes)
+        The predicted class probabilities.
+    &#34;&#34;&#34;
+    check_ilc_fitted(self)
+    check_x_y(X)
+    if self.classifer_label_ == &#34;AutoBalanceBoost&#34;:
+        pred_proba = self.classifer_.predict_proba(X)
+    else:
+        X_scaled = self.scaler_.transform(X)
+        pred_proba = self.classifer_.predict_proba(X_scaled)
+    return pred_proba</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="asid.automl_imbalanced" href="index.html">asid.automl_imbalanced</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier">ImbalancedLearningClassifier</a></code></h4>
+<ul class="">
+<li><code><a title="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.fit" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.fit">fit</a></code></li>
+<li><code><a title="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.leaderboard" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.leaderboard">leaderboard</a></code></li>
+<li><code><a title="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict">predict</a></code></li>
+<li><code><a title="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict_proba" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict_proba">predict_proba</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
