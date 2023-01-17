@@ -82,7 +82,7 @@ score = f1_score(y_test, pred, average="macro")
 # Документация
 Документация для ASID опубликована на странице [wiki](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/wiki).
 
-С API можно ознакомиться [здесь](https://ekplesovskaya.github.io/automl-for-small-and-imbalanced-datasets/api/asid/index.html).
+С API можно ознакомиться [здесь](https://ekplesovskaya.github.io/asid/api/asid/index.html).
 
 Примеры использования доступны по этой [ссылке](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/tree/master/examples).
 # Цитирование
