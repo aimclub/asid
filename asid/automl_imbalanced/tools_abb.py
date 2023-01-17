@@ -420,7 +420,7 @@ def first_ensemble_procedure_with_cv_model(X, first_model, classes_sorted_train)
     return res_proba_mean, model_list
 
 
-def fit_ensemble(X, Y, ts, iter_lim, num_mod, balanced, first_model, num_feat, feat_imp):
+def fit_ensemble(X, Y, ts, iter_lim, num_mod, balanced, first_model, num_feat, feat_imp, classes_):
     """
     Iteratively fits the resulting ensemble.
 
@@ -453,6 +453,9 @@ def fit_ensemble(X, Y, ts, iter_lim, num_mod, balanced, first_model, num_feat, f
     feat_imp : array-like
         Normalized feature importances.
 
+    classes_ : array-like
+        Class labels.
+
     Returns
     -------
     model_list : list
@@ -463,30 +466,29 @@ def fit_ensemble(X, Y, ts, iter_lim, num_mod, balanced, first_model, num_feat, f
     """
     feat_gen = np.random.default_rng(seed=42)
     ts_gen = np.random.default_rng(seed=42)
-    classes_sorted = np.unique(Y)
     if not first_model:
         pred_proba_list, model_list, feat_imp_list_mean = first_ensemble_procedure(X, Y, ts, num_mod, balanced,
                                                                                    num_feat, feat_gen, feat_imp,
-                                                                                   classes_sorted, ts_gen)
+                                                                                   classes_, ts_gen)
     else:
-        pred_proba_list, model_list = first_ensemble_procedure_with_cv_model(X, first_model, classes_sorted)
+        pred_proba_list, model_list = first_ensemble_procedure_with_cv_model(X, first_model, classes_)
         feat_imp_list_mean = feat_imp
     pred_proba_true_class = np.array(
-        list(map(lambda x, y: pred_proba_list[0][y, np.where(classes_sorted == x)[0][0]], Y, list(range(Y.shape[0])))))
+        list(map(lambda x, y: pred_proba_list[0][y, np.where(classes_ == x)[0][0]], Y, list(range(Y.shape[0])))))
     res_class_prop = []
     for i in range(iter_lim - 1):
         train_datasets, class_prop = get_newds(pred_proba_true_class, ts, X, Y, num_mod, balanced, num_feat, feat_gen,
                                                feat_imp, ts_gen)
         pred_proba_list, model_list = other_ensemble_procedure(X, train_datasets, pred_proba_list, model_list,
-                                                               classes_sorted)
+                                                               classes_)
         pred_proba_mean = np.mean(pred_proba_list, axis=0)
         pred_proba_true_class = np.array(
-            list(map(lambda x, y: pred_proba_mean[y, np.where(classes_sorted == x)[0][0]], Y, list(range(Y.shape[0])))))
+            list(map(lambda x, y: pred_proba_mean[y, np.where(classes_ == x)[0][0]], Y, list(range(Y.shape[0])))))
         res_class_prop.append(class_prop)
     return model_list, feat_imp_list_mean
 
 
-def calc_fscore(X, Y, model_list):
+def calc_fscore(X, Y, model_list, classes_sorted_train):
     """
     Calculates the CV test score.
 
@@ -501,6 +503,9 @@ def calc_fscore(X, Y, model_list):
     model_list : list
         Fitted base estimators in AutoBalanceBoost.
 
+    classes_sorted_train : array-like
+        Class labels.
+
     Returns
     -------
     fscore_val : float
@@ -509,7 +514,6 @@ def calc_fscore(X, Y, model_list):
     fscore_val_val : array-like
         CV test score for each class separately.
     """
-    classes_sorted_train = np.unique(Y)
     pred_proba_list = []
     for i in range(len(model_list)):
         sub_pred_proba_list = []
@@ -539,7 +543,7 @@ def calc_fscore(X, Y, model_list):
     return fscore_val, fscore_val_val
 
 
-def cv_balance_procedure(X, Y, split_coef):
+def cv_balance_procedure(X, Y, split_coef, classes_):
     """
     Chooses the optimal balancing strategy.
 
@@ -553,6 +557,9 @@ def cv_balance_procedure(X, Y, split_coef):
 
     split_coef : float
         Train sample share for base learner estimation.
+
+    classes_ : array-like
+        Class labels.
 
     Returns
     -------
@@ -570,8 +577,9 @@ def cv_balance_procedure(X, Y, split_coef):
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = Y[train_index], Y[test_index]
         for i, val in enumerate(feature_val):
-            model_list, feat_imp = fit_ensemble(X_train, y_train, split_coef, 5, 6, val, None, X.shape[1], None)
-            bootst_res, bootst_res_val = calc_fscore(X_test, y_test, model_list)
+            model_list, feat_imp = fit_ensemble(X_train, y_train, split_coef, 5, 6, val, None, X.shape[1], None,
+                                                classes_)
+            bootst_res, bootst_res_val = calc_fscore(X_test, y_test, model_list, classes_)
             cv_val[i].append(bootst_res)
             cv_val_val[i].append(bootst_res_val)
             res_model[i].append(model_list)
@@ -605,8 +613,8 @@ def cv_balance_procedure(X, Y, split_coef):
                 y_train, y_test = Y[train_index], Y[test_index]
                 model_list, feat_imp = fit_ensemble(X_train, y_train, split_coef, 5, 6,
                                                     {"Not_balanced": ind_val, "balance": feature_val[feat_num]}, None,
-                                                    X.shape[1], None)
-                bootst_res, bootst_res_val = calc_fscore(X_test, y_test, model_list)
+                                                    X.shape[1], None, classes_)
+                bootst_res, bootst_res_val = calc_fscore(X_test, y_test, model_list, classes_)
                 cv_val[9].append(bootst_res)
                 res_model[9].append(model_list)
                 res_feat_imp[9].append(feat_imp)
@@ -724,12 +732,13 @@ def cv_split_procedure(X, Y, bagging_ensemble_param):
         y_train, y_test = Y[train_index], Y[test_index]
         for i, val in enumerate(feature_val):
             model_list, feat_imp = fit_ensemble(X_train, y_train, val, 5, 6, bagging_ensemble_param["opt_balance"],
-                                                None, X.shape[1], None)
+                                                None, X.shape[1], None, bagging_ensemble_param["classes"])
             feat_imp_list.append(feat_imp)
             sample_gen = np.random.default_rng(seed=42)
             for k in range(100):
                 indices = sample_gen.integers(0, X_test.shape[0], X_test.shape[0])
-                bootst_res, bootst_res_val = calc_fscore(X_test[indices], y_test[indices], model_list)
+                bootst_res, bootst_res_val = calc_fscore(X_test[indices], y_test[indices], model_list,
+                                                         bagging_ensemble_param["classes"])
                 cv_val_seq[i].append(bootst_res)
         count += 1
     sample_gen1 = np.random.default_rng(seed=42)
@@ -780,9 +789,9 @@ def num_feat_procedure(X, Y, bagging_ensemble_param):
         for i, val in enumerate(feature_val):
             model_list, feat_imp_list_mean = fit_ensemble(X_train, y_train, bagging_ensemble_param["opt_split"], 5, 6,
                                                           bagging_ensemble_param["opt_balance"], None, val,
-                                                          feat_imp_norm)
+                                                          feat_imp_norm, bagging_ensemble_param["classes"])
             res_model[i].append(model_list)
-            bootst_res, bootst_res_val = calc_fscore(X_test, y_test, model_list)
+            bootst_res, bootst_res_val = calc_fscore(X_test, y_test, model_list, bagging_ensemble_param["classes"])
             cv_val[i].append(bootst_res)
         count += 1
     cv_val_mean = np.mean(cv_val, axis=1)
@@ -822,7 +831,8 @@ def boosting_of_bagging_procedure(X_train, y_train, num_iter, num_mod):
     if y_counts.min() / y_counts.max() >= 0.9:
         balance_param = {"opt_balance": False, "split_coef_balance": 0}
     else:
-        balance_param = cv_balance_procedure(X_train, y_train, 0.3)
+        balance_param = cv_balance_procedure(X_train, y_train, 0.3, y_val)
+    balance_param["classes"] = y_val
     boosting_params["balance_share"] = balance_param["opt_balance"]
     balance_param = cv_split_procedure(X_train, y_train, balance_param)
     boosting_params["bagging_share"] = balance_param["opt_split"]
@@ -830,7 +840,8 @@ def boosting_of_bagging_procedure(X_train, y_train, num_iter, num_mod):
     boosting_params["features_number"] = balance_param["opt_feat"]
     model_list, feat_imp_list_mean = fit_ensemble(X_train, y_train, boosting_params["bagging_share"], num_iter, num_mod,
                                                   boosting_params["balance_share"], first_model,
-                                                  boosting_params["features_number"], balance_param["feat_imp_norm"])
+                                                  boosting_params["features_number"], balance_param["feat_imp_norm"],
+                                                  balance_param["classes"])
     return model_list, boosting_params
 
 
