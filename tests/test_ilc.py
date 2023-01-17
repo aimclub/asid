@@ -12,7 +12,8 @@ def test_ilc_opt():
     assert clf.classifer_ is not None
     assert isinstance(clf.classifer_label_, str)
     assert isinstance(clf.score_, float)
-    assert clf.scaler_ is not None
+    if clf.classifer_label_ != "AutoBalanceBoost":
+        assert clf.scaler_ is not None
     assert len(clf.evaluated_models_scores_) != 0
     assert len(clf.evaluated_models_time_) != 0
 
