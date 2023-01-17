@@ -13,7 +13,7 @@ For **imbalanced datasets** ASID library includes a tailored ensemble classifier
 * It is easy-to-use and does not require time-consuming tuning;
 * Empirical analysis shows that ABB demonstrates a robust performance and on average outperforms its competitors.
 
-For **imbalanced datasets** we also propose an [`ImbalancedLearningClassifier`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_imbalanced/ilc.py) estimator that searches for the optimal classifier for a given imbalanced task. Main features of this tool:
+For **imbalanced datasets** we also propose an [`ImbalancedLearningClassifier`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_imbalanced/ilc.py) estimator that searches for an optimal classifier for a given imbalanced task. Main features of this tool:
 * It includes AutoBalanceBoost and combinations of SOTA ensemble algorithms and balancing procedures from imbalanced-learn library;
 * It is easy-to-use and does not require time-consuming tuning;
 * It includes a Hyperopt tuning procedure for balancing procedures, which could be controlled by a runtime parameter;
@@ -44,7 +44,7 @@ genmod = GenerativeModel()
 genmod.fit(X)
 genmod.sample(1000)
 ```
-AutoBalanceBoost usage example:
+Fitting an AutoBalanceBoost classifier on imbalanced dataset:
 ```python
 from asid.automl_imbalanced.abb import AutoBalanceBoost
 from sklearn.datasets import make_classification
@@ -60,7 +60,7 @@ clf.fit(X_train, y_train)
 pred = clf.predict(X_test)
 score = f1_score(y_test, pred, average="macro")
 ```
-Fitting an ImbalancedLearningClassifier instance on imbalanced dataset:
+Choosing an optimal classification pipeline with ImbalancedLearningClassifier for imbalanced dataset (searches through AutoBalanceBoost and combinations of SOTA ensemble algorithms and balancing procedures from imbalanced-learn library):
 ```python
 from asid.automl_imbalanced.ilc import ImbalancedLearningClassifier
 from sklearn.datasets import make_classification
@@ -76,6 +76,8 @@ clf.fit(X_train, y_train)
 pred = clf.predict(X_test)
 score = f1_score(y_test, pred, average="macro")
 ```
+# Benchmarks
+Empirical experiments results with ASID algorithms are available [here](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/wiki/5.-Benchmarks).
 # Documentation
 Documentation about ASID could be found in [wiki](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/wiki).
 

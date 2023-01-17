@@ -45,7 +45,7 @@ genmod = GenerativeModel()
 genmod.fit(X)
 genmod.sample(1000)
 ```
-Пример использования AutoBalanceBoost:
+Обучение модели AutoBalanceBoost на несбалансированном датасете:
 ```python
 from asid.automl_imbalanced.abb import AutoBalanceBoost
 from sklearn.datasets import make_classification
@@ -61,7 +61,7 @@ clf.fit(X_train, y_train)
 pred = clf.predict(X_test)
 score = f1_score(y_test, pred, average="macro")
 ```
-Обучение модели на несбалансированном датасете с помощью ImbalancedLearningClassifier:
+Подбор оптимальной схемы классификации для несбалансированного датасета с помощью ImbalancedLearningClassifier (поиск производится среди AutoBalanceBoost, а также комбинаций наиболее популярных ансамблевых алгоритмов и балансирующих процедур из библиотеки imbalanced-learn):
 ```python
 from asid.automl_imbalanced.ilc import ImbalancedLearningClassifier
 from sklearn.datasets import make_classification
