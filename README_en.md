@@ -77,7 +77,7 @@ pred = clf.predict(X_test)
 score = f1_score(y_test, pred, average="macro")
 ```
 # Benchmarks
-Empirical experiments results with ASID algorithms are available [here](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/wiki/5.-Benchmarks).
+Results or empirical experiments with ASID algorithms are available [here](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/wiki/5.-Benchmarks).
 # Documentation
 Documentation about ASID could be found in [wiki](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/wiki).
 

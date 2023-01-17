@@ -77,6 +77,8 @@ clf.fit(X_train, y_train)
 pred = clf.predict(X_test)
 score = f1_score(y_test, pred, average="macro")
 ```
+# Бенчмарки
+Результаты эмпирического анализа алгоритмов ASID на различных датасетах доступны [здесь](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/wiki/5.-Benchmarks).
 # Документация
 Документация для ASID опубликована на странице [wiki](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/wiki).
 
