@@ -2,19 +2,19 @@
 # ASID: Автоматическое обучение для малых и несбалансированных выборок
 Библиотека ASID включает в себя инструменты автоматического обучения на малых и несбалансированных выборках в табличном формате.
 
-Для **малых выборок** библиотека содержит алгоритм [`GenerativeModel`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_small/gm.py). Он обучает оптимальную генеративную модель, которая сэмплирует схожие синтетические выборки и не переобучается. Основные преимущества алгоритма:
+Для **малых выборок** библиотека содержит алгоритм [`GenerativeModel`](https://github.com/ekplesovskaya/asid/blob/master/asid/automl_small/gm.py). Он обучает оптимальную генеративную модель, которая сэмплирует схожие синтетические выборки и не переобучается. Основные преимущества алгоритма:
 * Он включает в себя 9 наиболее популярных генеративных алгоритмов для табличных данных: ядерная оценка плотности, Гауссовы смеси распределений, копулы и модели глубокого обучения;
 * Инструмент достаточно прост в использовании и не требует длительного подбора гиперпараметров;
 * Имеет встроенную процедуру подбора гиперпараметров с помощью Hyperopt, время работы которого может контролироваться пользователем;
 * Доступны несколько метрик, которые позволяют оценить степень переобучения генеративных моделей.
 
-Для **несбалансированных выборок** ASID содержит ансамблевый классификационный алгоритм - [`AutoBalanceBoost`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_imbalanced/abb.py) (ABB). Он сочетает в себе устойчивый ансамблевый классификатор с процедурой сэмплирования. Основные преимущества ABB:
+Для **несбалансированных выборок** ASID содержит ансамблевый классификационный алгоритм - [`AutoBalanceBoost`](https://github.com/ekplesovskaya/asid/blob/master/asid/automl_imbalanced/abb.py) (ABB). Он сочетает в себе устойчивый ансамблевый классификатор с процедурой сэмплирования. Основные преимущества ABB:
 * Включает в себя два популярных ансамблевых алгоритма: бэггинг и бустинг;
 * Содержит встроенную процедуру последовательного подбора гиперпараметров, которая позволяет получить модель высокого качества без длительного перебора гиперпараметров;
 * Инструмент прост в использовании;
 * Эмпирический анализ показывает, что ABB демонстрирует устойчивую работу и в среднем выдает качество выше, чем аналогичные алгоритмы.
 
-Для **несбалансированных выборок** также разработан [`ImbalancedLearningClassifier`](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/asid/automl_imbalanced/ilc.py), который подбирает оптимальную комбинацию балансирующей процедуры и классификатора для данной задачи. Основные преимущества инструмента:
+Для **несбалансированных выборок** также разработан [`ImbalancedLearningClassifier`](https://github.com/ekplesovskaya/asid/blob/master/asid/automl_imbalanced/ilc.py), который подбирает оптимальную комбинацию балансирующей процедуры и классификатора для данной задачи. Основные преимущества инструмента:
 * Включает в себя AutoBalanceBoost, а также комбинации наиболее популярных ансамблевых алгоритмов и балансирующих процедур из библиотеки imbalanced-learn;
 * Инструмент достаточно прост в использовании и не требует длительного подбора гиперпараметров;
 * Имеет встроенную процедуру подбора гиперпараметров для балансирующих процедур с помощью Hyperopt, время работы которого может контролироваться пользователем;
@@ -25,14 +25,14 @@
 # Установка
 Требования к версии Python: Python 3.8.
 
-1. Установите требования из файла [requirements.txt](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/blob/master/requirements.txt)
+1. Установите требования из файла [requirements.txt](https://github.com/ekplesovskaya/asid/blob/master/requirements.txt)
 
     ```
     pip install -r requirements.txt
     ```
 2. Установите библиотеку ASID
     ```
-    pip install https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets-master.zip
+    pip install https://github.com/ekplesovskaya/asid-master.zip
     ```
 # Примеры использования
 Обучение модели по малой выборке с помощью GenerativeModel и генерация синтетического датасета:
@@ -78,13 +78,13 @@ pred = clf.predict(X_test)
 score = f1_score(y_test, pred, average="macro")
 ```
 # Бенчмарки
-Результаты эмпирического анализа алгоритмов ASID на различных датасетах доступны [здесь](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/wiki/5.-Benchmarks).
+Результаты эмпирического анализа алгоритмов ASID на различных датасетах доступны [здесь](https://github.com/ekplesovskaya/asid/wiki/5.-Benchmarks).
 # Документация
-Документация для ASID опубликована на странице [wiki](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/wiki).
+Документация для ASID опубликована на странице [wiki](https://github.com/ekplesovskaya/asid/wiki).
 
-С API можно ознакомиться [здесь](https://ekplesovskaya.github.io/automl-for-small-and-imbalanced-datasets/api/asid/index.html).
+С API можно ознакомиться [здесь](https://ekplesovskaya.github.io/asid/api/asid/index.html).
 
-Примеры использования доступны по этой [ссылке](https://github.com/ekplesovskaya/automl-for-small-and-imbalanced-datasets/tree/master/examples).
+Примеры использования доступны по этой [ссылке](https://github.com/ekplesovskaya/asid/tree/master/examples).
 # Цитирование
 Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
 # Поддержка
