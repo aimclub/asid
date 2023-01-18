@@ -32,7 +32,7 @@ def test_abb_pred():
     abb_acc = acc_data["ABB"]
     assert acc >= abb_acc
     if acc > abb_acc:
-        acc_data["ABB"] = abb_acc
+        acc_data["ABB"] = acc
         with open("/".join(str(os.path.realpath(__file__)).split("\\")).split("tests")[
                       0] + 'tests/test_accuracy.pickle', "wb") as pickle_file:
             pickle.dump(acc_data, pickle_file, protocol=pickle.HIGHEST_PROTOCOL)
