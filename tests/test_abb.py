@@ -1,6 +1,8 @@
 from asid.automl_imbalanced.abb import AutoBalanceBoost
 from sklearn.datasets import make_classification
 from sklearn.model_selection import train_test_split
+import pickle
+from sklearn.metrics import f1_score
 
 
 def test_abb_fit():
@@ -22,6 +24,16 @@ def test_abb_pred():
     clf.fit(X_train, y_train)
     pred = clf.predict(X_test)
     assert pred.shape[0] == X_test.shape[0]
+    acc = round(f1_score(y_test, pred, average="macro"), 2)
+    with open('test_accuracy.pickle', 'rb') as f:
+        acc_data = pickle.load(f)
+    abb_acc = acc_data["ABB"]
+    assert acc >= abb_acc
+    if acc > abb_acc:
+        acc_data["ABB"] = abb_acc
+        with open('test_accuracy.pickle', "wb") as pickle_file:
+            pickle.dump(acc_data, pickle_file, protocol=pickle.HIGHEST_PROTOCOL)
+            pickle_file.close()
     pred_proba = clf.predict_proba(X_test)
     assert pred_proba.shape[0] == X_test.shape[0]
     assert pred_proba.shape[1] == 4
