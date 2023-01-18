@@ -82,8 +82,6 @@ score = f1_score(y_test, pred, average="macro")
 # Документация
 Документация для ASID опубликована на странице [wiki](https://github.com/ekplesovskaya/asid/wiki).
 
-С API можно ознакомиться [здесь](https://ekplesovskaya.github.io/asid/api/asid/index.html).
-
 Примеры использования доступны по этой [ссылке](https://github.com/ekplesovskaya/asid/tree/master/examples).
 # Цитирование
 Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.

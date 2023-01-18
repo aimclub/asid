@@ -81,8 +81,6 @@ Results or empirical experiments with ASID algorithms are available [here](https
 # Documentation
 Documentation about ASID could be found in [wiki](https://github.com/ekplesovskaya/asid/wiki).
 
-Library API is available [here](https://ekplesovskaya.github.io/asid/api/asid/index.html).
-
 Examples of usage could be obtained from [examples](https://github.com/ekplesovskaya/asid/tree/master/examples).
 # Citation
 Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
