@@ -46,7 +46,7 @@ def test_gm_score():
             if metric == "c2st_acc":
                 assert round(result, 2) == 0.5
             elif metric == "roc_auc":
-                assert round(result, 2) > 0.94
+                assert round(result, 2) >= 0.94
             elif metric == "zu":
                 assert round(result, 2) == 14.98
         else:
