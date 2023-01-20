@@ -19,7 +19,7 @@ For **imbalanced datasets** we also propose an [`ImbalancedLearningClassifier`](
 * It includes a Hyperopt tuning procedure for balancing procedures, which could be controlled by a runtime parameter;
 * Several classification accuracy metrics are available.
 
-<img src='https://user-images.githubusercontent.com/54841419/207874240-c961a176-1d29-4e7c-8107-47ff3ede8711.png' width='800'>
+<img src='https://user-images.githubusercontent.com/54841419/213721694-89b4b9a9-97e7-43dc-8beb-ecaecb506fe6.png' width='1000'>
 
 # How to install
 Requirements: Python 3.8.
