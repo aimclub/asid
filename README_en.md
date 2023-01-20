@@ -7,7 +7,7 @@ For **small datasets** we propose a [`GenerativeModel`](https://github.com/ekple
 * It includes a Hyperopt tuning procedure, which could be controlled by a runtime parameter;
 * Several overfitting indicators are available.
 
-For **imbalanced datasets** ASID library includes a tailored ensemble classifier - [`AutoBalanceBoost`](https://github.com/ekplesovskaya/asid/blob/master/asid/automl_imbalanced/abb.py). It combines a consistent ensemble classifier with an oversampling technique. ABB key features include:
+For **imbalanced datasets** ASID library includes a tailored ensemble classifier - [`AutoBalanceBoost`](https://github.com/ekplesovskaya/asid/blob/master/asid/automl_imbalanced/abb.py). It combines a consistent ensemble classifier with the embedded random oversampling technique. ABB key features include:
 * It exploits both popular ensemble approaches: bagging and boosting;
 * It comprises an embedded sequential parameter tuning scheme, which allows to get the high accuracy without time-consuming tuning;
 * It is easy-to-use and does not require time-consuming tuning;
