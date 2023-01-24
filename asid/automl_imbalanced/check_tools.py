@@ -3,9 +3,10 @@ This module contains functions for exception handling.
 """
 
 import numpy as np
+from typing import Any
 
 
-def check_num_type(x, num_type, num_cl):
+def check_num_type(x: Any, num_type: type, num_cl: str):
     if isinstance(x, num_type):
         if num_cl == "positive" and x <= 0:
             raise ValueError("The parameter should be " + num_cl + ".")
@@ -17,7 +18,7 @@ def check_num_type(x, num_type, num_cl):
         raise TypeError("The parameter should be of " + str(num_type))
 
 
-def check_x_y(X, y=None):
+def check_x_y(X: Any, y=None):
     if not isinstance(X, np.ndarray):
         raise TypeError("X should be an array-like type.")
     if X.size == 0:
@@ -43,6 +44,6 @@ def check_ilc_fitted(self):
         raise ValueError("ImbalancedLearningClassifier is not fitted.")
 
 
-def check_eval_metric_list(metric):
+def check_eval_metric_list(metric: str):
     if metric not in ["accuracy", "roc_auc", "log_loss", "f1_macro", "f1_micro", "f1_weighted"]:
         raise ValueError("Metric " + str(metric) + " is not implemented.")

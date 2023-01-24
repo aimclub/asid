@@ -22,6 +22,8 @@ from scipy.stats import rankdata
 from datetime import datetime
 import os
 from copy import deepcopy
+from numpy import ndarray
+from typing import Union, Tuple
 
 balance_dict = {"SMOTE": SMOTE(random_state=42),
                 "RandomOverSampler": RandomOverSampler(random_state=42),
@@ -38,7 +40,7 @@ with open("/".join(str(os.path.realpath(__file__)).split("\\")).split("automl_im
     space_dict = pickle.load(f)
 
 
-def get_cv_type(split_num):
+def get_cv_type(split_num: int) -> str:
     """
     Defines the type of splitting iterations.
 
@@ -59,7 +61,7 @@ def get_cv_type(split_num):
     return cv_type
 
 
-def scale_data(X_train):
+def scale_data(X_train: ndarray) -> Tuple[ndarray, object]:
     """
     Fits scaler and applies it to the train sample.
 
@@ -82,7 +84,7 @@ def scale_data(X_train):
     return X_train_scaled, scaler
 
 
-def get_sampl_strat_for_case(ss, count_class, balance_method):
+def get_sampl_strat_for_case(ss: float, count_class: ndarray, balance_method: str) -> Union[float, dict]:
     """
     Calculates the sampling strategy parameter.
 
@@ -125,7 +127,7 @@ def get_sampl_strat_for_case(ss, count_class, balance_method):
     return ss_corr
 
 
-def calc_pipeline_acc(params, X, y, bal_alg, alg, metric):
+def calc_pipeline_acc(params: dict, X: ndarray, y: ndarray, bal_alg: str, alg: str, metric: str) -> float:
     """
     Evaluates the pipeline.
 
@@ -194,7 +196,7 @@ def calc_pipeline_acc(params, X, y, bal_alg, alg, metric):
     return score
 
 
-def get_balance_params(X, y, bal_alg, alg, hyp_time, metric):
+def get_balance_params(X: ndarray, y: ndarray, bal_alg: str, alg: str, hyp_time: int, metric: str) -> dict:
     """
     Searches for optimal hyper-parameters for balancing procedure using Hyperopt.
 
@@ -238,7 +240,7 @@ def get_balance_params(X, y, bal_alg, alg, hyp_time, metric):
     return best
 
 
-def balance_exp(X, y, skf, bal_alg, alg, hyperopt_time, metric):
+def balance_exp(X: ndarray, y: ndarray, skf: object, bal_alg: str, alg: str, hyperopt_time: int, metric: str) -> Tuple[list, list]:
     """
     Evaluates model performance on a range of splits.
 
@@ -309,7 +311,7 @@ def balance_exp(X, y, skf, bal_alg, alg, hyperopt_time, metric):
     return score_list, time_list
 
 
-def calc_metric(y_test, pred, metric):
+def calc_metric(y_test: ndarray, pred: ndarray, metric: str) -> float:
     """
     Calculates the evaluation metric.
 
@@ -348,7 +350,7 @@ def calc_metric(y_test, pred, metric):
     return score
 
 
-def abb_exp(X, y, skf, metric):
+def abb_exp(X: ndarray, y: ndarray, skf: object, metric: str) -> Tuple[list, list]:
     """
     Evaluates AutoBalanceBoost performance on a partial range of splits.
 
@@ -398,7 +400,7 @@ def abb_exp(X, y, skf, metric):
     return score_list, time_list
 
 
-def fit_alg(cv_type, X, y, bal_alg, alg, hyperopt_time, split_num, metric):
+def fit_alg(cv_type: str, X: ndarray, y: ndarray, bal_alg: Union[str, None], alg: str, hyperopt_time: int, split_num: int, metric: str) -> Tuple[list, list]:
     """
     Evaluates model performance on a full range of splits.
 
@@ -460,7 +462,7 @@ def fit_alg(cv_type, X, y, bal_alg, alg, hyperopt_time, split_num, metric):
     return score_list, time_list
 
 
-def fit_res_model(option_label, X, y, hyp_time, metric):
+def fit_res_model(option_label: str, X: ndarray, y: ndarray, hyp_time: int, metric: str) -> Tuple[object, object]:
     """
     Fits the resulting estimator.
 
@@ -513,7 +515,7 @@ def fit_res_model(option_label, X, y, hyp_time, metric):
     return model, scaler
 
 
-def choose_and_fit_ilc(self, X, y):
+def choose_and_fit_ilc(self, X: ndarray, y: ndarray) -> Tuple[object, str, float, object, dict]:
     """
     Chooses the optimal classifier and fits the resulting estimator.
 
@@ -572,7 +574,7 @@ def choose_and_fit_ilc(self, X, y):
     return classifier, option_label, score, scaler, score_dict, time_dict, conf_int
 
 
-def calc_leaderboard(self):
+def calc_leaderboard(self) -> dict:
     """
     Calculates the leaderboard statistics.
 

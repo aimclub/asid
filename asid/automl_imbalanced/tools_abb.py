@@ -6,9 +6,11 @@ from sklearn.model_selection import StratifiedShuffleSplit
 import numpy as np
 from sklearn import tree
 from sklearn.metrics import f1_score
+from typing import Union, Tuple
+from numpy import ndarray
 
 
-def get_newds(pred_proba, ts, X, Y, num_mod, balanced, num_feat, feat_gen, feat_imp, ts_gen):
+def get_newds(pred_proba: ndarray, ts: list, X: ndarray, Y: ndarray, num_mod: int, balanced: Union[bool, dict], num_feat: int, feat_gen: object, feat_imp: ndarray, ts_gen: object) -> Tuple[list, list]:
     """
     Samples train datasets for bagging during the boosting phase.
 
@@ -122,7 +124,7 @@ def get_newds(pred_proba, ts, X, Y, num_mod, balanced, num_feat, feat_gen, feat_
     return train_datasets, class_prop
 
 
-def other_ensemble_procedure(X, train_datasets, pred_proba_list, model_list, classes_sorted_train):
+def other_ensemble_procedure(X: ndarray, train_datasets: list, pred_proba_list: list, model_list: list, classes_sorted_train: ndarray) -> Tuple[list, list]:
     """
     Fits bagging during the boosting phase.
 
@@ -178,7 +180,7 @@ def other_ensemble_procedure(X, train_datasets, pred_proba_list, model_list, cla
     return pred_proba_list, model_list
 
 
-def get_bootstrap_balanced_samples(X, Y, balanced, ts, sample_gen):
+def get_bootstrap_balanced_samples(X: ndarray, Y: ndarray, balanced: Union[bool, dict], ts: list, sample_gen: object) -> Tuple[ndarray, ndarray]:
     """
     Balancing procedure at the first iteration.
 
@@ -246,7 +248,7 @@ def get_bootstrap_balanced_samples(X, Y, balanced, ts, sample_gen):
     return X_sampled, Y_sampled
 
 
-def choose_feat(X, n, feat_gen, feat_imp):
+def choose_feat(X: ndarray, n: int, feat_gen: object, feat_imp: ndarray) -> ndarray:
     """
     Samples the zeroed features.
 
@@ -276,8 +278,8 @@ def choose_feat(X, n, feat_gen, feat_imp):
     return X
 
 
-def first_ensemble_procedure(X, Y, ts, num_mod, balanced, num_feat, feat_gen, res_feat_imp, classes_sorted_train,
-                             ts_gen):
+def first_ensemble_procedure(X: ndarray, Y: ndarray, ts: list, num_mod: int, balanced: Union[bool, dict], num_feat: int, feat_gen: object, res_feat_imp: ndarray, classes_sorted_train: ndarray,
+                             ts_gen: object) -> Tuple[list, list, ndarray]:
     """
     Fits bagging at the first iteration.
 
@@ -367,7 +369,7 @@ def first_ensemble_procedure(X, Y, ts, num_mod, balanced, num_feat, feat_gen, re
     return pred_proba_list, model_list, feat_imp_list_mean
 
 
-def first_ensemble_procedure_with_cv_model(X, first_model, classes_sorted_train):
+def first_ensemble_procedure_with_cv_model(X: ndarray, first_model: list, classes_sorted_train: ndarray) -> Union[list, list]:
     """
     Calculates the prediction probabilities of the CV bagging.
 
@@ -420,7 +422,7 @@ def first_ensemble_procedure_with_cv_model(X, first_model, classes_sorted_train)
     return res_proba_mean, model_list
 
 
-def fit_ensemble(X, Y, ts, iter_lim, num_mod, balanced, first_model, num_feat, feat_imp, classes_):
+def fit_ensemble(X: ndarray, Y: ndarray, ts: Union[float, list], iter_lim: int, num_mod: int, balanced: Union[bool, dict], first_model: Union[list, None], num_feat: int, feat_imp: ndarray, classes_: ndarray) -> Tuple[list, ndarray]:
     """
     Iteratively fits the resulting ensemble.
 
@@ -488,7 +490,7 @@ def fit_ensemble(X, Y, ts, iter_lim, num_mod, balanced, first_model, num_feat, f
     return model_list, feat_imp_list_mean
 
 
-def calc_fscore(X, Y, model_list, classes_sorted_train):
+def calc_fscore(X: ndarray, Y: ndarray, model_list: list, classes_sorted_train: ndarray) -> Tuple[float, ndarray]:
     """
     Calculates the CV test score.
 
@@ -543,7 +545,7 @@ def calc_fscore(X, Y, model_list, classes_sorted_train):
     return fscore_val, fscore_val_val
 
 
-def cv_balance_procedure(X, Y, split_coef, classes_):
+def cv_balance_procedure(X: ndarray, Y: ndarray, split_coef: float, classes_: ndarray) -> dict:
     """
     Chooses the optimal balancing strategy.
 
@@ -628,7 +630,7 @@ def cv_balance_procedure(X, Y, split_coef, classes_):
     return bagging_ensemble_param
 
 
-def calc_share(series_a, series_b, sample_gen1, sample_gen2):
+def calc_share(series_a: ndarray, series_b: ndarray, sample_gen1: object, sample_gen2: object) -> float:
     """
     Calculates performance shares for different bagging share values.
 
@@ -663,7 +665,7 @@ def calc_share(series_a, series_b, sample_gen1, sample_gen2):
     return share
 
 
-def get_best_bc(split_range, f_score_list, sample_gen1, sample_gen2):
+def get_best_bc(split_range: ndarray, f_score_list: list, sample_gen1: object, sample_gen2: object) -> Tuple[list, list]:
     """
     Chooses a list of bagging shares with the best performance.
 
@@ -702,7 +704,7 @@ def get_best_bc(split_range, f_score_list, sample_gen1, sample_gen2):
     return split_arg, ind_bc
 
 
-def cv_split_procedure(X, Y, bagging_ensemble_param):
+def cv_split_procedure(X: ndarray, Y: ndarray, bagging_ensemble_param: dict) -> dict:
     """
     Chooses an optimal list of bagging shares.
 
@@ -750,7 +752,7 @@ def cv_split_procedure(X, Y, bagging_ensemble_param):
     return bagging_ensemble_param
 
 
-def num_feat_procedure(X, Y, bagging_ensemble_param):
+def num_feat_procedure(X: ndarray, Y: ndarray, bagging_ensemble_param: dict) -> Tuple[dict, list]:
     """
     Chooses an optimal number of zeroed features.
 
@@ -800,7 +802,7 @@ def num_feat_procedure(X, Y, bagging_ensemble_param):
     return bagging_ensemble_param, res_model
 
 
-def boosting_of_bagging_procedure(X_train, y_train, num_iter, num_mod):
+def boosting_of_bagging_procedure(X_train: ndarray, y_train: ndarray, num_iter: int, num_mod: int) -> Tuple[list, dict]:
     """
     Fits an AutoBalanceBoost model.
 
@@ -845,7 +847,7 @@ def boosting_of_bagging_procedure(X_train, y_train, num_iter, num_mod):
     return model_list, boosting_params
 
 
-def get_pred(model_list, X_test):
+def get_pred(model_list: list, X_test: ndarray) -> ndarray:
     """
     Predicts class labels.
 
@@ -880,7 +882,7 @@ def get_pred(model_list, X_test):
     return pred_mean_hard
 
 
-def get_pred_proba(model_list, X_test):
+def get_pred_proba(model_list: list, X_test: ndarray) -> ndarray:
     """
     Predicts class probabilities.
 
@@ -918,7 +920,7 @@ def get_pred_proba(model_list, X_test):
     return proba_mean_hard
 
 
-def get_feat_imp(model_list):
+def get_feat_imp(model_list: list) -> ndarray:
     """
     Returns normalized feature importances.
 

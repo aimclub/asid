@@ -6,6 +6,7 @@ from .tools_ilc import choose_and_fit_ilc, calc_leaderboard
 from .check_tools import check_num_type, check_eval_metric_list, check_x_y, check_ilc_fitted
 from datetime import datetime
 from sklearn import preprocessing
+from numpy import ndarray
 
 
 class ImbalancedLearningClassifier(object):
@@ -75,7 +76,7 @@ class ImbalancedLearningClassifier(object):
         self.eval_metric = eval_metric
         self.conf_int_ = None
 
-    def fit(self, X, y):
+    def fit(self, X: ndarray, y: ndarray):
         """
         Fits ImbalancedLearningClassifier model.
 
@@ -106,7 +107,7 @@ class ImbalancedLearningClassifier(object):
         print("Fitting time: ", datetime.now() - t0)
         return self
 
-    def predict(self, X):
+    def predict(self, X: ndarray) -> ndarray:
         """
         Predicts class label.
 
@@ -130,7 +131,7 @@ class ImbalancedLearningClassifier(object):
         pred = self.encoder_.inverse_transform(pred)
         return pred
 
-    def predict_proba(self, X):
+    def predict_proba(self, X) -> ndarray:
         """
         Predicts class label probability.
 
@@ -153,7 +154,7 @@ class ImbalancedLearningClassifier(object):
             pred_proba = self.classifer_.predict_proba(X_scaled)
         return pred_proba
 
-    def leaderboard(self):
+    def leaderboard(self) -> dict:
         """
         Calculates the leaderboard statistics.
 

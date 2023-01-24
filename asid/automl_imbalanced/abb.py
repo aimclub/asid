@@ -4,6 +4,7 @@ This module contains AutoBalanceBoost class.
 
 from .tools_abb import boosting_of_bagging_procedure, get_pred, get_pred_proba, get_feat_imp
 from .check_tools import check_num_type, check_x_y, check_abb_fitted
+from numpy import ndarray
 
 
 class AutoBalanceBoost(object):
@@ -36,7 +37,7 @@ class AutoBalanceBoost(object):
         self.ensemble_ = None
         self.param_ = {}
 
-    def fit(self, X, y):
+    def fit(self, X: ndarray, y: ndarray):
         """
         Fits AutoBalanceBoost model.
 
@@ -57,7 +58,7 @@ class AutoBalanceBoost(object):
         self.ensemble_, self.param_ = boosting_of_bagging_procedure(X, y, self.num_iter, self.num_est)
         return self
 
-    def predict(self, X):
+    def predict(self, X: ndarray) -> ndarray:
         """
         Predicts class label.
 
@@ -76,7 +77,7 @@ class AutoBalanceBoost(object):
         pred = get_pred(self.ensemble_, X)
         return pred
 
-    def predict_proba(self, X):
+    def predict_proba(self, X: ndarray) -> ndarray:
         """
         Predicts class probability.
 
@@ -95,7 +96,7 @@ class AutoBalanceBoost(object):
         pred_proba = get_pred_proba(self.ensemble_, X)
         return pred_proba
 
-    def feature_importances(self):
+    def feature_importances(self) -> ndarray:
         """
         Calculates normalized feature importances.
 
