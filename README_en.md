@@ -85,8 +85,11 @@ Examples of usage could be obtained from [examples](https://github.com/ekplesovs
 # Citation
 Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
 # Supported by
-The study is supported by Research Center [**Strong Artificial Intelligence in Industry**](<https://sai.itmo.ru/>)
+The study is supported by the Research Center [**Strong Artificial Intelligence in Industry**](<https://sai.itmo.ru/>)
 of [**ITMO University**](https://itmo.ru) (Saint Petersburg, Russia)
+
+<img src='https://gitlab.actcognitive.org/itmo-sai-code/organ/-/raw/main/docs/AIM-Strong_Sign_Norm-01_Colors.svg' width='200'>
+
 # Contacts
 [Ekaterina Plesovskaya](https://scholar.google.com/citations?user=PdydDtQAAAAJ&hl=ru), ekplesovskaya@gmail.com
 

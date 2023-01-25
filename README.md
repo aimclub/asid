@@ -86,7 +86,10 @@ score = f1_score(y_test, pred, average="macro")
 # Цитирование
 Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
 # Поддержка
-Библиотека разработана при поддержке исследовательского центра [**"Сильный ИИ в промышленности"**](<https://sai.itmo.ru/>) [**Университета ИТМО**](https://itmo.ru) (г. Санкт-Петербург, Россия)
+Библиотека разработана при поддержке исследовательского центра [**"Сильный искусственный интеллект в промышленности"**](<https://sai.itmo.ru/>) [**Университета ИТМО**](https://itmo.ru) (г. Санкт-Петербург, Россия)
+
+<img src='https://gitlab.actcognitive.org/itmo-sai-code/organ/-/raw/main/docs/AIM-Strong_Sign_Norm-01_Colors.svg' width='200'>
+
 # Контакты
 [Екатерина Плесовская](https://scholar.google.com/citations?user=PdydDtQAAAAJ&hl=ru), ekplesovskaya@gmail.com
 
