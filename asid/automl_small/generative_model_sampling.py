@@ -5,9 +5,10 @@ This module contains functions for sampling from fitted generative models.
 import numpy as np
 import torch
 import os
+from numpy import ndarray
 
 
-def simple_sample_sklearn_procedure(model, sample_len, seed_list, scaling):
+def simple_sample_sklearn_procedure(model: object, sample_len: int, seed_list: list, scaling: object) -> list:
     """
     Sampling synthetic datasets from sklearn KDE.
 
@@ -39,7 +40,7 @@ def simple_sample_sklearn_procedure(model, sample_len, seed_list, scaling):
     return sampled_data_list
 
 
-def sample_stats(kde, size, seed):
+def sample_stats(kde: object, size: int, seed: int) -> ndarray:
     """
     Base sampling procedure from Statsmodel's KDE.
 
@@ -69,7 +70,7 @@ def sample_stats(kde, size, seed):
     return sampled_data
 
 
-def simple_sample_stats_procedure(model, sample_len, seed_list, scaling):
+def simple_sample_stats_procedure(model: object, sample_len: int, seed_list: list, scaling: object) -> list:
     """
     Sampling synthetic datasets from Statsmodel's KDE.
 
@@ -101,7 +102,7 @@ def simple_sample_stats_procedure(model, sample_len, seed_list, scaling):
     return sampled_data_list
 
 
-def gmm_sample_procedure(model, sample_len, scaling, num_samples):
+def gmm_sample_procedure(model: object, sample_len: int, scaling: object, num_samples: int) -> list:
     """
     Sampling from GMM model.
 
@@ -134,7 +135,7 @@ def gmm_sample_procedure(model, sample_len, scaling, num_samples):
     return sampled_data_list
 
 
-def sample_sdv_procedure(model, sample_len, seed_list, scaling):
+def sample_sdv_procedure(model: object, sample_len: int, seed_list: list, scaling: object) -> list:
     """
     Sampling from SDV library model.
 
@@ -171,7 +172,7 @@ def sample_sdv_procedure(model, sample_len, seed_list, scaling):
     return sampled_data_list
 
 
-def get_sampled_data(model, sample_len, seed_list, method, scaling):
+def get_sampled_data(model: object, sample_len: int, seed_list: list, method: str, scaling: object) -> list:
     """
     Calls a sampling function.
 

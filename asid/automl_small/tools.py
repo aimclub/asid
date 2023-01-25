@@ -11,9 +11,11 @@ from sklearn.model_selection import ShuffleSplit
 import random
 import math
 from datetime import datetime
+from numpy import ndarray
+from typing import Union, Tuple, Any
 
 
-def choose_and_fit_model(data, similarity_metric, scaler, data_scaled, num_syn_samples, hyp_time):
+def choose_and_fit_model(data: ndarray, similarity_metric: Union[str, None], scaler: object, data_scaled: ndarray, num_syn_samples: int, hyp_time: int) -> Tuple[object, str, float, dict]:
     """
     Chooses an optimal generative model and fits GenerativeModel instance.
 
@@ -106,13 +108,13 @@ def choose_and_fit_model(data, similarity_metric, scaler, data_scaled, num_syn_s
     return gen_model, best_alg_label, best_score, log_dict
 
 
-def check_gen_model_list(metric):
+def check_gen_model_list(metric: str):
     if metric not in ["optimize", "sklearn_kde", "stats_kde_cv_ml", "stats_kde_cv_ls", "gmm", "bayesian_gmm", "ctgan",
                       "copula", "copulagan", "tvae"]:
         raise ValueError("Generative model " + str(metric) + " is not implemented.")
 
 
-def check_sim_metric_list(metric, mtype):
+def check_sim_metric_list(metric: str, mtype: str):
     if mtype == "optimize":
         if metric not in ["zu", "c2st_acc"]:
             raise ValueError("Metric " + str(metric) + " is not implemented.")
@@ -121,7 +123,7 @@ def check_sim_metric_list(metric, mtype):
             raise ValueError("Metric " + str(metric) + " is not implemented.")
 
 
-def check_num_type(x, num_type, num_cl):
+def check_num_type(x: Any, num_type: type, num_cl: str):
     if isinstance(x, num_type):
         if num_cl == "positive" and x <= 0:
             raise ValueError("The parameter should be " + num_cl + ".")
@@ -133,7 +135,7 @@ def check_num_type(x, num_type, num_cl):
         raise TypeError("The parameter should be of " + str(num_type))
 
 
-def check_x_y(X, y=None):
+def check_x_y(X: ndarray, y: Union[ndarray, None] = None):
     if not isinstance(X, np.ndarray):
         raise TypeError("X should be an array-like type.")
     if X.size == 0:

@@ -11,6 +11,8 @@ from .dataset_similarity_metrics import calc_metrics
 import random
 import numpy as np
 from datetime import datetime
+from numpy import ndarray
+from typing import Union
 
 
 class GenerativeModel(object):
@@ -79,7 +81,7 @@ class GenerativeModel(object):
         self.scaler_ = None
         self.info_ = {}
 
-    def fit(self, data):
+    def fit(self, data: ndarray):
         """
         Fits GenerativeModel instance.
 
@@ -118,7 +120,7 @@ class GenerativeModel(object):
             print("Training time: ", datetime.now() - t0)
         return self
 
-    def sample(self, sample_size, random_state=42):
+    def sample(self, sample_size: int, random_state=42) -> ndarray:
         """
         Generates synthetic sample from GenerativeModel.
 
@@ -143,7 +145,8 @@ class GenerativeModel(object):
         print("Synthetic sample is generated. The shape of sampled dataset: ", sampled_data.shape)
         return sampled_data
 
-    def score(self, train_data, similarity_metric="zu", test_data=None):
+    def score(self, train_data: ndarray, similarity_metric: str = "zu", test_data: Union[None, ndarray] = None) -> \
+    Union[float, dict]:
         """
         Evaluates the similarity of GenerativeModel samples and train data with the specified similarity metric.
 
@@ -188,7 +191,7 @@ class GenerativeModel(object):
         if test_data is not None:
             check_x_y(test_data)
         else:
-            if similarity_metric=="zu":
+            if similarity_metric == "zu":
                 raise ValueError("Test data is required for zu calculation.")
         check_sim_metric_list(similarity_metric, "score")
         random.seed(42)

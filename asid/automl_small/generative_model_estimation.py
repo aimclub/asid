@@ -8,19 +8,18 @@ from sklearn.mixture import GaussianMixture, BayesianGaussianMixture
 from sdv.tabular import GaussianCopula, CTGAN, CopulaGAN, TVAE
 import torch
 from sklearn.model_selection import KFold
-import math
 from sdv.evaluation import evaluate
 from statsmodels.nonparametric.kernel_density import KDEMultivariate
 from sklearn.neighbors import KernelDensity
-from sklearn.model_selection import GridSearchCV
 from hyperopt import fmin, tpe, space_eval
 from hyperopt import hp
 import warnings
+from numpy import ndarray
 
 warnings.filterwarnings("ignore")
 
 
-def calc_gmm_acc(params, data):
+def calc_gmm_acc(params: dict, data: ndarray) -> float:
     """
     Estimates the performance of GaussianMixture model with hyper-parameters values.
 
@@ -49,7 +48,7 @@ def calc_gmm_acc(params, data):
     return score
 
 
-def get_gmm_model(data, hyp_time):
+def get_gmm_model(data: ndarray, hyp_time: int) -> object:
     """
     Estimates GMM model.
 
@@ -81,7 +80,7 @@ def get_gmm_model(data, hyp_time):
     return gmm
 
 
-def calc_bayesian_gmm_acc(params, data):
+def calc_bayesian_gmm_acc(params: dict, data: ndarray) -> float:
     """
     Estimates the performance of BayesianGaussianMixture model with hyper-parameters values.
 
@@ -113,7 +112,7 @@ def calc_bayesian_gmm_acc(params, data):
     return score
 
 
-def get_bayesian_gmm_model(data, hyp_time):
+def get_bayesian_gmm_model(data: ndarray, hyp_time: int) -> object:
     """
     Estimates Bayesian GMM model.
 
@@ -149,7 +148,7 @@ def get_bayesian_gmm_model(data, hyp_time):
     return gmm
 
 
-def get_copula_model(data):
+def get_copula_model(data: ndarray) -> object:
     """
     Estimates Copula model.
 
@@ -170,7 +169,7 @@ def get_copula_model(data):
     return model
 
 
-def calc_sdv_acc(params, data, alg):
+def calc_sdv_acc(params: dict, data: ndarray, alg: str) -> float:
     """
     Estimates the performance of SDV model with hyper-parameters values.
 
@@ -213,7 +212,7 @@ def calc_sdv_acc(params, data, alg):
     return score
 
 
-def get_ctgan_model(data, hyp_time):
+def get_ctgan_model(data: ndarray, hyp_time: int) -> object:
     """
     Estimates CTGAN model.
 
@@ -245,7 +244,7 @@ def get_ctgan_model(data, hyp_time):
     return model
 
 
-def get_copulagan_model(data, hyp_time):
+def get_copulagan_model(data: ndarray, hyp_time: int) -> object:
     """
     Estimates CopulaGAN model.
 
@@ -277,7 +276,7 @@ def get_copulagan_model(data, hyp_time):
     return model
 
 
-def get_tvae_model(data, hyp_time):
+def get_tvae_model(data: ndarray, hyp_time: int) -> object:
     """
     Estimates TVAE model
 
@@ -309,7 +308,7 @@ def get_tvae_model(data, hyp_time):
     return model
 
 
-def calc_kde_acc(params, data):
+def calc_kde_acc(params: dict, data: ndarray) -> float:
     """
     Estimates the performance of KDE (sklearn implementation) with hyper-parameters values.
 
@@ -337,7 +336,7 @@ def calc_kde_acc(params, data):
     return score
 
 
-def sklearn_kde(data, hyp_time):
+def sklearn_kde(data: ndarray, hyp_time: int) -> object:
     """
     Estimates KDE (sklearn implementation).
 
@@ -367,7 +366,7 @@ def sklearn_kde(data, hyp_time):
     return kde
 
 
-def stats_kde(data, method):
+def stats_kde(data: ndarray, method: str) -> object:
     """
     Estimates KDE (Statsmodels).
 
@@ -389,7 +388,7 @@ def stats_kde(data, method):
     return kde
 
 
-def fit_model(gen_algorithm, data, hyp_time):
+def fit_model(gen_algorithm: str, data: ndarray, hyp_time: int) -> object:
     """
     Fits generative model.
 

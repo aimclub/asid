@@ -12,9 +12,11 @@ from sklearn.model_selection import LeaveOneOut
 from sklearn.neighbors import KNeighborsClassifier
 import numpy as np
 import pandas as pd
+from numpy import ndarray
+from typing import Union, Tuple
 
 
-def ks_test(df1, df2):
+def ks_test(df1: ndarray, df2: ndarray) -> Tuple[list, list]:
     """
     Kolmogorov-Smirnov test applied to each marginal distribution.
 
@@ -43,7 +45,7 @@ def ks_test(df1, df2):
     return p_val_list, stat_list
 
 
-def c2st_roc_auc(df1, df2):
+def c2st_roc_auc(df1: ndarray, df2: ndarray) -> float:
     """
     Classifier Two-Sample Test: ROC AUC for gradient boosting classifier.
 
@@ -86,7 +88,7 @@ def c2st_roc_auc(df1, df2):
     return roc_auc
 
 
-def c2st_accuracy(data_orig, sampled):
+def c2st_accuracy(data_orig: ndarray, sampled: ndarray) -> Tuple[float, float]:
     """
     Classifier Two-Sample Test: LOO Accuracy for 1-NN classifier.
 
@@ -135,7 +137,7 @@ def c2st_accuracy(data_orig, sampled):
     return acc_r, acc_g
 
 
-def ks_permutation(stat, df1, df2):
+def ks_permutation(stat: list, df1: ndarray, df2: ndarray) -> float:
     """
     Kolmogorov-Smirnov permutation test applied to each maginal distribution.
 
@@ -172,7 +174,7 @@ def ks_permutation(stat, df1, df2):
     return p_val
 
 
-def ks_permutation_var(stat, series1, series2):
+def ks_permutation_var(stat: float, series1: ndarray, series2: ndarray) -> float:
     """
     Kolmogorov-Smirnov permutation test for marginal distribution.
 
@@ -211,7 +213,7 @@ def ks_permutation_var(stat, series1, series2):
     return p_val
 
 
-def zu_overfitting_statistic(df1, df2, df3):
+def zu_overfitting_statistic(df1: ndarray, df2: ndarray, df3: ndarray) -> float:
     """
     Zu overfitting statistic calculation.
 
@@ -248,7 +250,8 @@ def zu_overfitting_statistic(df1, df2, df3):
     return zu_stat
 
 
-def calc_metrics(data, sampled_data, metric, test_data=None):
+def calc_metrics(data: ndarray, sampled_data: ndarray, metric: str, test_data: Union[None, ndarray] = None) -> Union[
+    float, list]:
     """
     Calculates dataset similarity metrics.
 
