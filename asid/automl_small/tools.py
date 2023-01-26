@@ -15,7 +15,8 @@ from numpy import ndarray
 from typing import Union, Tuple, Any
 
 
-def choose_and_fit_model(data: ndarray, similarity_metric: Union[str, None], scaler: object, data_scaled: ndarray, num_syn_samples: int, hyp_time: int) -> Tuple[object, str, float, dict]:
+def choose_and_fit_model(data: ndarray, similarity_metric: Union[str, None], scaler: object, data_scaled: ndarray,
+                         num_syn_samples: int, hyp_time: int) -> Tuple[object, str, float, dict]:
     """
     Chooses an optimal generative model and fits GenerativeModel instance.
 

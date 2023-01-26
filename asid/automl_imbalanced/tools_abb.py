@@ -10,7 +10,8 @@ from typing import Union, Tuple
 from numpy import ndarray
 
 
-def get_newds(pred_proba: ndarray, ts: list, X: ndarray, Y: ndarray, num_mod: int, balanced: Union[bool, dict], num_feat: int, feat_gen: object, feat_imp: ndarray, ts_gen: object) -> Tuple[list, list]:
+def get_newds(pred_proba: ndarray, ts: list, x: ndarray, y: ndarray, num_mod: int, balanced: Union[bool, dict],
+              num_feat: int, feat_gen: object, feat_imp: ndarray, ts_gen: object) -> Tuple[list, list]:
     """
     Samples train datasets for bagging during the boosting phase.
 
@@ -22,10 +23,10 @@ def get_newds(pred_proba: ndarray, ts: list, X: ndarray, Y: ndarray, num_mod: in
     ts : list
         A range of train sample shares for base learner estimation.
 
-    X : array-like of shape (n_samples, n_features)
+    x : array-like of shape (n_samples, n_features)
         Training sample.
 
-    Y : array-like
+    y : array-like
         The target values.
 
     num_mod : int
@@ -70,7 +71,7 @@ def get_newds(pred_proba: ndarray, ts: list, X: ndarray, Y: ndarray, num_mod: in
             ts_opt = ts
         sub_train_dataset = {}
         if balanced:
-            class_unique, class_count = np.unique(Y, return_counts=True)
+            class_unique, class_count = np.unique(y, return_counts=True)
             pred_proba_res_norm = pred_proba_res / np.sum(pred_proba_res)
             pred_proba_res_balanced = pred_proba_res_norm.copy()
             if isinstance(balanced, dict):
@@ -79,22 +80,22 @@ def get_newds(pred_proba: ndarray, ts: list, X: ndarray, Y: ndarray, num_mod: in
                 balance_share = 0
                 for class_v in balanced["Not_balanced"]:
                     class_arg = np.where(class_unique == class_v)[0]
-                    balance_share += class_count[class_arg] / Y.shape[0]
+                    balance_share += class_count[class_arg] / y.shape[0]
                 target_maj_share = 1 / (1 + balanced["balance"] * (num_classes_balanced - 1) + balance_share)
                 target_min_share = (1 - target_maj_share - balance_share) / (num_classes_balanced - 1)
                 for n, class_val in enumerate(class_unique):
                     if class_val in balanced["Not_balanced"]:
-                        target_share = class_count[n] / Y.shape[0]
+                        target_share = class_count[n] / y.shape[0]
                     else:
                         if class_val == maj_class:
                             target_share = target_maj_share
                         else:
                             target_share = target_min_share
-                    sum_proba_class = np.sum(pred_proba_res_norm[Y == class_val])
+                    sum_proba_class = np.sum(pred_proba_res_norm[y == class_val])
                     diff_sum = sum_proba_class - target_share
-                    pred_proba_res_balanced[Y == class_val] = pred_proba_res_balanced[Y == class_val] * (
+                    pred_proba_res_balanced[y == class_val] = pred_proba_res_balanced[y == class_val] * (
                             1 - diff_sum / sum_proba_class)
-                new_train_ind = np.random.choice(list(range(X.shape[0])), int(X.shape[0] * ts_opt), replace=True,
+                new_train_ind = np.random.choice(list(range(x.shape[0])), int(x.shape[0] * ts_opt), replace=True,
                                                  p=pred_proba_res_balanced)
             else:
                 maj_class = class_unique[np.argmax(class_count)]
@@ -104,33 +105,34 @@ def get_newds(pred_proba: ndarray, ts: list, X: ndarray, Y: ndarray, num_mod: in
                         target_share = maj_share
                     else:
                         target_share = (1 - maj_share) / (class_unique.shape[0] - 1)
-                    sum_proba_class = np.sum(pred_proba_res_norm[Y == class_val])
+                    sum_proba_class = np.sum(pred_proba_res_norm[y == class_val])
                     diff_sum = sum_proba_class - target_share
-                    pred_proba_res_balanced[Y == class_val] = pred_proba_res_balanced[Y == class_val] * (
+                    pred_proba_res_balanced[y == class_val] = pred_proba_res_balanced[y == class_val] * (
                             1 - diff_sum / sum_proba_class)
-                new_train_ind = np.random.choice(list(range(X.shape[0])), int(X.shape[0] * ts_opt), replace=True,
+                new_train_ind = np.random.choice(list(range(x.shape[0])), int(x.shape[0] * ts_opt), replace=True,
                                                  p=pred_proba_res_balanced)
         else:
             pred_proba_res_norm = pred_proba_res / np.sum(pred_proba_res)
-            new_train_ind = np.random.choice(list(range(X.shape[0])), int(X.shape[0] * ts_opt), replace=True,
+            new_train_ind = np.random.choice(list(range(x.shape[0])), int(x.shape[0] * ts_opt), replace=True,
                                              p=pred_proba_res_norm)
-        sub_train_dataset["X_train"] = X[new_train_ind]
-        if num_feat != X.shape[1]:
-            sub_train_dataset["X_train"] = choose_feat(sub_train_dataset["X_train"], num_feat, feat_gen, feat_imp)
-        sub_train_dataset["Y_train"] = Y[new_train_ind]
+        sub_train_dataset["x_train"] = x[new_train_ind]
+        if num_feat != x.shape[1]:
+            sub_train_dataset["x_train"] = choose_feat(sub_train_dataset["x_train"], num_feat, feat_gen, feat_imp)
+        sub_train_dataset["Y_train"] = y[new_train_ind]
         train_datasets.append(sub_train_dataset)
         class_prop.append(
             np.unique(sub_train_dataset["Y_train"], return_counts=True)[1] / sub_train_dataset["Y_train"].shape[0])
     return train_datasets, class_prop
 
 
-def other_ensemble_procedure(X: ndarray, train_datasets: list, pred_proba_list: list, model_list: list, classes_sorted_train: ndarray) -> Tuple[list, list]:
+def other_ensemble_procedure(x: ndarray, train_datasets: list, pred_proba_list: list, model_list: list,
+                             classes_sorted_train: ndarray) -> Tuple[list, list]:
     """
     Fits bagging during the boosting phase.
 
     Parameters
     ----------
-    X : array-like of shape (n_samples, n_features)
+    x : array-like of shape (n_samples, n_features)
         Training sample.
 
     train_datasets : list
@@ -157,8 +159,8 @@ def other_ensemble_procedure(X: ndarray, train_datasets: list, pred_proba_list: 
     sub_pred_proba_list = []
     for element in train_datasets:
         clf = tree.DecisionTreeClassifier(random_state=42)
-        clf.fit(element["X_train"], element["Y_train"])
-        pred_proba = clf.predict_proba(X)
+        clf.fit(element["x_train"], element["Y_train"])
+        pred_proba = clf.predict_proba(x)
         if pred_proba.shape[1] < len(classes_sorted_train):
             classes_sorted_model = np.argsort(clf.classes_)
             classes_dict_model = dict(zip(clf.classes_, classes_sorted_model))
@@ -180,16 +182,17 @@ def other_ensemble_procedure(X: ndarray, train_datasets: list, pred_proba_list: 
     return pred_proba_list, model_list
 
 
-def get_bootstrap_balanced_samples(X: ndarray, Y: ndarray, balanced: Union[bool, dict], ts: list, sample_gen: object) -> Tuple[ndarray, ndarray]:
+def get_bootstrap_balanced_samples(x: ndarray, y: ndarray, balanced: Union[bool, dict], ts: list,
+                                   sample_gen: object) -> Tuple[ndarray, ndarray]:
     """
     Balancing procedure at the first iteration.
 
     Parameters
     ----------
-    X : array-like of shape (n_samples, n_features)
+    x : array-like of shape (n_samples, n_features)
         Training sample.
 
-    Y : array-like
+    y : array-like
         The target values.
 
     ts : list
@@ -203,58 +206,58 @@ def get_bootstrap_balanced_samples(X: ndarray, Y: ndarray, balanced: Union[bool,
 
     Returns
     -------
-    X_sampled : array-like of shape (n_samples, n_features)
+    x_sampled : array-like of shape (n_samples, n_features)
         Generated training sample.
 
-    Y_sampled : array-like
+    y_sampled : array-like
         Generated target values.
     """
-    X_sampled = []
-    Y_sampled = []
-    class_unique, class_count = np.unique(Y, return_counts=True)
+    x_sampled = []
+    y_sampled = []
+    class_unique, class_count = np.unique(y, return_counts=True)
     maj_class = class_unique[np.argmax(class_count)]
     if isinstance(balanced, dict):
-        y_not_balanced = Y[np.isin(Y, balanced["Not_balanced"])].shape[0]
+        y_not_balanced = y[np.isin(y, balanced["Not_balanced"])].shape[0]
         maj_share = 1 / (1 + balanced["balance"] * (class_unique.shape[0] - 1 - balanced["Not_balanced"].shape[0]))
         min_share = (1 - maj_share) / (class_unique.shape[0] - 1 - balanced["Not_balanced"].shape[0])
         for i, class_val in enumerate(class_unique):
             if class_val in balanced["Not_balanced"]:
-                indices = sample_gen.integers(0, X[Y == class_val].shape[0], int(X[Y == class_val].shape[0] * ts))
+                indices = sample_gen.integers(0, x[y == class_val].shape[0], int(x[y == class_val].shape[0] * ts))
             else:
                 if class_val == maj_class:
-                    indices = sample_gen.integers(0, X[Y == class_val].shape[0],
-                                                  int((X.shape[0] - y_not_balanced) * maj_share * ts))
+                    indices = sample_gen.integers(0, x[y == class_val].shape[0],
+                                                  int((x.shape[0] - y_not_balanced) * maj_share * ts))
                 else:
-                    indices = sample_gen.integers(0, X[Y == class_val].shape[0],
-                                                  int((X.shape[0] - y_not_balanced) * min_share * ts))
-            X_sampled.extend(X[Y == class_val][indices])
-            Y_sampled.extend([class_val for element in indices])
-    elif balanced == False:
-        indices = sample_gen.integers(0, len(X), int(len(X) * ts))
-        X_sampled.extend(X[indices])
-        Y_sampled.extend(Y[indices])
+                    indices = sample_gen.integers(0, x[y == class_val].shape[0],
+                                                  int((x.shape[0] - y_not_balanced) * min_share * ts))
+            x_sampled.extend(x[y == class_val][indices])
+            y_sampled.extend([class_val for element in indices])
+    elif balanced is False:
+        indices = sample_gen.integers(0, len(x), int(len(x) * ts))
+        x_sampled.extend(x[indices])
+        y_sampled.extend(y[indices])
     else:
         maj_share = 1 / (1 + balanced * (class_unique.shape[0] - 1))
         for class_val in class_unique:
             if class_val == maj_class:
-                indices = sample_gen.integers(0, len(X[Y == class_val]), int(len(X) * maj_share * ts))
+                indices = sample_gen.integers(0, len(x[y == class_val]), int(len(x) * maj_share * ts))
             else:
-                indices = sample_gen.integers(0, len(X[Y == class_val]),
-                                              int(len(X) * (1 - maj_share) / (class_unique.shape[0] - 1) * ts))
-            X_sampled.extend(X[Y == class_val][indices])
-            Y_sampled.extend([class_val for element in indices])
-    X_sampled = np.vstack(X_sampled)
-    Y_sampled = np.hstack(Y_sampled)
-    return X_sampled, Y_sampled
+                indices = sample_gen.integers(0, len(x[y == class_val]),
+                                              int(len(x) * (1 - maj_share) / (class_unique.shape[0] - 1) * ts))
+            x_sampled.extend(x[y == class_val][indices])
+            y_sampled.extend([class_val for element in indices])
+    x_sampled = np.vstack(x_sampled)
+    y_sampled = np.hstack(y_sampled)
+    return x_sampled, y_sampled
 
 
-def choose_feat(X: ndarray, n: int, feat_gen: object, feat_imp: ndarray) -> ndarray:
+def choose_feat(x: ndarray, n: int, feat_gen: object, feat_imp: ndarray) -> ndarray:
     """
     Samples the zeroed features.
 
     Parameters
     ----------
-    X : array-like of shape (n_samples, n_features)
+    x : array-like of shape (n_samples, n_features)
         Training sample.
 
     n : int
@@ -268,27 +271,28 @@ def choose_feat(X: ndarray, n: int, feat_gen: object, feat_imp: ndarray) -> ndar
 
     Returns
     -------
-    X : array-like of shape (n_samples, n_features)
+    x : array-like of shape (n_samples, n_features)
         Training sample with zeroed features.
     """
     feat_imp[feat_imp == 0] = 1e-7
     feat_imp = np.array(feat_imp) / sum(feat_imp)
-    choose_feat = feat_gen.choice(list(range(X.shape[1])), int(X.shape[1] - n), replace=False, p=feat_imp)
-    X[:, choose_feat] = 0
-    return X
+    choose_feat = feat_gen.choice(list(range(x.shape[1])), int(x.shape[1] - n), replace=False, p=feat_imp)
+    x[:, choose_feat] = 0
+    return x
 
 
-def first_ensemble_procedure(X: ndarray, Y: ndarray, ts: list, num_mod: int, balanced: Union[bool, dict], num_feat: int, feat_gen: object, res_feat_imp: ndarray, classes_sorted_train: ndarray,
+def first_ensemble_procedure(x: ndarray, y: ndarray, ts: list, num_mod: int, balanced: Union[bool, dict], num_feat: int,
+                             feat_gen: object, res_feat_imp: ndarray, classes_sorted_train: ndarray,
                              ts_gen: object) -> Tuple[list, list, ndarray]:
     """
     Fits bagging at the first iteration.
 
     Parameters
     ----------
-    X : array-like of shape (n_samples, n_features)
+    x : array-like of shape (n_samples, n_features)
         Training sample.
 
-    Y : array-like
+    y : array-like
         The target values.
 
     ts : list
@@ -340,12 +344,12 @@ def first_ensemble_procedure(X: ndarray, Y: ndarray, ts: list, num_mod: int, bal
                 ts_opt = ts_gen.choice(ts, size=None, replace=False)
         else:
             ts_opt = ts
-        X_sampled, Y_sampled = get_bootstrap_balanced_samples(X, Y, balanced, ts_opt, sample_gen)
-        if num_feat != X.shape[1]:
-            X_sampled = choose_feat(X_sampled, num_feat, feat_gen, res_feat_imp)
+        x_sampled, y_sampled = get_bootstrap_balanced_samples(x, y, balanced, ts_opt, sample_gen)
+        if num_feat != x.shape[1]:
+            x_sampled = choose_feat(x_sampled, num_feat, feat_gen, res_feat_imp)
         clf = tree.DecisionTreeClassifier(random_state=42)
-        clf.fit(X_sampled, Y_sampled)
-        pred_proba = clf.predict_proba(X)
+        clf.fit(x_sampled, y_sampled)
+        pred_proba = clf.predict_proba(x)
         if pred_proba.shape[1] < len(classes_sorted_train):
             classes_sorted_model = np.argsort(clf.classes_)
             classes_dict_model = dict(zip(clf.classes_, classes_sorted_model))
@@ -369,13 +373,14 @@ def first_ensemble_procedure(X: ndarray, Y: ndarray, ts: list, num_mod: int, bal
     return pred_proba_list, model_list, feat_imp_list_mean
 
 
-def first_ensemble_procedure_with_cv_model(X: ndarray, first_model: list, classes_sorted_train: ndarray) -> Union[list, list]:
+def first_ensemble_procedure_with_cv_model(x: ndarray, first_model: list, classes_sorted_train: ndarray) -> Union[
+        list, list]:
     """
     Calculates the prediction probabilities of the CV bagging.
 
     Parameters
     ----------
-    X : array-like of shape (n_samples, n_features)
+    x : array-like of shape (n_samples, n_features)
         Training sample.
 
     first_model : list
@@ -398,7 +403,7 @@ def first_ensemble_procedure_with_cv_model(X: ndarray, first_model: list, classe
         for iter in list(range(len(first_model_list))):
             sub_pred_proba_list = []
             for clf in first_model_list[iter]:
-                pred_proba = clf.predict_proba(X)
+                pred_proba = clf.predict_proba(x)
                 if pred_proba.shape[1] < len(classes_sorted_train):
                     classes_sorted_model = np.argsort(clf.classes_)
                     classes_dict_model = dict(zip(clf.classes_, classes_sorted_model))
@@ -422,16 +427,18 @@ def first_ensemble_procedure_with_cv_model(X: ndarray, first_model: list, classe
     return res_proba_mean, model_list
 
 
-def fit_ensemble(X: ndarray, Y: ndarray, ts: Union[float, list], iter_lim: int, num_mod: int, balanced: Union[bool, dict], first_model: Union[list, None], num_feat: int, feat_imp: ndarray, classes_: ndarray) -> Tuple[list, ndarray]:
+def fit_ensemble(x: ndarray, y: ndarray, ts: Union[float, list], iter_lim: int, num_mod: int,
+                 balanced: Union[bool, dict], first_model: Union[list, None], num_feat: int, feat_imp: ndarray,
+                 classes_: ndarray) -> Tuple[list, ndarray]:
     """
     Iteratively fits the resulting ensemble.
 
     Parameters
     ----------
-    X : array-like of shape (n_samples, n_features)
+    x : array-like of shape (n_samples, n_features)
         Training sample.
 
-    Y : array-like
+    y : array-like
         The target values.
 
     ts : float or list
@@ -469,37 +476,37 @@ def fit_ensemble(X: ndarray, Y: ndarray, ts: Union[float, list], iter_lim: int, 
     feat_gen = np.random.default_rng(seed=42)
     ts_gen = np.random.default_rng(seed=42)
     if not first_model:
-        pred_proba_list, model_list, feat_imp_list_mean = first_ensemble_procedure(X, Y, ts, num_mod, balanced,
+        pred_proba_list, model_list, feat_imp_list_mean = first_ensemble_procedure(x, y, ts, num_mod, balanced,
                                                                                    num_feat, feat_gen, feat_imp,
                                                                                    classes_, ts_gen)
     else:
-        pred_proba_list, model_list = first_ensemble_procedure_with_cv_model(X, first_model, classes_)
+        pred_proba_list, model_list = first_ensemble_procedure_with_cv_model(x, first_model, classes_)
         feat_imp_list_mean = feat_imp
     pred_proba_true_class = np.array(
-        list(map(lambda x, y: pred_proba_list[0][y, np.where(classes_ == x)[0][0]], Y, list(range(Y.shape[0])))))
+        list(map(lambda x, y: pred_proba_list[0][y, np.where(classes_ == x)[0][0]], y, list(range(y.shape[0])))))
     res_class_prop = []
     for i in range(iter_lim - 1):
-        train_datasets, class_prop = get_newds(pred_proba_true_class, ts, X, Y, num_mod, balanced, num_feat, feat_gen,
+        train_datasets, class_prop = get_newds(pred_proba_true_class, ts, x, y, num_mod, balanced, num_feat, feat_gen,
                                                feat_imp, ts_gen)
-        pred_proba_list, model_list = other_ensemble_procedure(X, train_datasets, pred_proba_list, model_list,
+        pred_proba_list, model_list = other_ensemble_procedure(x, train_datasets, pred_proba_list, model_list,
                                                                classes_)
         pred_proba_mean = np.mean(pred_proba_list, axis=0)
         pred_proba_true_class = np.array(
-            list(map(lambda x, y: pred_proba_mean[y, np.where(classes_ == x)[0][0]], Y, list(range(Y.shape[0])))))
+            list(map(lambda x, y: pred_proba_mean[y, np.where(classes_ == x)[0][0]], y, list(range(y.shape[0])))))
         res_class_prop.append(class_prop)
     return model_list, feat_imp_list_mean
 
 
-def calc_fscore(X: ndarray, Y: ndarray, model_list: list, classes_sorted_train: ndarray) -> Tuple[float, ndarray]:
+def calc_fscore(x: ndarray, y: ndarray, model_list: list, classes_sorted_train: ndarray) -> Tuple[float, ndarray]:
     """
     Calculates the CV test score.
 
     Parameters
     ----------
-    X : array-like of shape (n_samples, n_features)
+    x : array-like of shape (n_samples, n_features)
         Training sample.
 
-    Y : array-like
+    y : array-like
         The target values.
 
     model_list : list
@@ -520,7 +527,7 @@ def calc_fscore(X: ndarray, Y: ndarray, model_list: list, classes_sorted_train: 
     for i in range(len(model_list)):
         sub_pred_proba_list = []
         for j in range(len(model_list[i])):
-            pred_proba = model_list[i][j].predict_proba(X)
+            pred_proba = model_list[i][j].predict_proba(x)
             if pred_proba.shape[1] < len(classes_sorted_train):
                 classes_sorted_model = np.argsort(model_list[i][j].classes_)
                 classes_dict_model = dict(zip(model_list[i][j].classes_, classes_sorted_model))
@@ -540,21 +547,21 @@ def calc_fscore(X: ndarray, Y: ndarray, model_list: list, classes_sorted_train: 
     pred_proba_mean = np.mean(pred_proba_list, axis=0)
     max_class_index = np.argmax(pred_proba_mean, axis=1)
     pred_mean = list(map(lambda x: classes_sorted_train[x], max_class_index))
-    fscore_val_val = f1_score(Y, pred_mean, average=None, labels=classes_sorted_train)
+    fscore_val_val = f1_score(y, pred_mean, average=None, labels=classes_sorted_train)
     fscore_val = np.mean(fscore_val_val)
     return fscore_val, fscore_val_val
 
 
-def cv_balance_procedure(X: ndarray, Y: ndarray, split_coef: float, classes_: ndarray) -> dict:
+def cv_balance_procedure(x: ndarray, y: ndarray, split_coef: float, classes_: ndarray) -> dict:
     """
     Chooses the optimal balancing strategy.
 
     Parameters
     ----------
-    X : array-like of shape (n_samples, n_features)
+    x : array-like of shape (n_samples, n_features)
         Training sample.
 
-    Y : array-like
+    y : array-like
         The target values.
 
     split_coef : float
@@ -575,18 +582,18 @@ def cv_balance_procedure(X: ndarray, Y: ndarray, split_coef: float, classes_: nd
     cv_val_val = [[] for i in feature_val]
     res_model = [[] for i in feature_val]
     res_feat_imp = [[] for i in feature_val]
-    for train_index, test_index in skf.split(X, Y):
-        X_train, X_test = X[train_index], X[test_index]
-        y_train, y_test = Y[train_index], Y[test_index]
+    for train_index, test_index in skf.split(x, y):
+        x_train, x_test = x[train_index], x[test_index]
+        y_train, y_test = y[train_index], y[test_index]
         for i, val in enumerate(feature_val):
-            model_list, feat_imp = fit_ensemble(X_train, y_train, split_coef, 5, 6, val, None, X.shape[1], None,
+            model_list, feat_imp = fit_ensemble(x_train, y_train, split_coef, 5, 6, val, None, x.shape[1], None,
                                                 classes_)
-            bootst_res, bootst_res_val = calc_fscore(X_test, y_test, model_list, classes_)
+            bootst_res, bootst_res_val = calc_fscore(x_test, y_test, model_list, classes_)
             cv_val[i].append(bootst_res)
             cv_val_val[i].append(bootst_res_val)
             res_model[i].append(model_list)
             res_feat_imp[i].append(feat_imp)
-    un_y, y_val = np.unique(Y, return_counts=True)
+    un_y, y_val = np.unique(y, return_counts=True)
     num_class = un_y.shape[0]
     cv_val_mean = np.mean(cv_val, axis=1)
     if num_class > 2 and np.argmax(cv_val_mean) != 0:
@@ -610,13 +617,13 @@ def cv_balance_procedure(X: ndarray, Y: ndarray, split_coef: float, classes_: nd
             cv_val.append([])
             res_model.append([])
             res_feat_imp.append([])
-            for train_index, test_index in skf.split(X, Y):
-                X_train, X_test = X[train_index], X[test_index]
-                y_train, y_test = Y[train_index], Y[test_index]
-                model_list, feat_imp = fit_ensemble(X_train, y_train, split_coef, 5, 6,
+            for train_index, test_index in skf.split(x, y):
+                x_train, x_test = x[train_index], x[test_index]
+                y_train, y_test = y[train_index], y[test_index]
+                model_list, feat_imp = fit_ensemble(x_train, y_train, split_coef, 5, 6,
                                                     {"Not_balanced": ind_val, "balance": feature_val[feat_num]}, None,
-                                                    X.shape[1], None, classes_)
-                bootst_res, bootst_res_val = calc_fscore(X_test, y_test, model_list, classes_)
+                                                    x.shape[1], None, classes_)
+                bootst_res, bootst_res_val = calc_fscore(x_test, y_test, model_list, classes_)
                 cv_val[9].append(bootst_res)
                 res_model[9].append(model_list)
                 res_feat_imp[9].append(feat_imp)
@@ -665,7 +672,8 @@ def calc_share(series_a: ndarray, series_b: ndarray, sample_gen1: object, sample
     return share
 
 
-def get_best_bc(split_range: ndarray, f_score_list: list, sample_gen1: object, sample_gen2: object) -> Tuple[list, list]:
+def get_best_bc(split_range: ndarray, f_score_list: list, sample_gen1: object, sample_gen2: object) -> Tuple[
+        list, list]:
     """
     Chooses a list of bagging shares with the best performance.
 
@@ -704,16 +712,16 @@ def get_best_bc(split_range: ndarray, f_score_list: list, sample_gen1: object, s
     return split_arg, ind_bc
 
 
-def cv_split_procedure(X: ndarray, Y: ndarray, bagging_ensemble_param: dict) -> dict:
+def cv_split_procedure(x: ndarray, y: ndarray, bagging_ensemble_param: dict) -> dict:
     """
     Chooses an optimal list of bagging shares.
 
     Parameters
     ----------
-    X : array-like of shape (n_samples, n_features)
+    x : array-like of shape (n_samples, n_features)
         Training sample.
 
-    Y : array-like
+    y : array-like
         The target values.
 
     bagging_ensemble_param : dict
@@ -729,17 +737,17 @@ def cv_split_procedure(X: ndarray, Y: ndarray, bagging_ensemble_param: dict) -> 
     cv_val_seq = [[] for i in feature_val]
     count = 0
     feat_imp_list = []
-    for train_index, test_index in skf.split(X, Y):
-        X_train, X_test = X[train_index], X[test_index]
-        y_train, y_test = Y[train_index], Y[test_index]
+    for train_index, test_index in skf.split(x, y):
+        x_train, x_test = x[train_index], x[test_index]
+        y_train, y_test = y[train_index], y[test_index]
         for i, val in enumerate(feature_val):
-            model_list, feat_imp = fit_ensemble(X_train, y_train, val, 5, 6, bagging_ensemble_param["opt_balance"],
-                                                None, X.shape[1], None, bagging_ensemble_param["classes"])
+            model_list, feat_imp = fit_ensemble(x_train, y_train, val, 5, 6, bagging_ensemble_param["opt_balance"],
+                                                None, x.shape[1], None, bagging_ensemble_param["classes"])
             feat_imp_list.append(feat_imp)
             sample_gen = np.random.default_rng(seed=42)
             for k in range(100):
-                indices = sample_gen.integers(0, X_test.shape[0], X_test.shape[0])
-                bootst_res, bootst_res_val = calc_fscore(X_test[indices], y_test[indices], model_list,
+                indices = sample_gen.integers(0, x_test.shape[0], x_test.shape[0])
+                bootst_res, bootst_res_val = calc_fscore(x_test[indices], y_test[indices], model_list,
                                                          bagging_ensemble_param["classes"])
                 cv_val_seq[i].append(bootst_res)
         count += 1
@@ -752,16 +760,16 @@ def cv_split_procedure(X: ndarray, Y: ndarray, bagging_ensemble_param: dict) -> 
     return bagging_ensemble_param
 
 
-def num_feat_procedure(X: ndarray, Y: ndarray, bagging_ensemble_param: dict) -> Tuple[dict, list]:
+def num_feat_procedure(x: ndarray, y: ndarray, bagging_ensemble_param: dict) -> Tuple[dict, list]:
     """
     Chooses an optimal number of zeroed features.
 
     Parameters
     ----------
-    X : array-like of shape (n_samples, n_features)
+    x : array-like of shape (n_samples, n_features)
         Training sample.
 
-    Y : array-like
+    y : array-like
         The target values.
 
     bagging_ensemble_param : dict
@@ -781,19 +789,19 @@ def num_feat_procedure(X: ndarray, Y: ndarray, bagging_ensemble_param: dict) -> 
     feat_imp_norm_sort_ind = np.argsort(feat_imp_norm)[::-1]
     feat_imp_norm_cumsum = np.cumsum(feat_imp_norm[feat_imp_norm_sort_ind])
     ind_chosen = feat_imp_norm_sort_ind[feat_imp_norm_cumsum < 0.95]
-    feature_val = [X.shape[1] - element for element in list(range(ind_chosen.shape[0]))]
+    feature_val = [x.shape[1] - element for element in list(range(ind_chosen.shape[0]))]
     res_model = [[] for i in feature_val]
     cv_val = [[] for i in feature_val]
     count = 0
-    for train_index, test_index in skf.split(X, Y):
-        X_train, X_test = X[train_index], X[test_index]
-        y_train, y_test = Y[train_index], Y[test_index]
+    for train_index, test_index in skf.split(x, y):
+        x_train, x_test = x[train_index], x[test_index]
+        y_train, y_test = y[train_index], y[test_index]
         for i, val in enumerate(feature_val):
-            model_list, feat_imp_list_mean = fit_ensemble(X_train, y_train, bagging_ensemble_param["opt_split"], 5, 6,
+            model_list, feat_imp_list_mean = fit_ensemble(x_train, y_train, bagging_ensemble_param["opt_split"], 5, 6,
                                                           bagging_ensemble_param["opt_balance"], None, val,
                                                           feat_imp_norm, bagging_ensemble_param["classes"])
             res_model[i].append(model_list)
-            bootst_res, bootst_res_val = calc_fscore(X_test, y_test, model_list, bagging_ensemble_param["classes"])
+            bootst_res, bootst_res_val = calc_fscore(x_test, y_test, model_list, bagging_ensemble_param["classes"])
             cv_val[i].append(bootst_res)
         count += 1
     cv_val_mean = np.mean(cv_val, axis=1)
@@ -802,13 +810,13 @@ def num_feat_procedure(X: ndarray, Y: ndarray, bagging_ensemble_param: dict) -> 
     return bagging_ensemble_param, res_model
 
 
-def boosting_of_bagging_procedure(X_train: ndarray, y_train: ndarray, num_iter: int, num_mod: int) -> Tuple[list, dict]:
+def boosting_of_bagging_procedure(x_train: ndarray, y_train: ndarray, num_iter: int, num_mod: int) -> Tuple[list, dict]:
     """
     Fits an AutoBalanceBoost model.
 
     Parameters
     ----------
-    X_train : array-like of shape (n_samples, n_features)
+    x_train : array-like of shape (n_samples, n_features)
         Training sample.
 
     y_train : array-like
@@ -833,21 +841,21 @@ def boosting_of_bagging_procedure(X_train: ndarray, y_train: ndarray, num_iter: 
     if y_counts.min() / y_counts.max() >= 0.9:
         balance_param = {"opt_balance": False, "split_coef_balance": 0}
     else:
-        balance_param = cv_balance_procedure(X_train, y_train, 0.3, y_val)
+        balance_param = cv_balance_procedure(x_train, y_train, 0.3, y_val)
     balance_param["classes"] = y_val
     boosting_params["balance_share"] = balance_param["opt_balance"]
-    balance_param = cv_split_procedure(X_train, y_train, balance_param)
+    balance_param = cv_split_procedure(x_train, y_train, balance_param)
     boosting_params["bagging_share"] = balance_param["opt_split"]
-    balance_param, first_model = num_feat_procedure(X_train, y_train, balance_param)
+    balance_param, first_model = num_feat_procedure(x_train, y_train, balance_param)
     boosting_params["features_number"] = balance_param["opt_feat"]
-    model_list, feat_imp_list_mean = fit_ensemble(X_train, y_train, boosting_params["bagging_share"], num_iter, num_mod,
+    model_list, feat_imp_list_mean = fit_ensemble(x_train, y_train, boosting_params["bagging_share"], num_iter, num_mod,
                                                   boosting_params["balance_share"], first_model,
                                                   boosting_params["features_number"], balance_param["feat_imp_norm"],
                                                   balance_param["classes"])
     return model_list, boosting_params
 
 
-def get_pred(model_list: list, X_test: ndarray) -> ndarray:
+def get_pred(model_list: list, x_test: ndarray) -> ndarray:
     """
     Predicts class labels.
 
@@ -856,7 +864,7 @@ def get_pred(model_list: list, X_test: ndarray) -> ndarray:
     model_list : list
         Fitted base estimators in AutoBalanceBoost.
 
-    X_test : array-like of shape (n_samples, n_features)
+    x_test : array-like of shape (n_samples, n_features)
         Test sample.
 
     Returns
@@ -868,21 +876,21 @@ def get_pred(model_list: list, X_test: ndarray) -> ndarray:
     for i in range(len(model_list)):
         for j in range(len(model_list[i])):
             if not isinstance(model_list[i][j], list):
-                pred = model_list[i][j].predict(X_test)
+                pred = model_list[i][j].predict(x_test)
                 pred_list.append(pred)
             else:
                 for cv_i in range(len(model_list[i][j])):
                     for iter in range(len(model_list[i][j][cv_i])):
-                        pred = model_list[i][j][cv_i][iter].predict(X_test)
+                        pred = model_list[i][j][cv_i][iter].predict(x_test)
                         pred_list.append(pred)
     pred_list = np.array(pred_list)
     pred_mean_hard = np.array(list(
         map(lambda y: np.unique(pred_list[:, y])[np.argmax(np.unique(pred_list[:, y], return_counts=True)[1])],
-            list(range(X_test.shape[0])))))
+            list(range(x_test.shape[0])))))
     return pred_mean_hard
 
 
-def get_pred_proba(model_list: list, X_test: ndarray) -> ndarray:
+def get_pred_proba(model_list: list, x_test: ndarray) -> ndarray:
     """
     Predicts class probabilities.
 
@@ -891,7 +899,7 @@ def get_pred_proba(model_list: list, X_test: ndarray) -> ndarray:
     model_list : list
         Fitted base estimators in AutoBalanceBoost.
 
-    X_test : array-like of shape (n_samples, n_features)
+    x_test : array-like of shape (n_samples, n_features)
         Test sample.
 
     Returns
@@ -903,19 +911,19 @@ def get_pred_proba(model_list: list, X_test: ndarray) -> ndarray:
     for i in range(len(model_list)):
         for j in range(len(model_list[i])):
             if not isinstance(model_list[i][j], list):
-                pred = model_list[i][j].predict(X_test)
+                pred = model_list[i][j].predict(x_test)
                 pred_list.append(pred)
             else:
                 for cv_i in range(len(model_list[i][j])):
                     for iter in range(len(model_list[i][j][cv_i])):
-                        pred = model_list[i][j][cv_i][iter].predict(X_test)
+                        pred = model_list[i][j][cv_i][iter].predict(x_test)
                         pred_list.append(pred)
     pred_list = np.array(pred_list)
     proba_mean_hard = []
     col_names = np.unique(pred_list)
     for cl_val in col_names:
         proba_mean_hard.append(np.array(list(
-            map(lambda y: (pred_list[:, y] == cl_val).sum() / pred_list[:, y].shape[0], list(range(X_test.shape[0]))))))
+            map(lambda y: (pred_list[:, y] == cl_val).sum() / pred_list[:, y].shape[0], list(range(x_test.shape[0]))))))
     proba_mean_hard = np.vstack(proba_mean_hard).T
     return proba_mean_hard
 

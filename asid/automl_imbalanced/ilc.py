@@ -76,13 +76,13 @@ class ImbalancedLearningClassifier(object):
         self.eval_metric = eval_metric
         self.conf_int_ = None
 
-    def fit(self, X: ndarray, y: ndarray):
+    def fit(self, x: ndarray, y: ndarray):
         """
         Fits ImbalancedLearningClassifier model.
 
         Parameters
         ----------
-        X : array-like of shape (n_samples, n_features)
+        x : array-like of shape (n_samples, n_features)
             Training sample.
 
         y : array-like
@@ -93,7 +93,7 @@ class ImbalancedLearningClassifier(object):
         self : ImbalancedLearningClassifier instance
             Fitted estimator.
         """
-        check_x_y(X, y)
+        check_x_y(x, y)
         t0 = datetime.now()
         le = preprocessing.LabelEncoder()
         le.fit(y)
@@ -101,19 +101,19 @@ class ImbalancedLearningClassifier(object):
         self.classes_ = le.classes_
         self.encoder_ = le
         self.classifer_, self.classifer_label_, self.score_, self.scaler_, self.evaluated_models_scores_, \
-        self.evaluated_models_time_, self.conf_int_ = choose_and_fit_ilc(self, X, y)
+        self.evaluated_models_time_, self.conf_int_ = choose_and_fit_ilc(self, x, y)
         print("The best generative model is " + self.classifer_label_)
         print("Leader " + self.eval_metric + " score: " + str(round(self.score_, 4)))
         print("Fitting time: ", datetime.now() - t0)
         return self
 
-    def predict(self, X: ndarray) -> ndarray:
+    def predict(self, x: ndarray) -> ndarray:
         """
         Predicts class label.
 
         Parameters
         ----------
-        X : array-like of shape (n_samples, n_features)
+        x : array-like of shape (n_samples, n_features)
             Test sample.
 
         Returns
@@ -122,22 +122,22 @@ class ImbalancedLearningClassifier(object):
             The predicted class.
         """
         check_ilc_fitted(self)
-        check_x_y(X)
+        check_x_y(x)
         if self.classifer_label_ == "AutoBalanceBoost":
-            pred = self.classifer_.predict(X)
+            pred = self.classifer_.predict(x)
         else:
-            X_scaled = self.scaler_.transform(X)
-            pred = self.classifer_.predict(X_scaled)
+            x_scaled = self.scaler_.transform(x)
+            pred = self.classifer_.predict(x_scaled)
         pred = self.encoder_.inverse_transform(pred)
         return pred
 
-    def predict_proba(self, X) -> ndarray:
+    def predict_proba(self, x) -> ndarray:
         """
         Predicts class label probability.
 
         Parameters
         ----------
-        X : array-like of shape (n_samples, n_features)
+        x : array-like of shape (n_samples, n_features)
             Test sample.
 
         Returns
@@ -146,12 +146,12 @@ class ImbalancedLearningClassifier(object):
             The predicted class probabilities.
         """
         check_ilc_fitted(self)
-        check_x_y(X)
+        check_x_y(x)
         if self.classifer_label_ == "AutoBalanceBoost":
-            pred_proba = self.classifer_.predict_proba(X)
+            pred_proba = self.classifer_.predict_proba(x)
         else:
-            X_scaled = self.scaler_.transform(X)
-            pred_proba = self.classifer_.predict_proba(X_scaled)
+            x_scaled = self.scaler_.transform(x)
+            pred_proba = self.classifer_.predict_proba(x_scaled)
         return pred_proba
 
     def leaderboard(self) -> dict:

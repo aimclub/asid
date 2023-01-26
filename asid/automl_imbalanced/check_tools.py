@@ -18,10 +18,10 @@ def check_num_type(x: Any, num_type: type, num_cl: str):
         raise TypeError("The parameter should be of " + str(num_type))
 
 
-def check_x_y(X: Any, y=None):
-    if not isinstance(X, np.ndarray):
+def check_x_y(x: Any, y=None):
+    if not isinstance(x, np.ndarray):
         raise TypeError("X should be an array-like type.")
-    if X.size == 0:
+    if x.size == 0:
         raise ValueError("The dataset has no samples.")
     if y is not None:
         if hasattr(y, "size"):
@@ -30,7 +30,7 @@ def check_x_y(X: Any, y=None):
         else:
             if len(y) == 0:
                 raise ValueError("The dataset has no samples.")
-        if X.shape[0] != len(y):
+        if x.shape[0] != len(y):
             raise ValueError("The X and y contain different number of samples.")
 
 

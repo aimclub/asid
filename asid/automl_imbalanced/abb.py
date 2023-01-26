@@ -37,13 +37,13 @@ class AutoBalanceBoost(object):
         self.ensemble_ = None
         self.param_ = {}
 
-    def fit(self, X: ndarray, y: ndarray):
+    def fit(self, x: ndarray, y: ndarray):
         """
         Fits AutoBalanceBoost model.
 
         Parameters
         ----------
-        X : array-like of shape (n_samples, n_features)
+        x : array-like of shape (n_samples, n_features)
             Training sample.
 
         y : array-like
@@ -54,17 +54,17 @@ class AutoBalanceBoost(object):
         self : AutoBalanceBoost classifier
             Fitted estimator.
         """
-        check_x_y(X, y)
-        self.ensemble_, self.param_ = boosting_of_bagging_procedure(X, y, self.num_iter, self.num_est)
+        check_x_y(x, y)
+        self.ensemble_, self.param_ = boosting_of_bagging_procedure(x, y, self.num_iter, self.num_est)
         return self
 
-    def predict(self, X: ndarray) -> ndarray:
+    def predict(self, x: ndarray) -> ndarray:
         """
         Predicts class label.
 
         Parameters
         ----------
-        X : array-like of shape (n_samples, n_features)
+        x : array-like of shape (n_samples, n_features)
             Test sample.
 
         Returns
@@ -73,17 +73,17 @@ class AutoBalanceBoost(object):
             The predicted class.
         """
         check_abb_fitted(self)
-        check_x_y(X)
-        pred = get_pred(self.ensemble_, X)
+        check_x_y(x)
+        pred = get_pred(self.ensemble_, x)
         return pred
 
-    def predict_proba(self, X: ndarray) -> ndarray:
+    def predict_proba(self, x: ndarray) -> ndarray:
         """
         Predicts class probability.
 
         Parameters
         ----------
-        X : array-like of shape (n_samples, n_features)
+        x : array-like of shape (n_samples, n_features)
             Test sample.
 
         Returns
@@ -92,8 +92,8 @@ class AutoBalanceBoost(object):
             The predicted class probabilities.
         """
         check_abb_fitted(self)
-        check_x_y(X)
-        pred_proba = get_pred_proba(self.ensemble_, X)
+        check_x_y(x)
+        pred_proba = get_pred_proba(self.ensemble_, x)
         return pred_proba
 
     def feature_importances(self) -> ndarray:
