@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>asid.automl_small.generative_model_sampling &mdash; asid 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> asid
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">asid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">asid</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">asid.automl_small.generative_model_sampling</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for asid.automl_small.generative_model_sampling</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains functions for sampling from fitted generative models.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<div class="viewcode-block" id="simple_sample_sklearn_procedure"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.simple_sample_sklearn_procedure">[docs]</a><span class="k">def</span> <span class="nf">simple_sample_sklearn_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">,</span> <span class="n">scaling</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sampling synthetic datasets from sklearn KDE.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : instance</span>
+<span class="sd">        Fitted generative model.</span>
+
+<span class="sd">    sample_len : int</span>
+<span class="sd">        Synthetic sample size.</span>
+
+<span class="sd">    seed_list : list</span>
+<span class="sd">        The list of random seeds for each synthetic dataset.</span>
+
+<span class="sd">    scaling : instance</span>
+<span class="sd">        Fitted scaler that is applied prior to generative model estimation.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sampled_data_list : list</span>
+<span class="sd">        The list with synthetiс datasets.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sampled_data_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="n">seed_list</span><span class="p">:</span>
+        <span class="n">sampled_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="n">sample_len</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">scaling</span><span class="p">:</span>
+            <span class="n">sampled_data</span> <span class="o">=</span> <span class="n">scaling</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">sampled_data</span><span class="p">)</span>
+        <span class="n">sampled_data_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sampled_data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sampled_data_list</span></div>
+
+
+<div class="viewcode-block" id="sample_stats"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.sample_stats">[docs]</a><span class="k">def</span> <span class="nf">sample_stats</span><span class="p">(</span><span class="n">kde</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base sampling procedure from Statsmodel&#39;s KDE.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    kde : instance</span>
+<span class="sd">        Fitted KDE model.</span>
+
+<span class="sd">    size : int</span>
+<span class="sd">        Synthetic sample size.</span>
+<span class="sd">        </span>
+<span class="sd">    seed : int</span>
+<span class="sd">        Random seed.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sampled_data : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Synthetic sample.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">kde</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+    <span class="n">cov</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">kde</span><span class="o">.</span><span class="n">bw</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">means</span> <span class="o">=</span> <span class="n">kde</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">indices</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">multivariate_normal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">d</span><span class="p">),</span> <span class="n">cov</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
+    <span class="n">sampled_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">means</span> <span class="o">+</span> <span class="n">norm</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+    <span class="k">return</span> <span class="n">sampled_data</span></div>
+
+
+<div class="viewcode-block" id="simple_sample_stats_procedure"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.simple_sample_stats_procedure">[docs]</a><span class="k">def</span> <span class="nf">simple_sample_stats_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">,</span> <span class="n">scaling</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sampling synthetic datasets from Statsmodel&#39;s KDE.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : instance</span>
+<span class="sd">        Fitted generative model.</span>
+
+<span class="sd">    sample_len : int</span>
+<span class="sd">        Synthetic sample size.</span>
+
+<span class="sd">    seed_list : list</span>
+<span class="sd">        The list of random seeds for each synthetic dataset.</span>
+
+<span class="sd">    scaling : instance</span>
+<span class="sd">        Fitted scaler that is applied prior to generative model estimation.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sampled_data_list : list</span>
+<span class="sd">        The list with synthetiс datasets.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sampled_data_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="n">seed_list</span><span class="p">:</span>
+        <span class="n">sampled_data</span> <span class="o">=</span> <span class="n">sample_stats</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">seed</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">scaling</span><span class="p">:</span>
+            <span class="n">sampled_data</span> <span class="o">=</span> <span class="n">scaling</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">sampled_data</span><span class="p">)</span>
+        <span class="n">sampled_data_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sampled_data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sampled_data_list</span></div>
+
+
+<div class="viewcode-block" id="gmm_sample_procedure"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.gmm_sample_procedure">[docs]</a><span class="k">def</span> <span class="nf">gmm_sample_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">scaling</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sampling from GMM model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : instance</span>
+<span class="sd">        Fitted generative model.</span>
+
+<span class="sd">    sample_len : int</span>
+<span class="sd">        Synthetic sample size.</span>
+<span class="sd">        </span>
+<span class="sd">    scaling : instance</span>
+<span class="sd">        Fitted scaler that is applied prior to generative model estimation.</span>
+<span class="sd">        </span>
+<span class="sd">    num_samples : int</span>
+<span class="sd">        Required number of synthetic datasets.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sampled_data_list : list</span>
+<span class="sd">        The list with synthetiс datasets.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sampled_data_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">n_samples</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">sample_len</span> <span class="o">*</span> <span class="n">num_samples</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_samples</span><span class="p">):</span>
+        <span class="n">sampled_data</span> <span class="o">=</span> <span class="n">n_samples</span><span class="p">[(</span><span class="n">i</span> <span class="o">*</span> <span class="n">sample_len</span><span class="p">):((</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sample_len</span><span class="p">)]</span>
+        <span class="k">if</span> <span class="n">scaling</span><span class="p">:</span>
+            <span class="n">sampled_data</span> <span class="o">=</span> <span class="n">scaling</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">sampled_data</span><span class="p">)</span>
+        <span class="n">sampled_data_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sampled_data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sampled_data_list</span></div>
+
+
+<div class="viewcode-block" id="sample_sdv_procedure"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.sample_sdv_procedure">[docs]</a><span class="k">def</span> <span class="nf">sample_sdv_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">,</span> <span class="n">scaling</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sampling from SDV library model.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : instance</span>
+<span class="sd">        Fitted generative model.</span>
+
+<span class="sd">    sample_len : int</span>
+<span class="sd">        Synthetic sample size.</span>
+<span class="sd">        </span>
+<span class="sd">    seed_list : list</span>
+<span class="sd">        The list of random seeds for each synthetic dataset.</span>
+<span class="sd">        </span>
+<span class="sd">    scaling : instance</span>
+<span class="sd">        Fitted scaler that is applied prior to generative model estimation.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sampled_data_list : list</span>
+<span class="sd">        The list with synthetiс datasets.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">sampled_data_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="n">seed_list</span><span class="p">:</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="n">cp</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;automl_small&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">cp</span> <span class="o">+</span> <span class="s2">&quot;automl_small/sample.csv.tmp&quot;</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">cp</span> <span class="o">+</span> <span class="s2">&quot;automl_small/sample.csv.tmp&quot;</span><span class="p">)</span>
+        <span class="n">sampled_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">sample_len</span><span class="p">,</span> <span class="n">output_file_path</span><span class="o">=</span><span class="n">cp</span> <span class="o">+</span> <span class="s2">&quot;automl_small/sample.csv.tmp&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">scaling</span><span class="p">:</span>
+            <span class="n">sampled_data</span> <span class="o">=</span> <span class="n">scaling</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">sampled_data</span><span class="p">)</span>
+        <span class="n">sampled_data_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sampled_data</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sampled_data_list</span></div>
+
+
+<div class="viewcode-block" id="get_sampled_data"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.get_sampled_data">[docs]</a><span class="k">def</span> <span class="nf">get_sampled_data</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">scaling</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calls a sampling function.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    model : instance</span>
+<span class="sd">        Fitted generative model.</span>
+
+<span class="sd">    sample_len : int</span>
+<span class="sd">        Synthetic sample size.</span>
+<span class="sd">        </span>
+<span class="sd">    seed_list : list</span>
+<span class="sd">        The list of random seeds for each synthetic dataset.</span>
+<span class="sd">        </span>
+<span class="sd">    method : {&quot;sklearn_kde&quot;, &quot;stats_kde_cv_ml&quot;, &quot;stats_kde_cv_ls&quot;, &quot;gmm&quot;, &quot;bayesian_gmm&quot;, &quot;ctgan&quot;,</span>
+<span class="sd">        &quot;copula&quot;, &quot;copulagan&quot;, &quot;tvae&quot;}</span>
+<span class="sd">        Generative algorithm label.</span>
+<span class="sd">        </span>
+<span class="sd">    scaling : instance</span>
+<span class="sd">        Fitted scaler that is applied prior to generative model estimation.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sampled_data_list : list</span>
+<span class="sd">        The list with synthetiс datasets.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;sklearn_kde&quot;</span><span class="p">]:</span>
+        <span class="n">sampled_data_list</span> <span class="o">=</span> <span class="n">simple_sample_sklearn_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">,</span> <span class="n">scaling</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;stats_kde_cv_ml&quot;</span><span class="p">,</span> <span class="s2">&quot;stats_kde_cv_ls&quot;</span><span class="p">]:</span>
+        <span class="n">sampled_data_list</span> <span class="o">=</span> <span class="n">simple_sample_stats_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">,</span> <span class="n">scaling</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;gmm&quot;</span><span class="p">,</span> <span class="s2">&quot;bayesian_gmm&quot;</span><span class="p">]:</span>
+        <span class="n">sampled_data_list</span> <span class="o">=</span> <span class="n">gmm_sample_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">scaling</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">seed_list</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">method</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;ctgan&quot;</span><span class="p">,</span> <span class="s2">&quot;copula&quot;</span><span class="p">,</span> <span class="s2">&quot;copulagan&quot;</span><span class="p">,</span> <span class="s2">&quot;tvae&quot;</span><span class="p">]:</span>
+        <span class="n">sampled_data_list</span> <span class="o">=</span> <span class="n">sample_sdv_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">,</span> <span class="n">scaling</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">sampled_data_list</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Ekaterina Plesovskaya, Sergey Ivanov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
