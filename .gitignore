@@ -4,5 +4,3 @@ catboost_info
 .git
 /*.tmp
 /examples/catboost_info
-
-/docs/
