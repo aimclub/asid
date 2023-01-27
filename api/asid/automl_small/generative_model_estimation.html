@@ -1,0 +1,1196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>asid.automl_small.generative_model_estimation API documentation</title>
+<meta name="description" content="This module contains functions for generative models estimation." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>asid.automl_small.generative_model_estimation</code></h1>
+</header>
+<section id="section-intro">
+<p>This module contains functions for generative models estimation.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+This module contains functions for generative models estimation.
+&#34;&#34;&#34;
+
+import numpy as np
+import pandas as pd
+from sklearn.mixture import GaussianMixture, BayesianGaussianMixture
+from sdv.tabular import GaussianCopula, CTGAN, CopulaGAN, TVAE
+import torch
+from sklearn.model_selection import KFold
+from sdv.evaluation import evaluate
+from statsmodels.nonparametric.kernel_density import KDEMultivariate
+from sklearn.neighbors import KernelDensity
+from hyperopt import fmin, tpe, space_eval
+from hyperopt import hp
+import warnings
+from numpy import ndarray
+
+warnings.filterwarnings(&#34;ignore&#34;)
+
+
+def calc_gmm_acc(params: dict, data: ndarray) -&gt; float:
+    &#34;&#34;&#34;
+    Estimates the performance of GaussianMixture model with hyper-parameters values.
+
+    Parameters
+    ----------
+    params : dict
+        Hyper-parameters values.
+
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    Returns
+    -------
+    score : float
+        Performance score.
+    &#34;&#34;&#34;
+    skf = KFold(n_splits=3, random_state=42, shuffle=True)
+    res_metric = []
+    for index in skf.split(data):
+        x_train, x_test = data[index[0], :], data[index[1], :]
+        model = GaussianMixture(n_components=int(params[&#34;n_components&#34;]), covariance_type=params[&#39;covariance_type&#39;],
+                                random_state=42)
+        model.fit(x_train)
+        res_metric.append(model.score(x_test))
+    score = -np.mean(res_metric)
+    return score
+
+
+def get_gmm_model(data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates GMM model.
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    gmm : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if hyp_time == 0:
+        gmm = GaussianMixture(random_state=42)
+        gmm.fit(data)
+    else:
+        space = {&#34;n_components&#34;: hp.quniform(&#34;n_components&#34;, 1, int(round(data.shape[0] / 3 * 2) - 1), 1),
+                 &#34;covariance_type&#34;: hp.choice(&#34;covariance_type&#34;, [&#39;full&#39;, &#39;tied&#39;, &#39;diag&#39;, &#39;spherical&#39;])}
+        best = fmin(fn=lambda params: calc_gmm_acc(params, data), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        gmm = GaussianMixture(n_components=int(best[&#34;n_components&#34;]), covariance_type=best[&#39;covariance_type&#39;],
+                              random_state=42)
+        gmm.fit(data)
+    return gmm
+
+
+def calc_bayesian_gmm_acc(params: dict, data: ndarray) -&gt; float:
+    &#34;&#34;&#34;
+    Estimates the performance of BayesianGaussianMixture model with hyper-parameters values.
+
+    Parameters
+    ----------
+    params : dict
+        Hyper-parameters values.
+
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    Returns
+    -------
+    score : float
+        Performance score.
+    &#34;&#34;&#34;
+    skf = KFold(n_splits=3, random_state=42, shuffle=True)
+    res_metric = []
+    for index in skf.split(data):
+        x_train, x_test = data[index[0], :], data[index[1], :]
+        model = BayesianGaussianMixture(n_components=int(params[&#34;n_components&#34;]),
+                                        covariance_type=params[&#39;covariance_type&#39;],
+                                        weight_concentration_prior_type=params[&#39;weight_concentration_prior_type&#39;],
+                                        weight_concentration_prior=params[&#39;weight_concentration_prior&#39;],
+                                        random_state=42)
+        model.fit(x_train)
+        res_metric.append(model.score(x_test))
+    score = -np.mean(res_metric)
+    return score
+
+
+def get_bayesian_gmm_model(data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates Bayesian GMM model.
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    gmm : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if hyp_time == 0:
+        gmm = BayesianGaussianMixture(random_state=42)
+        gmm.fit(data)
+    else:
+        space = {&#34;n_components&#34;: hp.quniform(&#34;n_components&#34;, 1, int(round(data.shape[0] / 3 * 2) - 1), 1),
+                 &#34;covariance_type&#34;: hp.choice(&#34;covariance_type&#34;, [&#39;full&#39;, &#39;tied&#39;, &#39;diag&#39;, &#39;spherical&#39;]),
+                 &#34;weight_concentration_prior_type&#34;: hp.choice(&#34;weight_concentration_prior_type&#34;,
+                                                              [&#39;dirichlet_process&#39;, &#39;dirichlet_distribution&#39;]),
+                 &#39;weight_concentration_prior&#39;: hp.uniform(&#39;weight_concentration_prior&#39;, 0.0001, 10000)}
+        best = fmin(fn=lambda params: calc_bayesian_gmm_acc(params, data), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        gmm = BayesianGaussianMixture(n_components=int(best[&#34;n_components&#34;]), covariance_type=best[&#39;covariance_type&#39;],
+                                      weight_concentration_prior_type=best[&#39;weight_concentration_prior_type&#39;],
+                                      weight_concentration_prior=best[&#39;weight_concentration_prior&#39;], random_state=42)
+        gmm.fit(data)
+    return gmm
+
+
+def get_copula_model(data: ndarray) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates Copula model.
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    Returns
+    -------
+    model : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    np.random.seed(42)
+    model = GaussianCopula()
+    data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+    model.fit(data)
+    return model
+
+
+def calc_sdv_acc(params: dict, data: ndarray, alg: str) -&gt; float:
+    &#34;&#34;&#34;
+    Estimates the performance of SDV model with hyper-parameters values.
+
+    Parameters
+    ----------
+    params : dict
+        Hyper-parameters values.
+
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    alg : str
+        Algorithm label.
+
+    Returns
+    -------
+    score : float
+        Performance score.
+    &#34;&#34;&#34;
+    cv_rs = 42
+    np.random.seed(42)
+    torch.manual_seed(42)
+    skf = KFold(n_splits=3, shuffle=True, random_state=cv_rs)
+    res_metric = []
+    for index in skf.split(data):
+        x_train, x_test = data.iloc[index[0]], data.iloc[index[1]]
+        if alg == &#34;ctgan&#34;:
+            model = CTGAN(batch_size=int(params[&#34;batch_size&#34;]), cuda=False)
+        elif alg == &#34;copulagan&#34;:
+            model = CopulaGAN(batch_size=int(params[&#34;batch_size&#34;]), cuda=False)
+        elif alg == &#34;tvae&#34;:
+            model = TVAE(batch_size=int(params[&#34;batch_size&#34;]), cuda=False)
+        model.fit(x_train)
+        sub_metric_list = []
+        for i in range(10):
+            sampled_data = model.sample(len(x_test))
+            sub_metric_list.append(evaluate(sampled_data, x_test))
+        res_metric.append(np.mean(sub_metric_list))
+    score = -np.mean(res_metric)
+    return score
+
+
+def get_ctgan_model(data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates CTGAN model.
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    model : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if hyp_time &lt; 15:
+        data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        model = CTGAN(cuda=False)
+        model.fit(data)
+    else:
+        space = {&#34;batch_size&#34;: hp.quniform(&#34;batch_size&#34;, 300, 800, 50)}
+        data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        best = fmin(fn=lambda params: calc_sdv_acc(params, data, &#34;ctgan&#34;), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        model = CTGAN(batch_size=int(best[&#34;batch_size&#34;]), cuda=False)
+        model.fit(data)
+    return model
+
+
+def get_copulagan_model(data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates CopulaGAN model.
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    model : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if hyp_time &lt; 15:
+        data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        model = CopulaGAN(cuda=False)
+        model.fit(data)
+    else:
+        space = {&#34;batch_size&#34;: hp.quniform(&#34;batch_size&#34;, 300, 800, 50)}
+        data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        best = fmin(fn=lambda params: calc_sdv_acc(params, data, &#34;copulagan&#34;), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        model = CopulaGAN(batch_size=int(best[&#34;batch_size&#34;]), cuda=False)
+        model.fit(data)
+    return model
+
+
+def get_tvae_model(data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates TVAE model
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    model : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if hyp_time &lt; 15:
+        data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        model = TVAE(cuda=False)
+        model.fit(data)
+    else:
+        space = {&#34;batch_size&#34;: hp.quniform(&#34;batch_size&#34;, 300, 800, 50)}
+        data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        best = fmin(fn=lambda params: calc_sdv_acc(params, data, &#34;tvae&#34;), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        model = TVAE(batch_size=int(best[&#34;batch_size&#34;]), cuda=False)
+        model.fit(data)
+    return model
+
+
+def calc_kde_acc(params: dict, data: ndarray) -&gt; float:
+    &#34;&#34;&#34;
+    Estimates the performance of KDE (sklearn implementation) with hyper-parameters values.
+
+    Parameters
+    ----------
+    params : dict
+        Hyper-parameters values.
+
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    Returns
+    -------
+    score : float
+        Performance score.
+    &#34;&#34;&#34;
+    skf = KFold(n_splits=3, random_state=42, shuffle=True)
+    res_metric = []
+    for index in skf.split(data):
+        x_train, x_test = data[index[0], :], data[index[1], :]
+        model = KernelDensity(kernel=&#34;gaussian&#34;, bandwidth=params[&#39;bandwidth&#39;])
+        model.fit(x_train)
+        res_metric.append(model.score(x_test))
+    score = -np.mean(res_metric)
+    return score
+
+
+def sklearn_kde(data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates KDE (sklearn implementation).
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    kde : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if hyp_time == 0:
+        kde = KernelDensity(kernel=&#34;gaussian&#34;)
+        kde.fit(data)
+    else:
+        space = {&#39;bandwidth&#39;: hp.uniform(&#39;bandwidth&#39;, 0.01, 2)}
+        best = fmin(fn=lambda params: calc_kde_acc(params, data), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        kde = KernelDensity(kernel=&#34;gaussian&#34;, bandwidth=best[&#39;bandwidth&#39;])
+        kde.fit(data)
+    return kde
+
+
+def stats_kde(data: ndarray, method: str) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates KDE (Statsmodels).
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    method : {&#34;cv_ml&#34;, &#34;cv_ls&#34;}
+        CV type for bandwidth selection.
+
+    Returns
+    -------
+    kde : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    var_type = &#34;c&#34; * data.shape[1]
+    kde = KDEMultivariate(data, var_type, bw=method)
+    return kde
+
+
+def fit_model(gen_algorithm: str, data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Fits generative model.
+
+    Parameters
+    ----------
+    gen_algorithm : {&#34;sklearn_kde&#34;, &#34;stats_kde_cv_ml&#34;, &#34;stats_kde_cv_ls&#34;, &#34;gmm&#34;, &#34;bayesian_gmm&#34;, &#34;ctgan&#34;,
+        &#34;copula&#34;, &#34;copulagan&#34;, &#34;tvae&#34;}
+        Generative algorithm label.
+
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    model : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if gen_algorithm == &#34;sklearn_kde&#34;:
+        model = sklearn_kde(data, hyp_time)
+    elif gen_algorithm in [&#34;stats_kde_cv_ml&#34;, &#34;stats_kde_cv_ls&#34;]:
+        method_list = gen_algorithm.split(&#34;_&#34;)
+        method_name = method_list[2] + &#34;_&#34; + method_list[3]
+        model = stats_kde(data, method_name)
+    elif gen_algorithm == &#34;gmm&#34;:
+        model = get_gmm_model(data, hyp_time)
+    elif gen_algorithm == &#34;bayesian_gmm&#34;:
+        model = get_bayesian_gmm_model(data, hyp_time)
+    elif gen_algorithm == &#34;ctgan&#34;:
+        model = get_ctgan_model(data, hyp_time)
+    elif gen_algorithm == &#34;copula&#34;:
+        model = get_copula_model(data)
+    elif gen_algorithm == &#34;copulagan&#34;:
+        model = get_copulagan_model(data, hyp_time)
+    elif gen_algorithm == &#34;tvae&#34;:
+        model = get_tvae_model(data, hyp_time)
+    return model</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="asid.automl_small.generative_model_estimation.calc_bayesian_gmm_acc"><code class="name flex">
+<span>def <span class="ident">calc_bayesian_gmm_acc</span></span>(<span>params: dict, data: numpy.ndarray) ‑> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Estimates the performance of BayesianGaussianMixture model with hyper-parameters values.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>params</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Hyper-parameters values.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>score</code></strong> :&ensp;<code>float</code></dt>
+<dd>Performance score.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_bayesian_gmm_acc(params: dict, data: ndarray) -&gt; float:
+    &#34;&#34;&#34;
+    Estimates the performance of BayesianGaussianMixture model with hyper-parameters values.
+
+    Parameters
+    ----------
+    params : dict
+        Hyper-parameters values.
+
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    Returns
+    -------
+    score : float
+        Performance score.
+    &#34;&#34;&#34;
+    skf = KFold(n_splits=3, random_state=42, shuffle=True)
+    res_metric = []
+    for index in skf.split(data):
+        x_train, x_test = data[index[0], :], data[index[1], :]
+        model = BayesianGaussianMixture(n_components=int(params[&#34;n_components&#34;]),
+                                        covariance_type=params[&#39;covariance_type&#39;],
+                                        weight_concentration_prior_type=params[&#39;weight_concentration_prior_type&#39;],
+                                        weight_concentration_prior=params[&#39;weight_concentration_prior&#39;],
+                                        random_state=42)
+        model.fit(x_train)
+        res_metric.append(model.score(x_test))
+    score = -np.mean(res_metric)
+    return score</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_small.generative_model_estimation.calc_gmm_acc"><code class="name flex">
+<span>def <span class="ident">calc_gmm_acc</span></span>(<span>params: dict, data: numpy.ndarray) ‑> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Estimates the performance of GaussianMixture model with hyper-parameters values.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>params</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Hyper-parameters values.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>score</code></strong> :&ensp;<code>float</code></dt>
+<dd>Performance score.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_gmm_acc(params: dict, data: ndarray) -&gt; float:
+    &#34;&#34;&#34;
+    Estimates the performance of GaussianMixture model with hyper-parameters values.
+
+    Parameters
+    ----------
+    params : dict
+        Hyper-parameters values.
+
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    Returns
+    -------
+    score : float
+        Performance score.
+    &#34;&#34;&#34;
+    skf = KFold(n_splits=3, random_state=42, shuffle=True)
+    res_metric = []
+    for index in skf.split(data):
+        x_train, x_test = data[index[0], :], data[index[1], :]
+        model = GaussianMixture(n_components=int(params[&#34;n_components&#34;]), covariance_type=params[&#39;covariance_type&#39;],
+                                random_state=42)
+        model.fit(x_train)
+        res_metric.append(model.score(x_test))
+    score = -np.mean(res_metric)
+    return score</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_small.generative_model_estimation.calc_kde_acc"><code class="name flex">
+<span>def <span class="ident">calc_kde_acc</span></span>(<span>params: dict, data: numpy.ndarray) ‑> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Estimates the performance of KDE (sklearn implementation) with hyper-parameters values.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>params</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Hyper-parameters values.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>score</code></strong> :&ensp;<code>float</code></dt>
+<dd>Performance score.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_kde_acc(params: dict, data: ndarray) -&gt; float:
+    &#34;&#34;&#34;
+    Estimates the performance of KDE (sklearn implementation) with hyper-parameters values.
+
+    Parameters
+    ----------
+    params : dict
+        Hyper-parameters values.
+
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    Returns
+    -------
+    score : float
+        Performance score.
+    &#34;&#34;&#34;
+    skf = KFold(n_splits=3, random_state=42, shuffle=True)
+    res_metric = []
+    for index in skf.split(data):
+        x_train, x_test = data[index[0], :], data[index[1], :]
+        model = KernelDensity(kernel=&#34;gaussian&#34;, bandwidth=params[&#39;bandwidth&#39;])
+        model.fit(x_train)
+        res_metric.append(model.score(x_test))
+    score = -np.mean(res_metric)
+    return score</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_small.generative_model_estimation.calc_sdv_acc"><code class="name flex">
+<span>def <span class="ident">calc_sdv_acc</span></span>(<span>params: dict, data: numpy.ndarray, alg: str) ‑> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Estimates the performance of SDV model with hyper-parameters values.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>params</code></strong> :&ensp;<code>dict</code></dt>
+<dd>Hyper-parameters values.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>alg</code></strong> :&ensp;<code>str</code></dt>
+<dd>Algorithm label.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>score</code></strong> :&ensp;<code>float</code></dt>
+<dd>Performance score.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_sdv_acc(params: dict, data: ndarray, alg: str) -&gt; float:
+    &#34;&#34;&#34;
+    Estimates the performance of SDV model with hyper-parameters values.
+
+    Parameters
+    ----------
+    params : dict
+        Hyper-parameters values.
+
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    alg : str
+        Algorithm label.
+
+    Returns
+    -------
+    score : float
+        Performance score.
+    &#34;&#34;&#34;
+    cv_rs = 42
+    np.random.seed(42)
+    torch.manual_seed(42)
+    skf = KFold(n_splits=3, shuffle=True, random_state=cv_rs)
+    res_metric = []
+    for index in skf.split(data):
+        x_train, x_test = data.iloc[index[0]], data.iloc[index[1]]
+        if alg == &#34;ctgan&#34;:
+            model = CTGAN(batch_size=int(params[&#34;batch_size&#34;]), cuda=False)
+        elif alg == &#34;copulagan&#34;:
+            model = CopulaGAN(batch_size=int(params[&#34;batch_size&#34;]), cuda=False)
+        elif alg == &#34;tvae&#34;:
+            model = TVAE(batch_size=int(params[&#34;batch_size&#34;]), cuda=False)
+        model.fit(x_train)
+        sub_metric_list = []
+        for i in range(10):
+            sampled_data = model.sample(len(x_test))
+            sub_metric_list.append(evaluate(sampled_data, x_test))
+        res_metric.append(np.mean(sub_metric_list))
+    score = -np.mean(res_metric)
+    return score</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_small.generative_model_estimation.fit_model"><code class="name flex">
+<span>def <span class="ident">fit_model</span></span>(<span>gen_algorithm: str, data: numpy.ndarray, hyp_time: int) ‑> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Fits generative model.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>gen_algorithm</code></strong> :&ensp;<code>{"sklearn_kde", "stats_kde_cv_ml", "stats_kde_cv_ls", "gmm", "bayesian_gmm", "ctgan",</code></dt>
+<dd>"copula", "copulagan", "tvae"}
+Generative algorithm label.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>hyp_time</code></strong> :&ensp;<code>int</code></dt>
+<dd>The runtime setting (in seconds) for Hyperopt optimization.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>model</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Fitted generative model.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit_model(gen_algorithm: str, data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Fits generative model.
+
+    Parameters
+    ----------
+    gen_algorithm : {&#34;sklearn_kde&#34;, &#34;stats_kde_cv_ml&#34;, &#34;stats_kde_cv_ls&#34;, &#34;gmm&#34;, &#34;bayesian_gmm&#34;, &#34;ctgan&#34;,
+        &#34;copula&#34;, &#34;copulagan&#34;, &#34;tvae&#34;}
+        Generative algorithm label.
+
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    model : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if gen_algorithm == &#34;sklearn_kde&#34;:
+        model = sklearn_kde(data, hyp_time)
+    elif gen_algorithm in [&#34;stats_kde_cv_ml&#34;, &#34;stats_kde_cv_ls&#34;]:
+        method_list = gen_algorithm.split(&#34;_&#34;)
+        method_name = method_list[2] + &#34;_&#34; + method_list[3]
+        model = stats_kde(data, method_name)
+    elif gen_algorithm == &#34;gmm&#34;:
+        model = get_gmm_model(data, hyp_time)
+    elif gen_algorithm == &#34;bayesian_gmm&#34;:
+        model = get_bayesian_gmm_model(data, hyp_time)
+    elif gen_algorithm == &#34;ctgan&#34;:
+        model = get_ctgan_model(data, hyp_time)
+    elif gen_algorithm == &#34;copula&#34;:
+        model = get_copula_model(data)
+    elif gen_algorithm == &#34;copulagan&#34;:
+        model = get_copulagan_model(data, hyp_time)
+    elif gen_algorithm == &#34;tvae&#34;:
+        model = get_tvae_model(data, hyp_time)
+    return model</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_small.generative_model_estimation.get_bayesian_gmm_model"><code class="name flex">
+<span>def <span class="ident">get_bayesian_gmm_model</span></span>(<span>data: numpy.ndarray, hyp_time: int) ‑> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Estimates Bayesian GMM model.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>hyp_time</code></strong> :&ensp;<code>int</code></dt>
+<dd>The runtime setting (in seconds) for Hyperopt optimization.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>gmm</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Fitted generative model.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_bayesian_gmm_model(data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates Bayesian GMM model.
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    gmm : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if hyp_time == 0:
+        gmm = BayesianGaussianMixture(random_state=42)
+        gmm.fit(data)
+    else:
+        space = {&#34;n_components&#34;: hp.quniform(&#34;n_components&#34;, 1, int(round(data.shape[0] / 3 * 2) - 1), 1),
+                 &#34;covariance_type&#34;: hp.choice(&#34;covariance_type&#34;, [&#39;full&#39;, &#39;tied&#39;, &#39;diag&#39;, &#39;spherical&#39;]),
+                 &#34;weight_concentration_prior_type&#34;: hp.choice(&#34;weight_concentration_prior_type&#34;,
+                                                              [&#39;dirichlet_process&#39;, &#39;dirichlet_distribution&#39;]),
+                 &#39;weight_concentration_prior&#39;: hp.uniform(&#39;weight_concentration_prior&#39;, 0.0001, 10000)}
+        best = fmin(fn=lambda params: calc_bayesian_gmm_acc(params, data), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        gmm = BayesianGaussianMixture(n_components=int(best[&#34;n_components&#34;]), covariance_type=best[&#39;covariance_type&#39;],
+                                      weight_concentration_prior_type=best[&#39;weight_concentration_prior_type&#39;],
+                                      weight_concentration_prior=best[&#39;weight_concentration_prior&#39;], random_state=42)
+        gmm.fit(data)
+    return gmm</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_small.generative_model_estimation.get_copula_model"><code class="name flex">
+<span>def <span class="ident">get_copula_model</span></span>(<span>data: numpy.ndarray) ‑> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Estimates Copula model.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>model</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Fitted generative model.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_copula_model(data: ndarray) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates Copula model.
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    Returns
+    -------
+    model : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    np.random.seed(42)
+    model = GaussianCopula()
+    data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+    model.fit(data)
+    return model</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_small.generative_model_estimation.get_copulagan_model"><code class="name flex">
+<span>def <span class="ident">get_copulagan_model</span></span>(<span>data: numpy.ndarray, hyp_time: int) ‑> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Estimates CopulaGAN model.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>hyp_time</code></strong> :&ensp;<code>int</code></dt>
+<dd>The runtime setting (in seconds) for Hyperopt optimization.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>model</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Fitted generative model.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_copulagan_model(data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates CopulaGAN model.
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    model : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if hyp_time &lt; 15:
+        data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        model = CopulaGAN(cuda=False)
+        model.fit(data)
+    else:
+        space = {&#34;batch_size&#34;: hp.quniform(&#34;batch_size&#34;, 300, 800, 50)}
+        data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        best = fmin(fn=lambda params: calc_sdv_acc(params, data, &#34;copulagan&#34;), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        model = CopulaGAN(batch_size=int(best[&#34;batch_size&#34;]), cuda=False)
+        model.fit(data)
+    return model</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_small.generative_model_estimation.get_ctgan_model"><code class="name flex">
+<span>def <span class="ident">get_ctgan_model</span></span>(<span>data: numpy.ndarray, hyp_time: int) ‑> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Estimates CTGAN model.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>hyp_time</code></strong> :&ensp;<code>int</code></dt>
+<dd>The runtime setting (in seconds) for Hyperopt optimization.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>model</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Fitted generative model.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_ctgan_model(data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates CTGAN model.
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    model : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if hyp_time &lt; 15:
+        data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        model = CTGAN(cuda=False)
+        model.fit(data)
+    else:
+        space = {&#34;batch_size&#34;: hp.quniform(&#34;batch_size&#34;, 300, 800, 50)}
+        data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        best = fmin(fn=lambda params: calc_sdv_acc(params, data, &#34;ctgan&#34;), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        model = CTGAN(batch_size=int(best[&#34;batch_size&#34;]), cuda=False)
+        model.fit(data)
+    return model</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_small.generative_model_estimation.get_gmm_model"><code class="name flex">
+<span>def <span class="ident">get_gmm_model</span></span>(<span>data: numpy.ndarray, hyp_time: int) ‑> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Estimates GMM model.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>hyp_time</code></strong> :&ensp;<code>int</code></dt>
+<dd>The runtime setting (in seconds) for Hyperopt optimization.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>gmm</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Fitted generative model.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_gmm_model(data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates GMM model.
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    gmm : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if hyp_time == 0:
+        gmm = GaussianMixture(random_state=42)
+        gmm.fit(data)
+    else:
+        space = {&#34;n_components&#34;: hp.quniform(&#34;n_components&#34;, 1, int(round(data.shape[0] / 3 * 2) - 1), 1),
+                 &#34;covariance_type&#34;: hp.choice(&#34;covariance_type&#34;, [&#39;full&#39;, &#39;tied&#39;, &#39;diag&#39;, &#39;spherical&#39;])}
+        best = fmin(fn=lambda params: calc_gmm_acc(params, data), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        gmm = GaussianMixture(n_components=int(best[&#34;n_components&#34;]), covariance_type=best[&#39;covariance_type&#39;],
+                              random_state=42)
+        gmm.fit(data)
+    return gmm</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_small.generative_model_estimation.get_tvae_model"><code class="name flex">
+<span>def <span class="ident">get_tvae_model</span></span>(<span>data: numpy.ndarray, hyp_time: int) ‑> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Estimates TVAE model</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>hyp_time</code></strong> :&ensp;<code>int</code></dt>
+<dd>The runtime setting (in seconds) for Hyperopt optimization.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>model</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Fitted generative model.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_tvae_model(data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates TVAE model
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    model : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if hyp_time &lt; 15:
+        data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        model = TVAE(cuda=False)
+        model.fit(data)
+    else:
+        space = {&#34;batch_size&#34;: hp.quniform(&#34;batch_size&#34;, 300, 800, 50)}
+        data = pd.DataFrame(data, columns=[str(i) for i in range(data.shape[1])])
+        best = fmin(fn=lambda params: calc_sdv_acc(params, data, &#34;tvae&#34;), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        model = TVAE(batch_size=int(best[&#34;batch_size&#34;]), cuda=False)
+        model.fit(data)
+    return model</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_small.generative_model_estimation.sklearn_kde"><code class="name flex">
+<span>def <span class="ident">sklearn_kde</span></span>(<span>data: numpy.ndarray, hyp_time: int) ‑> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Estimates KDE (sklearn implementation).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>hyp_time</code></strong> :&ensp;<code>int</code></dt>
+<dd>The runtime setting (in seconds) for Hyperopt optimization.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>kde</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Fitted generative model.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sklearn_kde(data: ndarray, hyp_time: int) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates KDE (sklearn implementation).
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    hyp_time : int
+        The runtime setting (in seconds) for Hyperopt optimization.
+
+    Returns
+    -------
+    kde : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    if hyp_time == 0:
+        kde = KernelDensity(kernel=&#34;gaussian&#34;)
+        kde.fit(data)
+    else:
+        space = {&#39;bandwidth&#39;: hp.uniform(&#39;bandwidth&#39;, 0.01, 2)}
+        best = fmin(fn=lambda params: calc_kde_acc(params, data), space=space,
+                    algo=tpe.suggest, timeout=hyp_time, rstate=np.random.seed(42))
+        best = space_eval(space, best)
+        kde = KernelDensity(kernel=&#34;gaussian&#34;, bandwidth=best[&#39;bandwidth&#39;])
+        kde.fit(data)
+    return kde</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_small.generative_model_estimation.stats_kde"><code class="name flex">
+<span>def <span class="ident">stats_kde</span></span>(<span>data: numpy.ndarray, method: str) ‑> object</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Estimates KDE (Statsmodels).</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>method</code></strong> :&ensp;<code>{"cv_ml", "cv_ls"}</code></dt>
+<dd>CV type for bandwidth selection.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>kde</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Fitted generative model.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stats_kde(data: ndarray, method: str) -&gt; object:
+    &#34;&#34;&#34;
+    Estimates KDE (Statsmodels).
+
+    Parameters
+    ----------
+    data : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    method : {&#34;cv_ml&#34;, &#34;cv_ls&#34;}
+        CV type for bandwidth selection.
+
+    Returns
+    -------
+    kde : instance
+        Fitted generative model.
+    &#34;&#34;&#34;
+    var_type = &#34;c&#34; * data.shape[1]
+    kde = KDEMultivariate(data, var_type, bw=method)
+    return kde</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="asid.automl_small" href="index.html">asid.automl_small</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="asid.automl_small.generative_model_estimation.calc_bayesian_gmm_acc" href="#asid.automl_small.generative_model_estimation.calc_bayesian_gmm_acc">calc_bayesian_gmm_acc</a></code></li>
+<li><code><a title="asid.automl_small.generative_model_estimation.calc_gmm_acc" href="#asid.automl_small.generative_model_estimation.calc_gmm_acc">calc_gmm_acc</a></code></li>
+<li><code><a title="asid.automl_small.generative_model_estimation.calc_kde_acc" href="#asid.automl_small.generative_model_estimation.calc_kde_acc">calc_kde_acc</a></code></li>
+<li><code><a title="asid.automl_small.generative_model_estimation.calc_sdv_acc" href="#asid.automl_small.generative_model_estimation.calc_sdv_acc">calc_sdv_acc</a></code></li>
+<li><code><a title="asid.automl_small.generative_model_estimation.fit_model" href="#asid.automl_small.generative_model_estimation.fit_model">fit_model</a></code></li>
+<li><code><a title="asid.automl_small.generative_model_estimation.get_bayesian_gmm_model" href="#asid.automl_small.generative_model_estimation.get_bayesian_gmm_model">get_bayesian_gmm_model</a></code></li>
+<li><code><a title="asid.automl_small.generative_model_estimation.get_copula_model" href="#asid.automl_small.generative_model_estimation.get_copula_model">get_copula_model</a></code></li>
+<li><code><a title="asid.automl_small.generative_model_estimation.get_copulagan_model" href="#asid.automl_small.generative_model_estimation.get_copulagan_model">get_copulagan_model</a></code></li>
+<li><code><a title="asid.automl_small.generative_model_estimation.get_ctgan_model" href="#asid.automl_small.generative_model_estimation.get_ctgan_model">get_ctgan_model</a></code></li>
+<li><code><a title="asid.automl_small.generative_model_estimation.get_gmm_model" href="#asid.automl_small.generative_model_estimation.get_gmm_model">get_gmm_model</a></code></li>
+<li><code><a title="asid.automl_small.generative_model_estimation.get_tvae_model" href="#asid.automl_small.generative_model_estimation.get_tvae_model">get_tvae_model</a></code></li>
+<li><code><a title="asid.automl_small.generative_model_estimation.sklearn_kde" href="#asid.automl_small.generative_model_estimation.sklearn_kde">sklearn_kde</a></code></li>
+<li><code><a title="asid.automl_small.generative_model_estimation.stats_kde" href="#asid.automl_small.generative_model_estimation.stats_kde">stats_kde</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

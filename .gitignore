@@ -5,3 +5,4 @@ catboost_info
 /*.tmp
 /examples/catboost_info
 
+/docs/

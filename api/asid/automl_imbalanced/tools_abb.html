@@ -1,0 +1,2458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>asid.automl_imbalanced.tools_abb API documentation</title>
+<meta name="description" content="This module contains helping functions for AutoBalanceBoost class." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>asid.automl_imbalanced.tools_abb</code></h1>
+</header>
+<section id="section-intro">
+<p>This module contains helping functions for AutoBalanceBoost class.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+This module contains helping functions for AutoBalanceBoost class.
+&#34;&#34;&#34;
+
+from sklearn.model_selection import StratifiedShuffleSplit
+import numpy as np
+from sklearn import tree
+from sklearn.metrics import f1_score
+from typing import Union, Tuple
+from numpy import ndarray
+
+
+def get_newds(pred_proba: ndarray, ts: list, x: ndarray, y: ndarray, num_mod: int, balanced: Union[bool, dict],
+              num_feat: int, feat_gen: object, feat_imp: ndarray, ts_gen: object) -&gt; Tuple[list, list]:
+    &#34;&#34;&#34;
+    Samples train datasets for bagging during the boosting phase.
+
+    Parameters
+    ----------
+    pred_proba : array-like
+        Class probabilities predicted by AutoBalanceBoost for the correct class.
+
+    ts : list
+        A range of train sample shares for base learner estimation.
+
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    num_mod : int
+        The number of estimators in the base ensemble.
+
+    balanced : bool or dict
+        Balancing strategy parameter.
+
+    num_feat : int
+        The number of features that are not zeroed.
+
+    feat_gen : instance
+        Random sample generator.
+
+    feat_imp : array-like
+        Normalized feature importances.
+
+    ts_gen : instance
+        Random sample generator.
+
+    Returns
+    -------
+    train_datasets : list
+        Randomly generated train datasets for bagging.
+
+    class_prop : list
+        Class shares for each train dataset.
+    &#34;&#34;&#34;
+    train_datasets = []
+    pred_proba_res = pred_proba.copy()
+    pred_proba_res = 1 - pred_proba_res
+    pred_proba_res[pred_proba_res == 0] = 1e-5
+    class_prop = []
+    np.random.seed(42)
+    for i in range(num_mod):
+        if isinstance(ts, list):
+            if len(ts) == 0:
+                ts_opt = ts[0]
+            else:
+                ts_opt = ts_gen.choice(ts, size=None, replace=False)
+        else:
+            ts_opt = ts
+        sub_train_dataset = {}
+        if balanced:
+            class_unique, class_count = np.unique(y, return_counts=True)
+            pred_proba_res_norm = pred_proba_res / np.sum(pred_proba_res)
+            pred_proba_res_balanced = pred_proba_res_norm.copy()
+            if isinstance(balanced, dict):
+                maj_class = class_unique[np.argmax(class_count)]
+                num_classes_balanced = class_unique.shape[0] - balanced[&#34;Not_balanced&#34;].shape[0]
+                balance_share = 0
+                for class_v in balanced[&#34;Not_balanced&#34;]:
+                    class_arg = np.where(class_unique == class_v)[0]
+                    balance_share += class_count[class_arg] / y.shape[0]
+                target_maj_share = 1 / (1 + balanced[&#34;balance&#34;] * (num_classes_balanced - 1) + balance_share)
+                target_min_share = (1 - target_maj_share - balance_share) / (num_classes_balanced - 1)
+                for n, class_val in enumerate(class_unique):
+                    if class_val in balanced[&#34;Not_balanced&#34;]:
+                        target_share = class_count[n] / y.shape[0]
+                    else:
+                        if class_val == maj_class:
+                            target_share = target_maj_share
+                        else:
+                            target_share = target_min_share
+                    sum_proba_class = np.sum(pred_proba_res_norm[y == class_val])
+                    diff_sum = sum_proba_class - target_share
+                    pred_proba_res_balanced[y == class_val] = pred_proba_res_balanced[y == class_val] * (
+                            1 - diff_sum / sum_proba_class)
+                new_train_ind = np.random.choice(list(range(x.shape[0])), int(x.shape[0] * ts_opt), replace=True,
+                                                 p=pred_proba_res_balanced)
+            else:
+                maj_class = class_unique[np.argmax(class_count)]
+                maj_share = 1 / (1 + balanced * (class_unique.shape[0] - 1))
+                for class_val in class_unique:
+                    if class_val == maj_class:
+                        target_share = maj_share
+                    else:
+                        target_share = (1 - maj_share) / (class_unique.shape[0] - 1)
+                    sum_proba_class = np.sum(pred_proba_res_norm[y == class_val])
+                    diff_sum = sum_proba_class - target_share
+                    pred_proba_res_balanced[y == class_val] = pred_proba_res_balanced[y == class_val] * (
+                            1 - diff_sum / sum_proba_class)
+                new_train_ind = np.random.choice(list(range(x.shape[0])), int(x.shape[0] * ts_opt), replace=True,
+                                                 p=pred_proba_res_balanced)
+        else:
+            pred_proba_res_norm = pred_proba_res / np.sum(pred_proba_res)
+            new_train_ind = np.random.choice(list(range(x.shape[0])), int(x.shape[0] * ts_opt), replace=True,
+                                             p=pred_proba_res_norm)
+        sub_train_dataset[&#34;x_train&#34;] = x[new_train_ind]
+        if num_feat != x.shape[1]:
+            sub_train_dataset[&#34;x_train&#34;] = choose_feat(sub_train_dataset[&#34;x_train&#34;], num_feat, feat_gen, feat_imp)
+        sub_train_dataset[&#34;Y_train&#34;] = y[new_train_ind]
+        train_datasets.append(sub_train_dataset)
+        class_prop.append(
+            np.unique(sub_train_dataset[&#34;Y_train&#34;], return_counts=True)[1] / sub_train_dataset[&#34;Y_train&#34;].shape[0])
+    return train_datasets, class_prop
+
+
+def other_ensemble_procedure(x: ndarray, train_datasets: list, pred_proba_list: list, model_list: list,
+                             classes_sorted_train: ndarray) -&gt; Tuple[list, list]:
+    &#34;&#34;&#34;
+    Fits bagging during the boosting phase.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    train_datasets : list
+        Randomly generated train datasets for bagging.
+
+    pred_proba_list : list
+        Class probabilities predicted by each base estimator in AutoBalanceBoost.
+
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    classes_sorted_train : array-like
+        The sorted unique class values.
+
+    Returns
+    -------
+    pred_proba_list : list
+        Class probabilities predicted by each base estimator in AutoBalanceBoost.
+
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+    &#34;&#34;&#34;
+    sub_model_list = []
+    sub_pred_proba_list = []
+    for element in train_datasets:
+        clf = tree.DecisionTreeClassifier(random_state=42)
+        clf.fit(element[&#34;x_train&#34;], element[&#34;Y_train&#34;])
+        pred_proba = clf.predict_proba(x)
+        if pred_proba.shape[1] &lt; len(classes_sorted_train):
+            classes_sorted_model = np.argsort(clf.classes_)
+            classes_dict_model = dict(zip(clf.classes_, classes_sorted_model))
+            res_proba = []
+            for cl in classes_sorted_train:
+                if cl not in classes_dict_model:
+                    res_proba.append(np.array([0] * pred_proba.shape[0]))
+                else:
+                    res_proba.append(pred_proba[:, classes_dict_model[cl]])
+            pred_proba = np.column_stack(res_proba)
+        else:
+            classes_sorted = np.argsort(clf.classes_)
+            pred_proba = pred_proba[:, classes_sorted]
+        sub_pred_proba_list.append(pred_proba.copy())
+        sub_model_list.append(clf)
+    pred_proba_mean = np.mean(sub_pred_proba_list, axis=0)
+    pred_proba_list.append(pred_proba_mean)
+    model_list.append(sub_model_list)
+    return pred_proba_list, model_list
+
+
+def get_bootstrap_balanced_samples(x: ndarray, y: ndarray, balanced: Union[bool, dict], ts: list,
+                                   sample_gen: object) -&gt; Tuple[ndarray, ndarray]:
+    &#34;&#34;&#34;
+    Balancing procedure at the first iteration.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    ts : list
+        A range of train sample shares for base learner estimation.
+
+    balanced : bool or dict
+        Balancing strategy parameter.
+
+    sample_gen : instance
+        Random sample generator.
+
+    Returns
+    -------
+    x_sampled : array-like of shape (n_samples, n_features)
+        Generated training sample.
+
+    y_sampled : array-like
+        Generated target values.
+    &#34;&#34;&#34;
+    x_sampled = []
+    y_sampled = []
+    class_unique, class_count = np.unique(y, return_counts=True)
+    maj_class = class_unique[np.argmax(class_count)]
+    if isinstance(balanced, dict):
+        y_not_balanced = y[np.isin(y, balanced[&#34;Not_balanced&#34;])].shape[0]
+        maj_share = 1 / (1 + balanced[&#34;balance&#34;] * (class_unique.shape[0] - 1 - balanced[&#34;Not_balanced&#34;].shape[0]))
+        min_share = (1 - maj_share) / (class_unique.shape[0] - 1 - balanced[&#34;Not_balanced&#34;].shape[0])
+        for i, class_val in enumerate(class_unique):
+            if class_val in balanced[&#34;Not_balanced&#34;]:
+                indices = sample_gen.integers(0, x[y == class_val].shape[0], int(x[y == class_val].shape[0] * ts))
+            else:
+                if class_val == maj_class:
+                    indices = sample_gen.integers(0, x[y == class_val].shape[0],
+                                                  int((x.shape[0] - y_not_balanced) * maj_share * ts))
+                else:
+                    indices = sample_gen.integers(0, x[y == class_val].shape[0],
+                                                  int((x.shape[0] - y_not_balanced) * min_share * ts))
+            x_sampled.extend(x[y == class_val][indices])
+            y_sampled.extend([class_val for element in indices])
+    elif balanced is False:
+        indices = sample_gen.integers(0, len(x), int(len(x) * ts))
+        x_sampled.extend(x[indices])
+        y_sampled.extend(y[indices])
+    else:
+        maj_share = 1 / (1 + balanced * (class_unique.shape[0] - 1))
+        for class_val in class_unique:
+            if class_val == maj_class:
+                indices = sample_gen.integers(0, len(x[y == class_val]), int(len(x) * maj_share * ts))
+            else:
+                indices = sample_gen.integers(0, len(x[y == class_val]),
+                                              int(len(x) * (1 - maj_share) / (class_unique.shape[0] - 1) * ts))
+            x_sampled.extend(x[y == class_val][indices])
+            y_sampled.extend([class_val for element in indices])
+    x_sampled = np.vstack(x_sampled)
+    y_sampled = np.hstack(y_sampled)
+    return x_sampled, y_sampled
+
+
+def choose_feat(x: ndarray, n: int, feat_gen: object, feat_imp: ndarray) -&gt; ndarray:
+    &#34;&#34;&#34;
+    Samples the zeroed features.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    n : int
+        The number of features that are not zeroed.
+
+    feat_gen : instance
+        Random sample generator.
+
+    feat_imp : array-like
+        Normalized feature importances.
+
+    Returns
+    -------
+    x : array-like of shape (n_samples, n_features)
+        Training sample with zeroed features.
+    &#34;&#34;&#34;
+    feat_imp[feat_imp == 0] = 1e-7
+    feat_imp = np.array(feat_imp) / sum(feat_imp)
+    choose_feat = feat_gen.choice(list(range(x.shape[1])), int(x.shape[1] - n), replace=False, p=feat_imp)
+    x[:, choose_feat] = 0
+    return x
+
+
+def first_ensemble_procedure(x: ndarray, y: ndarray, ts: list, num_mod: int, balanced: Union[bool, dict], num_feat: int,
+                             feat_gen: object, res_feat_imp: ndarray, classes_sorted_train: ndarray,
+                             ts_gen: object) -&gt; Tuple[list, list, ndarray]:
+    &#34;&#34;&#34;
+    Fits bagging at the first iteration.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    ts : list
+        A range of train sample shares for base learner estimation.
+
+    num_mod : int
+        The number of estimators in the base ensemble.
+
+    balanced : bool or dict
+        Balancing strategy parameter.
+
+    num_feat : int
+        The number of features that are not zeroed.
+
+    feat_gen : instance
+        Random sample generator.
+
+    res_feat_imp : array-like
+        Normalized feature importances.
+
+    classes_sorted_train : array-like
+        The sorted unique class values.
+
+    ts_gen : instance
+        Random sample generator.
+
+    Returns
+    -------
+    pred_proba_list : list
+        Class probabilities predicted by each base estimator in AutoBalanceBoost.
+
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    feat_imp_list_mean : array-like
+        Normalized feature importances.
+    &#34;&#34;&#34;
+    sample_gen = np.random.default_rng(seed=42)
+    sub_model_list = []
+    model_list = []
+    pred_proba_list = []
+    sub_pred_proba_list = []
+    feat_imp_list = []
+    for i in range(num_mod):
+        if isinstance(ts, list):
+            if len(ts) == 0:
+                ts_opt = ts[0]
+            else:
+                ts_opt = ts_gen.choice(ts, size=None, replace=False)
+        else:
+            ts_opt = ts
+        x_sampled, y_sampled = get_bootstrap_balanced_samples(x, y, balanced, ts_opt, sample_gen)
+        if num_feat != x.shape[1]:
+            x_sampled = choose_feat(x_sampled, num_feat, feat_gen, res_feat_imp)
+        clf = tree.DecisionTreeClassifier(random_state=42)
+        clf.fit(x_sampled, y_sampled)
+        pred_proba = clf.predict_proba(x)
+        if pred_proba.shape[1] &lt; len(classes_sorted_train):
+            classes_sorted_model = np.argsort(clf.classes_)
+            classes_dict_model = dict(zip(clf.classes_, classes_sorted_model))
+            res_proba = []
+            for cl in classes_sorted_train:
+                if cl not in classes_dict_model:
+                    res_proba.append(np.array([0] * pred_proba.shape[0]))
+                else:
+                    res_proba.append(pred_proba[:, classes_dict_model[cl]])
+            pred_proba = np.column_stack(res_proba)
+        else:
+            classes_sorted = np.argsort(clf.classes_)
+            pred_proba = pred_proba[:, classes_sorted]
+        sub_pred_proba_list.append(pred_proba.copy())
+        sub_model_list.append(clf)
+        feat_imp_list.append(clf.feature_importances_)
+    pred_proba_mean = np.mean(sub_pred_proba_list, axis=0)
+    pred_proba_list.append(pred_proba_mean)
+    feat_imp_list_mean = np.mean(feat_imp_list, axis=0)
+    model_list.append(sub_model_list)
+    return pred_proba_list, model_list, feat_imp_list_mean
+
+
+def first_ensemble_procedure_with_cv_model(x: ndarray, first_model: list, classes_sorted_train: ndarray) -&gt; Union[
+        list, list]:
+    &#34;&#34;&#34;
+    Calculates the prediction probabilities of the CV bagging.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    first_model : list
+        Fitted base estimators in AutoBalanceBoost at the first iteration.
+
+    classes_sorted_train : array-like
+        The sorted unique class values.
+
+    Returns
+    -------
+    res_proba_mean : list
+        Class probabilities predicted at the first iteration.
+
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+    &#34;&#34;&#34;
+    res_proba_list = []
+    for first_model_list in first_model:
+        pred_proba_list = []
+        for iter in list(range(len(first_model_list))):
+            sub_pred_proba_list = []
+            for clf in first_model_list[iter]:
+                pred_proba = clf.predict_proba(x)
+                if pred_proba.shape[1] &lt; len(classes_sorted_train):
+                    classes_sorted_model = np.argsort(clf.classes_)
+                    classes_dict_model = dict(zip(clf.classes_, classes_sorted_model))
+                    res_proba = []
+                    for cl in classes_sorted_train:
+                        if cl not in classes_dict_model:
+                            res_proba.append(np.array([0] * pred_proba.shape[0]))
+                        else:
+                            res_proba.append(pred_proba[:, classes_dict_model[cl]])
+                    pred_proba = np.column_stack(res_proba)
+                else:
+                    classes_sorted = np.argsort(clf.classes_)
+                    pred_proba = pred_proba[:, classes_sorted]
+                sub_pred_proba_list.append(pred_proba.copy())
+            sub_pred_proba_mean = np.mean(sub_pred_proba_list, axis=0)
+            pred_proba_list.append(sub_pred_proba_mean)
+        pred_proba_mean = np.mean(pred_proba_list, axis=0)
+        res_proba_list.append(pred_proba_mean)
+    res_proba_mean = [np.mean(res_proba_list, axis=0)]
+    model_list = [first_model]
+    return res_proba_mean, model_list
+
+
+def fit_ensemble(x: ndarray, y: ndarray, ts: Union[float, list], iter_lim: int, num_mod: int,
+                 balanced: Union[bool, dict], first_model: Union[list, None], num_feat: int, feat_imp: ndarray,
+                 classes_: ndarray) -&gt; Tuple[list, ndarray]:
+    &#34;&#34;&#34;
+    Iteratively fits the resulting ensemble.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    ts : float or list
+        A range of train sample shares for base learner estimation.
+
+    iter_lim : int
+        The number of boosting iterations.
+
+    num_mod : int
+        The number of estimators in the base ensemble.
+
+    balanced : bool or dict
+        Balancing strategy parameter.
+
+    first_model : list or None
+        Fitted base estimators in AutoBalanceBoost at the first iteration.
+
+    num_feat : int
+        The number of features that are not zeroed.
+
+    feat_imp : array-like
+        Normalized feature importances.
+
+    classes_ : array-like
+        Class labels.
+
+    Returns
+    -------
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    feat_imp_list_mean : array-like
+        Normalized feature importances.
+    &#34;&#34;&#34;
+    feat_gen = np.random.default_rng(seed=42)
+    ts_gen = np.random.default_rng(seed=42)
+    if not first_model:
+        pred_proba_list, model_list, feat_imp_list_mean = first_ensemble_procedure(x, y, ts, num_mod, balanced,
+                                                                                   num_feat, feat_gen, feat_imp,
+                                                                                   classes_, ts_gen)
+    else:
+        pred_proba_list, model_list = first_ensemble_procedure_with_cv_model(x, first_model, classes_)
+        feat_imp_list_mean = feat_imp
+    pred_proba_true_class = np.array(
+        list(map(lambda x, y: pred_proba_list[0][y, np.where(classes_ == x)[0][0]], y, list(range(y.shape[0])))))
+    res_class_prop = []
+    for i in range(iter_lim - 1):
+        train_datasets, class_prop = get_newds(pred_proba_true_class, ts, x, y, num_mod, balanced, num_feat, feat_gen,
+                                               feat_imp, ts_gen)
+        pred_proba_list, model_list = other_ensemble_procedure(x, train_datasets, pred_proba_list, model_list,
+                                                               classes_)
+        pred_proba_mean = np.mean(pred_proba_list, axis=0)
+        pred_proba_true_class = np.array(
+            list(map(lambda x, y: pred_proba_mean[y, np.where(classes_ == x)[0][0]], y, list(range(y.shape[0])))))
+        res_class_prop.append(class_prop)
+    return model_list, feat_imp_list_mean
+
+
+def calc_fscore(x: ndarray, y: ndarray, model_list: list, classes_sorted_train: ndarray) -&gt; Tuple[float, ndarray]:
+    &#34;&#34;&#34;
+    Calculates the CV test score.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    classes_sorted_train : array-like
+        Class labels.
+
+    Returns
+    -------
+    fscore_val : float
+        CV test score.
+
+    fscore_val_val : array-like
+        CV test score for each class separately.
+    &#34;&#34;&#34;
+    pred_proba_list = []
+    for i in range(len(model_list)):
+        sub_pred_proba_list = []
+        for j in range(len(model_list[i])):
+            pred_proba = model_list[i][j].predict_proba(x)
+            if pred_proba.shape[1] &lt; len(classes_sorted_train):
+                classes_sorted_model = np.argsort(model_list[i][j].classes_)
+                classes_dict_model = dict(zip(model_list[i][j].classes_, classes_sorted_model))
+                res_proba = []
+                for cl in classes_sorted_train:
+                    if cl not in classes_dict_model:
+                        res_proba.append(np.array([0] * pred_proba.shape[0]))
+                    else:
+                        res_proba.append(pred_proba[:, classes_dict_model[cl]])
+                pred_proba = np.column_stack(res_proba)
+            else:
+                classes_sorted = np.argsort(model_list[i][j].classes_)
+                pred_proba = pred_proba[:, classes_sorted]
+            sub_pred_proba_list.append(pred_proba.copy())
+        sub_pred_proba_mean = np.mean(sub_pred_proba_list, axis=0)
+        pred_proba_list.append(sub_pred_proba_mean)
+    pred_proba_mean = np.mean(pred_proba_list, axis=0)
+    max_class_index = np.argmax(pred_proba_mean, axis=1)
+    pred_mean = list(map(lambda x: classes_sorted_train[x], max_class_index))
+    fscore_val_val = f1_score(y, pred_mean, average=None, labels=classes_sorted_train)
+    fscore_val = np.mean(fscore_val_val)
+    return fscore_val, fscore_val_val
+
+
+def cv_balance_procedure(x: ndarray, y: ndarray, split_coef: float, classes_: ndarray) -&gt; dict:
+    &#34;&#34;&#34;
+    Chooses the optimal balancing strategy.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    split_coef : float
+        Train sample share for base learner estimation.
+
+    classes_ : array-like
+        Class labels.
+
+    Returns
+    -------
+    bagging_ensemble_param : dict
+        CV procedure data.
+    &#34;&#34;&#34;
+    bagging_ensemble_param = {}
+    skf = StratifiedShuffleSplit(n_splits=10, test_size=0.5, random_state=42)
+    feature_val = [False, 1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3]
+    cv_val = [[] for i in feature_val]
+    cv_val_val = [[] for i in feature_val]
+    res_model = [[] for i in feature_val]
+    res_feat_imp = [[] for i in feature_val]
+    for train_index, test_index in skf.split(x, y):
+        x_train, x_test = x[train_index], x[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+        for i, val in enumerate(feature_val):
+            model_list, feat_imp = fit_ensemble(x_train, y_train, split_coef, 5, 6, val, None, x.shape[1], None,
+                                                classes_)
+            bootst_res, bootst_res_val = calc_fscore(x_test, y_test, model_list, classes_)
+            cv_val[i].append(bootst_res)
+            cv_val_val[i].append(bootst_res_val)
+            res_model[i].append(model_list)
+            res_feat_imp[i].append(feat_imp)
+    un_y, y_val = np.unique(y, return_counts=True)
+    num_class = un_y.shape[0]
+    cv_val_mean = np.mean(cv_val, axis=1)
+    if num_class &gt; 2 and np.argmax(cv_val_mean) != 0:
+        cv_val_val_mean_list = []
+        for i, val in enumerate(feature_val):
+            cv_val_val_mean_list.append(np.mean(cv_val_val[i], axis=0))
+        feat_num = np.argmax(cv_val_mean)
+        balance_shares = []
+        for val in y_val:
+            if val == np.max(y_val):
+                balance_shares.append(1 / (1 + feature_val[feat_num] * (num_class - 1)))
+            else:
+                maj_share = 1 / (1 + feature_val[feat_num] * (num_class - 1))
+                balance_shares.append((1 - maj_share) / (num_class - 1))
+        balance_shares = np.array(balance_shares)
+        fact_shares = y_val / np.sum(y_val)
+        ind_sampl = (balance_shares &gt; fact_shares) &amp; (cv_val_val_mean_list[0] &gt;= cv_val_val_mean_list[feat_num])
+        if ind_sampl.any():
+            ind_val = un_y[ind_sampl]
+            feature_val.append({&#34;Not_balanced&#34;: ind_val, &#34;balance&#34;: feature_val[feat_num]})
+            cv_val.append([])
+            res_model.append([])
+            res_feat_imp.append([])
+            for train_index, test_index in skf.split(x, y):
+                x_train, x_test = x[train_index], x[test_index]
+                y_train, y_test = y[train_index], y[test_index]
+                model_list, feat_imp = fit_ensemble(x_train, y_train, split_coef, 5, 6,
+                                                    {&#34;Not_balanced&#34;: ind_val, &#34;balance&#34;: feature_val[feat_num]}, None,
+                                                    x.shape[1], None, classes_)
+                bootst_res, bootst_res_val = calc_fscore(x_test, y_test, model_list, classes_)
+                cv_val[9].append(bootst_res)
+                res_model[9].append(model_list)
+                res_feat_imp[9].append(feat_imp)
+            cv_val_mean = np.mean(cv_val, axis=1)
+    bagging_ensemble_param[&#34;opt_balance&#34;] = feature_val[np.argmax(cv_val_mean)]
+    bagging_ensemble_param[&#34;cv_result_balance&#34;] = cv_val[np.argmax(cv_val_mean)]
+    bagging_ensemble_param[&#34;cv_balance&#34;] = cv_val_mean
+    bagging_ensemble_param[&#34;split_coef_balance&#34;] = split_coef
+    bagging_ensemble_param[&#34;models_balance&#34;] = res_model[np.argmax(cv_val_mean)]
+    bagging_ensemble_param[&#34;feat_imp_balance&#34;] = res_feat_imp[np.argmax(cv_val_mean)]
+    return bagging_ensemble_param
+
+
+def calc_share(series_a: ndarray, series_b: ndarray, sample_gen1: object, sample_gen2: object) -&gt; float:
+    &#34;&#34;&#34;
+    Calculates performance shares for different bagging share values.
+
+    Parameters
+    ----------
+    series_a : array-like
+        Scores for bagging share value for a range of splitting iterations.
+
+    series_b : array-like
+        Scores for bagging share value with the highest mean score for a range of splitting iterations.
+
+    sample_gen1 : instance
+        Random sample generator.
+
+    sample_gen2 : instance
+        Random sample generator.
+
+    Returns
+    -------
+    share : float
+        Performance share for bagging share value.
+    &#34;&#34;&#34;
+    count = 0
+    for i in range(1000):
+        indices1 = sample_gen1.integers(0, len(series_a), len(series_a))
+        indices2 = sample_gen2.integers(0, len(series_b), len(series_b))
+        sub_series_a = np.mean(series_a[indices1])
+        sub_series_b = np.mean(series_b[indices2])
+        if sub_series_a &gt;= sub_series_b:
+            count += 1
+    share = round(count / 1000, 3)
+    return share
+
+
+def get_best_bc(split_range: ndarray, f_score_list: list, sample_gen1: object, sample_gen2: object) -&gt; Tuple[
+        list, list]:
+    &#34;&#34;&#34;
+    Chooses a list of bagging shares with the best performance.
+
+    Parameters
+    ----------
+    split_range : array-like
+        Bagging share values.
+
+    f_score_list : list
+        CV scores for bagging share values.
+
+    sample_gen1 : instance
+        Random sample generator.
+
+    sample_gen2 : instance
+        Random sample generator.
+
+    Returns
+    -------
+    split_arg : list
+        List of optimal bagging share values.
+
+    ind_bc : list
+        Indices of optimal bagging share values.
+    &#34;&#34;&#34;
+    split_sorted = np.argsort(np.mean(f_score_list, axis=1))[::-1]
+    split_k = np.array(f_score_list[split_sorted[0]])
+    split_arg = []
+    ind_bc = []
+    for m in range(len(split_sorted)):
+        split_m = np.array(f_score_list[split_sorted[m]])
+        share = calc_share(split_m, split_k, sample_gen1, sample_gen2)
+        if share &gt; 0:
+            split_arg.append(split_range[split_sorted[m]])
+            ind_bc.append(split_sorted[m])
+    return split_arg, ind_bc
+
+
+def cv_split_procedure(x: ndarray, y: ndarray, bagging_ensemble_param: dict) -&gt; dict:
+    &#34;&#34;&#34;
+    Chooses an optimal list of bagging shares.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    bagging_ensemble_param : dict
+        CV procedure data.
+
+    Returns
+    -------
+    bagging_ensemble_param : dict
+        CV procedure data.
+    &#34;&#34;&#34;
+    skf = StratifiedShuffleSplit(n_splits=1, test_size=0.5, random_state=42)
+    feature_val = np.arange(0.1, 1.15, 0.05)
+    cv_val_seq = [[] for i in feature_val]
+    count = 0
+    feat_imp_list = []
+    for train_index, test_index in skf.split(x, y):
+        x_train, x_test = x[train_index], x[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+        for i, val in enumerate(feature_val):
+            model_list, feat_imp = fit_ensemble(x_train, y_train, val, 5, 6, bagging_ensemble_param[&#34;opt_balance&#34;],
+                                                None, x.shape[1], None, bagging_ensemble_param[&#34;classes&#34;])
+            feat_imp_list.append(feat_imp)
+            sample_gen = np.random.default_rng(seed=42)
+            for k in range(100):
+                indices = sample_gen.integers(0, x_test.shape[0], x_test.shape[0])
+                bootst_res, bootst_res_val = calc_fscore(x_test[indices], y_test[indices], model_list,
+                                                         bagging_ensemble_param[&#34;classes&#34;])
+                cv_val_seq[i].append(bootst_res)
+        count += 1
+    sample_gen1 = np.random.default_rng(seed=42)
+    sample_gen2 = np.random.default_rng(seed=45)
+    bc_seq, ind_bc = get_best_bc(feature_val, cv_val_seq, sample_gen1, sample_gen2)
+    bagging_ensemble_param[&#34;opt_split&#34;] = bc_seq
+    bagging_ensemble_param[&#34;split_range&#34;] = feature_val
+    bagging_ensemble_param[&#34;feat_imp_norm&#34;] = np.mean(np.array(feat_imp_list)[ind_bc], axis=0)
+    return bagging_ensemble_param
+
+
+def num_feat_procedure(x: ndarray, y: ndarray, bagging_ensemble_param: dict) -&gt; Tuple[dict, list]:
+    &#34;&#34;&#34;
+    Chooses an optimal number of zeroed features.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    bagging_ensemble_param : dict
+        CV procedure data.
+
+    Returns
+    -------
+    bagging_ensemble_param : dict
+        CV procedure data.
+
+    res_model : list
+        Fitted base estimators in AutoBalanceBoost.
+    &#34;&#34;&#34;
+    skf = StratifiedShuffleSplit(n_splits=10, test_size=0.5, random_state=42)
+    feat_imp_norm = bagging_ensemble_param[&#34;feat_imp_norm&#34;]
+    feat_imp_norm = feat_imp_norm / sum(feat_imp_norm)
+    feat_imp_norm_sort_ind = np.argsort(feat_imp_norm)[::-1]
+    feat_imp_norm_cumsum = np.cumsum(feat_imp_norm[feat_imp_norm_sort_ind])
+    ind_chosen = feat_imp_norm_sort_ind[feat_imp_norm_cumsum &lt; 0.95]
+    feature_val = [x.shape[1] - element for element in list(range(ind_chosen.shape[0]))]
+    res_model = [[] for i in feature_val]
+    cv_val = [[] for i in feature_val]
+    count = 0
+    for train_index, test_index in skf.split(x, y):
+        x_train, x_test = x[train_index], x[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+        for i, val in enumerate(feature_val):
+            model_list, feat_imp_list_mean = fit_ensemble(x_train, y_train, bagging_ensemble_param[&#34;opt_split&#34;], 5, 6,
+                                                          bagging_ensemble_param[&#34;opt_balance&#34;], None, val,
+                                                          feat_imp_norm, bagging_ensemble_param[&#34;classes&#34;])
+            res_model[i].append(model_list)
+            bootst_res, bootst_res_val = calc_fscore(x_test, y_test, model_list, bagging_ensemble_param[&#34;classes&#34;])
+            cv_val[i].append(bootst_res)
+        count += 1
+    cv_val_mean = np.mean(cv_val, axis=1)
+    bagging_ensemble_param[&#34;opt_feat&#34;] = feature_val[np.argmax(cv_val_mean)]
+    res_model = res_model[np.argmax(cv_val_mean)]
+    return bagging_ensemble_param, res_model
+
+
+def boosting_of_bagging_procedure(x_train: ndarray, y_train: ndarray, num_iter: int, num_mod: int) -&gt; Tuple[list, dict]:
+    &#34;&#34;&#34;
+    Fits an AutoBalanceBoost model.
+
+    Parameters
+    ----------
+    x_train : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y_train : array-like
+        The target values.
+
+    num_iter : int
+        The number of boosting iterations.
+
+    num_mod : int
+        The number of estimators in the base ensemble.
+
+    Returns
+    -------
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    boosting_params : dict
+        CV procedure data.
+    &#34;&#34;&#34;
+    boosting_params = {}
+    y_val, y_counts = np.unique(y_train, return_counts=True)
+    if y_counts.min() / y_counts.max() &gt;= 0.9:
+        balance_param = {&#34;opt_balance&#34;: False, &#34;split_coef_balance&#34;: 0}
+    else:
+        balance_param = cv_balance_procedure(x_train, y_train, 0.3, y_val)
+    balance_param[&#34;classes&#34;] = y_val
+    boosting_params[&#34;balance_share&#34;] = balance_param[&#34;opt_balance&#34;]
+    balance_param = cv_split_procedure(x_train, y_train, balance_param)
+    boosting_params[&#34;bagging_share&#34;] = balance_param[&#34;opt_split&#34;]
+    balance_param, first_model = num_feat_procedure(x_train, y_train, balance_param)
+    boosting_params[&#34;features_number&#34;] = balance_param[&#34;opt_feat&#34;]
+    model_list, feat_imp_list_mean = fit_ensemble(x_train, y_train, boosting_params[&#34;bagging_share&#34;], num_iter, num_mod,
+                                                  boosting_params[&#34;balance_share&#34;], first_model,
+                                                  boosting_params[&#34;features_number&#34;], balance_param[&#34;feat_imp_norm&#34;],
+                                                  balance_param[&#34;classes&#34;])
+    return model_list, boosting_params
+
+
+def get_pred(model_list: list, x_test: ndarray) -&gt; ndarray:
+    &#34;&#34;&#34;
+    Predicts class labels.
+
+    Parameters
+    ----------
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    x_test : array-like of shape (n_samples, n_features)
+        Test sample.
+
+    Returns
+    -------
+    pred_mean_hard : array-like
+        The predicted class.
+    &#34;&#34;&#34;
+    pred_list = []
+    for i in range(len(model_list)):
+        for j in range(len(model_list[i])):
+            if not isinstance(model_list[i][j], list):
+                pred = model_list[i][j].predict(x_test)
+                pred_list.append(pred)
+            else:
+                for cv_i in range(len(model_list[i][j])):
+                    for iter in range(len(model_list[i][j][cv_i])):
+                        pred = model_list[i][j][cv_i][iter].predict(x_test)
+                        pred_list.append(pred)
+    pred_list = np.array(pred_list)
+    pred_mean_hard = np.array(list(
+        map(lambda y: np.unique(pred_list[:, y])[np.argmax(np.unique(pred_list[:, y], return_counts=True)[1])],
+            list(range(x_test.shape[0])))))
+    return pred_mean_hard
+
+
+def get_pred_proba(model_list: list, x_test: ndarray) -&gt; ndarray:
+    &#34;&#34;&#34;
+    Predicts class probabilities.
+
+    Parameters
+    ----------
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    x_test : array-like of shape (n_samples, n_features)
+        Test sample.
+
+    Returns
+    -------
+    proba_mean_hard : array-like of shape (n_samples, n_classes)
+        The predicted class probabilities.
+    &#34;&#34;&#34;
+    pred_list = []
+    for i in range(len(model_list)):
+        for j in range(len(model_list[i])):
+            if not isinstance(model_list[i][j], list):
+                pred = model_list[i][j].predict(x_test)
+                pred_list.append(pred)
+            else:
+                for cv_i in range(len(model_list[i][j])):
+                    for iter in range(len(model_list[i][j][cv_i])):
+                        pred = model_list[i][j][cv_i][iter].predict(x_test)
+                        pred_list.append(pred)
+    pred_list = np.array(pred_list)
+    proba_mean_hard = []
+    col_names = np.unique(pred_list)
+    for cl_val in col_names:
+        proba_mean_hard.append(np.array(list(
+            map(lambda y: (pred_list[:, y] == cl_val).sum() / pred_list[:, y].shape[0], list(range(x_test.shape[0]))))))
+    proba_mean_hard = np.vstack(proba_mean_hard).T
+    return proba_mean_hard
+
+
+def get_feat_imp(model_list: list) -&gt; ndarray:
+    &#34;&#34;&#34;
+    Returns normalized feature importances.
+
+    Parameters
+    ----------
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    Returns
+    -------
+    feat_imp_norm : array-like
+        Normalized feature importances.
+    &#34;&#34;&#34;
+    feat_imp_list = []
+    for i in range(len(model_list)):
+        for j in range(len(model_list[i])):
+            if not isinstance(model_list[i][j], list):
+                feat_imp = model_list[i][j].feature_importances_
+                feat_imp_list.append(feat_imp)
+            else:
+                for cv_i in range(len(model_list[i][j])):
+                    for iter_ in range(len(model_list[i][j][cv_i])):
+                        feat_imp = model_list[i][j][cv_i][iter_].feature_importances_
+                        feat_imp_list.append(feat_imp)
+
+    feat_imp_list = np.mean(feat_imp_list, axis=0)
+    feat_imp_norm = feat_imp_list / np.sum(feat_imp_list)
+    return feat_imp_norm</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="asid.automl_imbalanced.tools_abb.boosting_of_bagging_procedure"><code class="name flex">
+<span>def <span class="ident">boosting_of_bagging_procedure</span></span>(<span>x_train: numpy.ndarray, y_train: numpy.ndarray, num_iter: int, num_mod: int) ‑> Tuple[list, dict]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Fits an AutoBalanceBoost model.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x_train</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>y_train</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The target values.</dd>
+<dt><strong><code>num_iter</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of boosting iterations.</dd>
+<dt><strong><code>num_mod</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of estimators in the base ensemble.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>model_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost.</dd>
+<dt><strong><code>boosting_params</code></strong> :&ensp;<code>dict</code></dt>
+<dd>CV procedure data.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def boosting_of_bagging_procedure(x_train: ndarray, y_train: ndarray, num_iter: int, num_mod: int) -&gt; Tuple[list, dict]:
+    &#34;&#34;&#34;
+    Fits an AutoBalanceBoost model.
+
+    Parameters
+    ----------
+    x_train : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y_train : array-like
+        The target values.
+
+    num_iter : int
+        The number of boosting iterations.
+
+    num_mod : int
+        The number of estimators in the base ensemble.
+
+    Returns
+    -------
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    boosting_params : dict
+        CV procedure data.
+    &#34;&#34;&#34;
+    boosting_params = {}
+    y_val, y_counts = np.unique(y_train, return_counts=True)
+    if y_counts.min() / y_counts.max() &gt;= 0.9:
+        balance_param = {&#34;opt_balance&#34;: False, &#34;split_coef_balance&#34;: 0}
+    else:
+        balance_param = cv_balance_procedure(x_train, y_train, 0.3, y_val)
+    balance_param[&#34;classes&#34;] = y_val
+    boosting_params[&#34;balance_share&#34;] = balance_param[&#34;opt_balance&#34;]
+    balance_param = cv_split_procedure(x_train, y_train, balance_param)
+    boosting_params[&#34;bagging_share&#34;] = balance_param[&#34;opt_split&#34;]
+    balance_param, first_model = num_feat_procedure(x_train, y_train, balance_param)
+    boosting_params[&#34;features_number&#34;] = balance_param[&#34;opt_feat&#34;]
+    model_list, feat_imp_list_mean = fit_ensemble(x_train, y_train, boosting_params[&#34;bagging_share&#34;], num_iter, num_mod,
+                                                  boosting_params[&#34;balance_share&#34;], first_model,
+                                                  boosting_params[&#34;features_number&#34;], balance_param[&#34;feat_imp_norm&#34;],
+                                                  balance_param[&#34;classes&#34;])
+    return model_list, boosting_params</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.calc_fscore"><code class="name flex">
+<span>def <span class="ident">calc_fscore</span></span>(<span>x: numpy.ndarray, y: numpy.ndarray, model_list: list, classes_sorted_train: numpy.ndarray) ‑> Tuple[float, numpy.ndarray]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculates the CV test score.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The target values.</dd>
+<dt><strong><code>model_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost.</dd>
+<dt><strong><code>classes_sorted_train</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Class labels.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>fscore_val</code></strong> :&ensp;<code>float</code></dt>
+<dd>CV test score.</dd>
+<dt><strong><code>fscore_val_val</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>CV test score for each class separately.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_fscore(x: ndarray, y: ndarray, model_list: list, classes_sorted_train: ndarray) -&gt; Tuple[float, ndarray]:
+    &#34;&#34;&#34;
+    Calculates the CV test score.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    classes_sorted_train : array-like
+        Class labels.
+
+    Returns
+    -------
+    fscore_val : float
+        CV test score.
+
+    fscore_val_val : array-like
+        CV test score for each class separately.
+    &#34;&#34;&#34;
+    pred_proba_list = []
+    for i in range(len(model_list)):
+        sub_pred_proba_list = []
+        for j in range(len(model_list[i])):
+            pred_proba = model_list[i][j].predict_proba(x)
+            if pred_proba.shape[1] &lt; len(classes_sorted_train):
+                classes_sorted_model = np.argsort(model_list[i][j].classes_)
+                classes_dict_model = dict(zip(model_list[i][j].classes_, classes_sorted_model))
+                res_proba = []
+                for cl in classes_sorted_train:
+                    if cl not in classes_dict_model:
+                        res_proba.append(np.array([0] * pred_proba.shape[0]))
+                    else:
+                        res_proba.append(pred_proba[:, classes_dict_model[cl]])
+                pred_proba = np.column_stack(res_proba)
+            else:
+                classes_sorted = np.argsort(model_list[i][j].classes_)
+                pred_proba = pred_proba[:, classes_sorted]
+            sub_pred_proba_list.append(pred_proba.copy())
+        sub_pred_proba_mean = np.mean(sub_pred_proba_list, axis=0)
+        pred_proba_list.append(sub_pred_proba_mean)
+    pred_proba_mean = np.mean(pred_proba_list, axis=0)
+    max_class_index = np.argmax(pred_proba_mean, axis=1)
+    pred_mean = list(map(lambda x: classes_sorted_train[x], max_class_index))
+    fscore_val_val = f1_score(y, pred_mean, average=None, labels=classes_sorted_train)
+    fscore_val = np.mean(fscore_val_val)
+    return fscore_val, fscore_val_val</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.calc_share"><code class="name flex">
+<span>def <span class="ident">calc_share</span></span>(<span>series_a: numpy.ndarray, series_b: numpy.ndarray, sample_gen1: object, sample_gen2: object) ‑> float</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculates performance shares for different bagging share values.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>series_a</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Scores for bagging share value for a range of splitting iterations.</dd>
+<dt><strong><code>series_b</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Scores for bagging share value with the highest mean score for a range of splitting iterations.</dd>
+<dt><strong><code>sample_gen1</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Random sample generator.</dd>
+<dt><strong><code>sample_gen2</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Random sample generator.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>share</code></strong> :&ensp;<code>float</code></dt>
+<dd>Performance share for bagging share value.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_share(series_a: ndarray, series_b: ndarray, sample_gen1: object, sample_gen2: object) -&gt; float:
+    &#34;&#34;&#34;
+    Calculates performance shares for different bagging share values.
+
+    Parameters
+    ----------
+    series_a : array-like
+        Scores for bagging share value for a range of splitting iterations.
+
+    series_b : array-like
+        Scores for bagging share value with the highest mean score for a range of splitting iterations.
+
+    sample_gen1 : instance
+        Random sample generator.
+
+    sample_gen2 : instance
+        Random sample generator.
+
+    Returns
+    -------
+    share : float
+        Performance share for bagging share value.
+    &#34;&#34;&#34;
+    count = 0
+    for i in range(1000):
+        indices1 = sample_gen1.integers(0, len(series_a), len(series_a))
+        indices2 = sample_gen2.integers(0, len(series_b), len(series_b))
+        sub_series_a = np.mean(series_a[indices1])
+        sub_series_b = np.mean(series_b[indices2])
+        if sub_series_a &gt;= sub_series_b:
+            count += 1
+    share = round(count / 1000, 3)
+    return share</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.choose_feat"><code class="name flex">
+<span>def <span class="ident">choose_feat</span></span>(<span>x: numpy.ndarray, n: int, feat_gen: object, feat_imp: numpy.ndarray) ‑> numpy.ndarray</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Samples the zeroed features.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>n</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of features that are not zeroed.</dd>
+<dt><strong><code>feat_gen</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Random sample generator.</dd>
+<dt><strong><code>feat_imp</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Normalized feature importances.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample with zeroed features.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def choose_feat(x: ndarray, n: int, feat_gen: object, feat_imp: ndarray) -&gt; ndarray:
+    &#34;&#34;&#34;
+    Samples the zeroed features.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    n : int
+        The number of features that are not zeroed.
+
+    feat_gen : instance
+        Random sample generator.
+
+    feat_imp : array-like
+        Normalized feature importances.
+
+    Returns
+    -------
+    x : array-like of shape (n_samples, n_features)
+        Training sample with zeroed features.
+    &#34;&#34;&#34;
+    feat_imp[feat_imp == 0] = 1e-7
+    feat_imp = np.array(feat_imp) / sum(feat_imp)
+    choose_feat = feat_gen.choice(list(range(x.shape[1])), int(x.shape[1] - n), replace=False, p=feat_imp)
+    x[:, choose_feat] = 0
+    return x</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.cv_balance_procedure"><code class="name flex">
+<span>def <span class="ident">cv_balance_procedure</span></span>(<span>x: numpy.ndarray, y: numpy.ndarray, split_coef: float, classes_: numpy.ndarray) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Chooses the optimal balancing strategy.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The target values.</dd>
+<dt><strong><code>split_coef</code></strong> :&ensp;<code>float</code></dt>
+<dd>Train sample share for base learner estimation.</dd>
+<dt><strong><code>classes_</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Class labels.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bagging_ensemble_param</code></strong> :&ensp;<code>dict</code></dt>
+<dd>CV procedure data.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cv_balance_procedure(x: ndarray, y: ndarray, split_coef: float, classes_: ndarray) -&gt; dict:
+    &#34;&#34;&#34;
+    Chooses the optimal balancing strategy.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    split_coef : float
+        Train sample share for base learner estimation.
+
+    classes_ : array-like
+        Class labels.
+
+    Returns
+    -------
+    bagging_ensemble_param : dict
+        CV procedure data.
+    &#34;&#34;&#34;
+    bagging_ensemble_param = {}
+    skf = StratifiedShuffleSplit(n_splits=10, test_size=0.5, random_state=42)
+    feature_val = [False, 1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3]
+    cv_val = [[] for i in feature_val]
+    cv_val_val = [[] for i in feature_val]
+    res_model = [[] for i in feature_val]
+    res_feat_imp = [[] for i in feature_val]
+    for train_index, test_index in skf.split(x, y):
+        x_train, x_test = x[train_index], x[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+        for i, val in enumerate(feature_val):
+            model_list, feat_imp = fit_ensemble(x_train, y_train, split_coef, 5, 6, val, None, x.shape[1], None,
+                                                classes_)
+            bootst_res, bootst_res_val = calc_fscore(x_test, y_test, model_list, classes_)
+            cv_val[i].append(bootst_res)
+            cv_val_val[i].append(bootst_res_val)
+            res_model[i].append(model_list)
+            res_feat_imp[i].append(feat_imp)
+    un_y, y_val = np.unique(y, return_counts=True)
+    num_class = un_y.shape[0]
+    cv_val_mean = np.mean(cv_val, axis=1)
+    if num_class &gt; 2 and np.argmax(cv_val_mean) != 0:
+        cv_val_val_mean_list = []
+        for i, val in enumerate(feature_val):
+            cv_val_val_mean_list.append(np.mean(cv_val_val[i], axis=0))
+        feat_num = np.argmax(cv_val_mean)
+        balance_shares = []
+        for val in y_val:
+            if val == np.max(y_val):
+                balance_shares.append(1 / (1 + feature_val[feat_num] * (num_class - 1)))
+            else:
+                maj_share = 1 / (1 + feature_val[feat_num] * (num_class - 1))
+                balance_shares.append((1 - maj_share) / (num_class - 1))
+        balance_shares = np.array(balance_shares)
+        fact_shares = y_val / np.sum(y_val)
+        ind_sampl = (balance_shares &gt; fact_shares) &amp; (cv_val_val_mean_list[0] &gt;= cv_val_val_mean_list[feat_num])
+        if ind_sampl.any():
+            ind_val = un_y[ind_sampl]
+            feature_val.append({&#34;Not_balanced&#34;: ind_val, &#34;balance&#34;: feature_val[feat_num]})
+            cv_val.append([])
+            res_model.append([])
+            res_feat_imp.append([])
+            for train_index, test_index in skf.split(x, y):
+                x_train, x_test = x[train_index], x[test_index]
+                y_train, y_test = y[train_index], y[test_index]
+                model_list, feat_imp = fit_ensemble(x_train, y_train, split_coef, 5, 6,
+                                                    {&#34;Not_balanced&#34;: ind_val, &#34;balance&#34;: feature_val[feat_num]}, None,
+                                                    x.shape[1], None, classes_)
+                bootst_res, bootst_res_val = calc_fscore(x_test, y_test, model_list, classes_)
+                cv_val[9].append(bootst_res)
+                res_model[9].append(model_list)
+                res_feat_imp[9].append(feat_imp)
+            cv_val_mean = np.mean(cv_val, axis=1)
+    bagging_ensemble_param[&#34;opt_balance&#34;] = feature_val[np.argmax(cv_val_mean)]
+    bagging_ensemble_param[&#34;cv_result_balance&#34;] = cv_val[np.argmax(cv_val_mean)]
+    bagging_ensemble_param[&#34;cv_balance&#34;] = cv_val_mean
+    bagging_ensemble_param[&#34;split_coef_balance&#34;] = split_coef
+    bagging_ensemble_param[&#34;models_balance&#34;] = res_model[np.argmax(cv_val_mean)]
+    bagging_ensemble_param[&#34;feat_imp_balance&#34;] = res_feat_imp[np.argmax(cv_val_mean)]
+    return bagging_ensemble_param</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.cv_split_procedure"><code class="name flex">
+<span>def <span class="ident">cv_split_procedure</span></span>(<span>x: numpy.ndarray, y: numpy.ndarray, bagging_ensemble_param: dict) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Chooses an optimal list of bagging shares.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The target values.</dd>
+<dt><strong><code>bagging_ensemble_param</code></strong> :&ensp;<code>dict</code></dt>
+<dd>CV procedure data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bagging_ensemble_param</code></strong> :&ensp;<code>dict</code></dt>
+<dd>CV procedure data.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cv_split_procedure(x: ndarray, y: ndarray, bagging_ensemble_param: dict) -&gt; dict:
+    &#34;&#34;&#34;
+    Chooses an optimal list of bagging shares.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    bagging_ensemble_param : dict
+        CV procedure data.
+
+    Returns
+    -------
+    bagging_ensemble_param : dict
+        CV procedure data.
+    &#34;&#34;&#34;
+    skf = StratifiedShuffleSplit(n_splits=1, test_size=0.5, random_state=42)
+    feature_val = np.arange(0.1, 1.15, 0.05)
+    cv_val_seq = [[] for i in feature_val]
+    count = 0
+    feat_imp_list = []
+    for train_index, test_index in skf.split(x, y):
+        x_train, x_test = x[train_index], x[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+        for i, val in enumerate(feature_val):
+            model_list, feat_imp = fit_ensemble(x_train, y_train, val, 5, 6, bagging_ensemble_param[&#34;opt_balance&#34;],
+                                                None, x.shape[1], None, bagging_ensemble_param[&#34;classes&#34;])
+            feat_imp_list.append(feat_imp)
+            sample_gen = np.random.default_rng(seed=42)
+            for k in range(100):
+                indices = sample_gen.integers(0, x_test.shape[0], x_test.shape[0])
+                bootst_res, bootst_res_val = calc_fscore(x_test[indices], y_test[indices], model_list,
+                                                         bagging_ensemble_param[&#34;classes&#34;])
+                cv_val_seq[i].append(bootst_res)
+        count += 1
+    sample_gen1 = np.random.default_rng(seed=42)
+    sample_gen2 = np.random.default_rng(seed=45)
+    bc_seq, ind_bc = get_best_bc(feature_val, cv_val_seq, sample_gen1, sample_gen2)
+    bagging_ensemble_param[&#34;opt_split&#34;] = bc_seq
+    bagging_ensemble_param[&#34;split_range&#34;] = feature_val
+    bagging_ensemble_param[&#34;feat_imp_norm&#34;] = np.mean(np.array(feat_imp_list)[ind_bc], axis=0)
+    return bagging_ensemble_param</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.first_ensemble_procedure"><code class="name flex">
+<span>def <span class="ident">first_ensemble_procedure</span></span>(<span>x: numpy.ndarray, y: numpy.ndarray, ts: list, num_mod: int, balanced: Union[bool, dict], num_feat: int, feat_gen: object, res_feat_imp: numpy.ndarray, classes_sorted_train: numpy.ndarray, ts_gen: object) ‑> Tuple[list, list, numpy.ndarray]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Fits bagging at the first iteration.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The target values.</dd>
+<dt><strong><code>ts</code></strong> :&ensp;<code>list</code></dt>
+<dd>A range of train sample shares for base learner estimation.</dd>
+<dt><strong><code>num_mod</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of estimators in the base ensemble.</dd>
+<dt><strong><code>balanced</code></strong> :&ensp;<code>bool</code> or <code>dict</code></dt>
+<dd>Balancing strategy parameter.</dd>
+<dt><strong><code>num_feat</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of features that are not zeroed.</dd>
+<dt><strong><code>feat_gen</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Random sample generator.</dd>
+<dt><strong><code>res_feat_imp</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Normalized feature importances.</dd>
+<dt><strong><code>classes_sorted_train</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The sorted unique class values.</dd>
+<dt><strong><code>ts_gen</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Random sample generator.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>pred_proba_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Class probabilities predicted by each base estimator in AutoBalanceBoost.</dd>
+<dt><strong><code>model_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost.</dd>
+<dt><strong><code>feat_imp_list_mean</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Normalized feature importances.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def first_ensemble_procedure(x: ndarray, y: ndarray, ts: list, num_mod: int, balanced: Union[bool, dict], num_feat: int,
+                             feat_gen: object, res_feat_imp: ndarray, classes_sorted_train: ndarray,
+                             ts_gen: object) -&gt; Tuple[list, list, ndarray]:
+    &#34;&#34;&#34;
+    Fits bagging at the first iteration.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    ts : list
+        A range of train sample shares for base learner estimation.
+
+    num_mod : int
+        The number of estimators in the base ensemble.
+
+    balanced : bool or dict
+        Balancing strategy parameter.
+
+    num_feat : int
+        The number of features that are not zeroed.
+
+    feat_gen : instance
+        Random sample generator.
+
+    res_feat_imp : array-like
+        Normalized feature importances.
+
+    classes_sorted_train : array-like
+        The sorted unique class values.
+
+    ts_gen : instance
+        Random sample generator.
+
+    Returns
+    -------
+    pred_proba_list : list
+        Class probabilities predicted by each base estimator in AutoBalanceBoost.
+
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    feat_imp_list_mean : array-like
+        Normalized feature importances.
+    &#34;&#34;&#34;
+    sample_gen = np.random.default_rng(seed=42)
+    sub_model_list = []
+    model_list = []
+    pred_proba_list = []
+    sub_pred_proba_list = []
+    feat_imp_list = []
+    for i in range(num_mod):
+        if isinstance(ts, list):
+            if len(ts) == 0:
+                ts_opt = ts[0]
+            else:
+                ts_opt = ts_gen.choice(ts, size=None, replace=False)
+        else:
+            ts_opt = ts
+        x_sampled, y_sampled = get_bootstrap_balanced_samples(x, y, balanced, ts_opt, sample_gen)
+        if num_feat != x.shape[1]:
+            x_sampled = choose_feat(x_sampled, num_feat, feat_gen, res_feat_imp)
+        clf = tree.DecisionTreeClassifier(random_state=42)
+        clf.fit(x_sampled, y_sampled)
+        pred_proba = clf.predict_proba(x)
+        if pred_proba.shape[1] &lt; len(classes_sorted_train):
+            classes_sorted_model = np.argsort(clf.classes_)
+            classes_dict_model = dict(zip(clf.classes_, classes_sorted_model))
+            res_proba = []
+            for cl in classes_sorted_train:
+                if cl not in classes_dict_model:
+                    res_proba.append(np.array([0] * pred_proba.shape[0]))
+                else:
+                    res_proba.append(pred_proba[:, classes_dict_model[cl]])
+            pred_proba = np.column_stack(res_proba)
+        else:
+            classes_sorted = np.argsort(clf.classes_)
+            pred_proba = pred_proba[:, classes_sorted]
+        sub_pred_proba_list.append(pred_proba.copy())
+        sub_model_list.append(clf)
+        feat_imp_list.append(clf.feature_importances_)
+    pred_proba_mean = np.mean(sub_pred_proba_list, axis=0)
+    pred_proba_list.append(pred_proba_mean)
+    feat_imp_list_mean = np.mean(feat_imp_list, axis=0)
+    model_list.append(sub_model_list)
+    return pred_proba_list, model_list, feat_imp_list_mean</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.first_ensemble_procedure_with_cv_model"><code class="name flex">
+<span>def <span class="ident">first_ensemble_procedure_with_cv_model</span></span>(<span>x: numpy.ndarray, first_model: list, classes_sorted_train: numpy.ndarray) ‑> list</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculates the prediction probabilities of the CV bagging.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>first_model</code></strong> :&ensp;<code>list</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost at the first iteration.</dd>
+<dt><strong><code>classes_sorted_train</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The sorted unique class values.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>res_proba_mean</code></strong> :&ensp;<code>list</code></dt>
+<dd>Class probabilities predicted at the first iteration.</dd>
+<dt><strong><code>model_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def first_ensemble_procedure_with_cv_model(x: ndarray, first_model: list, classes_sorted_train: ndarray) -&gt; Union[
+        list, list]:
+    &#34;&#34;&#34;
+    Calculates the prediction probabilities of the CV bagging.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    first_model : list
+        Fitted base estimators in AutoBalanceBoost at the first iteration.
+
+    classes_sorted_train : array-like
+        The sorted unique class values.
+
+    Returns
+    -------
+    res_proba_mean : list
+        Class probabilities predicted at the first iteration.
+
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+    &#34;&#34;&#34;
+    res_proba_list = []
+    for first_model_list in first_model:
+        pred_proba_list = []
+        for iter in list(range(len(first_model_list))):
+            sub_pred_proba_list = []
+            for clf in first_model_list[iter]:
+                pred_proba = clf.predict_proba(x)
+                if pred_proba.shape[1] &lt; len(classes_sorted_train):
+                    classes_sorted_model = np.argsort(clf.classes_)
+                    classes_dict_model = dict(zip(clf.classes_, classes_sorted_model))
+                    res_proba = []
+                    for cl in classes_sorted_train:
+                        if cl not in classes_dict_model:
+                            res_proba.append(np.array([0] * pred_proba.shape[0]))
+                        else:
+                            res_proba.append(pred_proba[:, classes_dict_model[cl]])
+                    pred_proba = np.column_stack(res_proba)
+                else:
+                    classes_sorted = np.argsort(clf.classes_)
+                    pred_proba = pred_proba[:, classes_sorted]
+                sub_pred_proba_list.append(pred_proba.copy())
+            sub_pred_proba_mean = np.mean(sub_pred_proba_list, axis=0)
+            pred_proba_list.append(sub_pred_proba_mean)
+        pred_proba_mean = np.mean(pred_proba_list, axis=0)
+        res_proba_list.append(pred_proba_mean)
+    res_proba_mean = [np.mean(res_proba_list, axis=0)]
+    model_list = [first_model]
+    return res_proba_mean, model_list</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.fit_ensemble"><code class="name flex">
+<span>def <span class="ident">fit_ensemble</span></span>(<span>x: numpy.ndarray, y: numpy.ndarray, ts: Union[float, list], iter_lim: int, num_mod: int, balanced: Union[bool, dict], first_model: Optional[list], num_feat: int, feat_imp: numpy.ndarray, classes_: numpy.ndarray) ‑> Tuple[list, numpy.ndarray]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Iteratively fits the resulting ensemble.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The target values.</dd>
+<dt><strong><code>ts</code></strong> :&ensp;<code>float</code> or <code>list</code></dt>
+<dd>A range of train sample shares for base learner estimation.</dd>
+<dt><strong><code>iter_lim</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of boosting iterations.</dd>
+<dt><strong><code>num_mod</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of estimators in the base ensemble.</dd>
+<dt><strong><code>balanced</code></strong> :&ensp;<code>bool</code> or <code>dict</code></dt>
+<dd>Balancing strategy parameter.</dd>
+<dt><strong><code>first_model</code></strong> :&ensp;<code>list</code> or <code>None</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost at the first iteration.</dd>
+<dt><strong><code>num_feat</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of features that are not zeroed.</dd>
+<dt><strong><code>feat_imp</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Normalized feature importances.</dd>
+<dt><strong><code>classes_</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Class labels.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>model_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost.</dd>
+<dt><strong><code>feat_imp_list_mean</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Normalized feature importances.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def fit_ensemble(x: ndarray, y: ndarray, ts: Union[float, list], iter_lim: int, num_mod: int,
+                 balanced: Union[bool, dict], first_model: Union[list, None], num_feat: int, feat_imp: ndarray,
+                 classes_: ndarray) -&gt; Tuple[list, ndarray]:
+    &#34;&#34;&#34;
+    Iteratively fits the resulting ensemble.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    ts : float or list
+        A range of train sample shares for base learner estimation.
+
+    iter_lim : int
+        The number of boosting iterations.
+
+    num_mod : int
+        The number of estimators in the base ensemble.
+
+    balanced : bool or dict
+        Balancing strategy parameter.
+
+    first_model : list or None
+        Fitted base estimators in AutoBalanceBoost at the first iteration.
+
+    num_feat : int
+        The number of features that are not zeroed.
+
+    feat_imp : array-like
+        Normalized feature importances.
+
+    classes_ : array-like
+        Class labels.
+
+    Returns
+    -------
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    feat_imp_list_mean : array-like
+        Normalized feature importances.
+    &#34;&#34;&#34;
+    feat_gen = np.random.default_rng(seed=42)
+    ts_gen = np.random.default_rng(seed=42)
+    if not first_model:
+        pred_proba_list, model_list, feat_imp_list_mean = first_ensemble_procedure(x, y, ts, num_mod, balanced,
+                                                                                   num_feat, feat_gen, feat_imp,
+                                                                                   classes_, ts_gen)
+    else:
+        pred_proba_list, model_list = first_ensemble_procedure_with_cv_model(x, first_model, classes_)
+        feat_imp_list_mean = feat_imp
+    pred_proba_true_class = np.array(
+        list(map(lambda x, y: pred_proba_list[0][y, np.where(classes_ == x)[0][0]], y, list(range(y.shape[0])))))
+    res_class_prop = []
+    for i in range(iter_lim - 1):
+        train_datasets, class_prop = get_newds(pred_proba_true_class, ts, x, y, num_mod, balanced, num_feat, feat_gen,
+                                               feat_imp, ts_gen)
+        pred_proba_list, model_list = other_ensemble_procedure(x, train_datasets, pred_proba_list, model_list,
+                                                               classes_)
+        pred_proba_mean = np.mean(pred_proba_list, axis=0)
+        pred_proba_true_class = np.array(
+            list(map(lambda x, y: pred_proba_mean[y, np.where(classes_ == x)[0][0]], y, list(range(y.shape[0])))))
+        res_class_prop.append(class_prop)
+    return model_list, feat_imp_list_mean</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.get_best_bc"><code class="name flex">
+<span>def <span class="ident">get_best_bc</span></span>(<span>split_range: numpy.ndarray, f_score_list: list, sample_gen1: object, sample_gen2: object) ‑> Tuple[list, list]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Chooses a list of bagging shares with the best performance.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>split_range</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Bagging share values.</dd>
+<dt><strong><code>f_score_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>CV scores for bagging share values.</dd>
+<dt><strong><code>sample_gen1</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Random sample generator.</dd>
+<dt><strong><code>sample_gen2</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Random sample generator.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>split_arg</code></strong> :&ensp;<code>list</code></dt>
+<dd>List of optimal bagging share values.</dd>
+<dt><strong><code>ind_bc</code></strong> :&ensp;<code>list</code></dt>
+<dd>Indices of optimal bagging share values.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_best_bc(split_range: ndarray, f_score_list: list, sample_gen1: object, sample_gen2: object) -&gt; Tuple[
+        list, list]:
+    &#34;&#34;&#34;
+    Chooses a list of bagging shares with the best performance.
+
+    Parameters
+    ----------
+    split_range : array-like
+        Bagging share values.
+
+    f_score_list : list
+        CV scores for bagging share values.
+
+    sample_gen1 : instance
+        Random sample generator.
+
+    sample_gen2 : instance
+        Random sample generator.
+
+    Returns
+    -------
+    split_arg : list
+        List of optimal bagging share values.
+
+    ind_bc : list
+        Indices of optimal bagging share values.
+    &#34;&#34;&#34;
+    split_sorted = np.argsort(np.mean(f_score_list, axis=1))[::-1]
+    split_k = np.array(f_score_list[split_sorted[0]])
+    split_arg = []
+    ind_bc = []
+    for m in range(len(split_sorted)):
+        split_m = np.array(f_score_list[split_sorted[m]])
+        share = calc_share(split_m, split_k, sample_gen1, sample_gen2)
+        if share &gt; 0:
+            split_arg.append(split_range[split_sorted[m]])
+            ind_bc.append(split_sorted[m])
+    return split_arg, ind_bc</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.get_bootstrap_balanced_samples"><code class="name flex">
+<span>def <span class="ident">get_bootstrap_balanced_samples</span></span>(<span>x: numpy.ndarray, y: numpy.ndarray, balanced: Union[bool, dict], ts: list, sample_gen: object) ‑> Tuple[numpy.ndarray, numpy.ndarray]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Balancing procedure at the first iteration.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The target values.</dd>
+<dt><strong><code>ts</code></strong> :&ensp;<code>list</code></dt>
+<dd>A range of train sample shares for base learner estimation.</dd>
+<dt><strong><code>balanced</code></strong> :&ensp;<code>bool</code> or <code>dict</code></dt>
+<dd>Balancing strategy parameter.</dd>
+<dt><strong><code>sample_gen</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Random sample generator.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>x_sampled</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Generated training sample.</dd>
+<dt><strong><code>y_sampled</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Generated target values.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_bootstrap_balanced_samples(x: ndarray, y: ndarray, balanced: Union[bool, dict], ts: list,
+                                   sample_gen: object) -&gt; Tuple[ndarray, ndarray]:
+    &#34;&#34;&#34;
+    Balancing procedure at the first iteration.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    ts : list
+        A range of train sample shares for base learner estimation.
+
+    balanced : bool or dict
+        Balancing strategy parameter.
+
+    sample_gen : instance
+        Random sample generator.
+
+    Returns
+    -------
+    x_sampled : array-like of shape (n_samples, n_features)
+        Generated training sample.
+
+    y_sampled : array-like
+        Generated target values.
+    &#34;&#34;&#34;
+    x_sampled = []
+    y_sampled = []
+    class_unique, class_count = np.unique(y, return_counts=True)
+    maj_class = class_unique[np.argmax(class_count)]
+    if isinstance(balanced, dict):
+        y_not_balanced = y[np.isin(y, balanced[&#34;Not_balanced&#34;])].shape[0]
+        maj_share = 1 / (1 + balanced[&#34;balance&#34;] * (class_unique.shape[0] - 1 - balanced[&#34;Not_balanced&#34;].shape[0]))
+        min_share = (1 - maj_share) / (class_unique.shape[0] - 1 - balanced[&#34;Not_balanced&#34;].shape[0])
+        for i, class_val in enumerate(class_unique):
+            if class_val in balanced[&#34;Not_balanced&#34;]:
+                indices = sample_gen.integers(0, x[y == class_val].shape[0], int(x[y == class_val].shape[0] * ts))
+            else:
+                if class_val == maj_class:
+                    indices = sample_gen.integers(0, x[y == class_val].shape[0],
+                                                  int((x.shape[0] - y_not_balanced) * maj_share * ts))
+                else:
+                    indices = sample_gen.integers(0, x[y == class_val].shape[0],
+                                                  int((x.shape[0] - y_not_balanced) * min_share * ts))
+            x_sampled.extend(x[y == class_val][indices])
+            y_sampled.extend([class_val for element in indices])
+    elif balanced is False:
+        indices = sample_gen.integers(0, len(x), int(len(x) * ts))
+        x_sampled.extend(x[indices])
+        y_sampled.extend(y[indices])
+    else:
+        maj_share = 1 / (1 + balanced * (class_unique.shape[0] - 1))
+        for class_val in class_unique:
+            if class_val == maj_class:
+                indices = sample_gen.integers(0, len(x[y == class_val]), int(len(x) * maj_share * ts))
+            else:
+                indices = sample_gen.integers(0, len(x[y == class_val]),
+                                              int(len(x) * (1 - maj_share) / (class_unique.shape[0] - 1) * ts))
+            x_sampled.extend(x[y == class_val][indices])
+            y_sampled.extend([class_val for element in indices])
+    x_sampled = np.vstack(x_sampled)
+    y_sampled = np.hstack(y_sampled)
+    return x_sampled, y_sampled</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.get_feat_imp"><code class="name flex">
+<span>def <span class="ident">get_feat_imp</span></span>(<span>model_list: list) ‑> numpy.ndarray</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Returns normalized feature importances.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>model_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>feat_imp_norm</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Normalized feature importances.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_feat_imp(model_list: list) -&gt; ndarray:
+    &#34;&#34;&#34;
+    Returns normalized feature importances.
+
+    Parameters
+    ----------
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    Returns
+    -------
+    feat_imp_norm : array-like
+        Normalized feature importances.
+    &#34;&#34;&#34;
+    feat_imp_list = []
+    for i in range(len(model_list)):
+        for j in range(len(model_list[i])):
+            if not isinstance(model_list[i][j], list):
+                feat_imp = model_list[i][j].feature_importances_
+                feat_imp_list.append(feat_imp)
+            else:
+                for cv_i in range(len(model_list[i][j])):
+                    for iter_ in range(len(model_list[i][j][cv_i])):
+                        feat_imp = model_list[i][j][cv_i][iter_].feature_importances_
+                        feat_imp_list.append(feat_imp)
+
+    feat_imp_list = np.mean(feat_imp_list, axis=0)
+    feat_imp_norm = feat_imp_list / np.sum(feat_imp_list)
+    return feat_imp_norm</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.get_newds"><code class="name flex">
+<span>def <span class="ident">get_newds</span></span>(<span>pred_proba: numpy.ndarray, ts: list, x: numpy.ndarray, y: numpy.ndarray, num_mod: int, balanced: Union[bool, dict], num_feat: int, feat_gen: object, feat_imp: numpy.ndarray, ts_gen: object) ‑> Tuple[list, list]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Samples train datasets for bagging during the boosting phase.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>pred_proba</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Class probabilities predicted by AutoBalanceBoost for the correct class.</dd>
+<dt><strong><code>ts</code></strong> :&ensp;<code>list</code></dt>
+<dd>A range of train sample shares for base learner estimation.</dd>
+<dt><strong><code>x</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The target values.</dd>
+<dt><strong><code>num_mod</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of estimators in the base ensemble.</dd>
+<dt><strong><code>balanced</code></strong> :&ensp;<code>bool</code> or <code>dict</code></dt>
+<dd>Balancing strategy parameter.</dd>
+<dt><strong><code>num_feat</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of features that are not zeroed.</dd>
+<dt><strong><code>feat_gen</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Random sample generator.</dd>
+<dt><strong><code>feat_imp</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>Normalized feature importances.</dd>
+<dt><strong><code>ts_gen</code></strong> :&ensp;<code>instance</code></dt>
+<dd>Random sample generator.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>train_datasets</code></strong> :&ensp;<code>list</code></dt>
+<dd>Randomly generated train datasets for bagging.</dd>
+<dt><strong><code>class_prop</code></strong> :&ensp;<code>list</code></dt>
+<dd>Class shares for each train dataset.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_newds(pred_proba: ndarray, ts: list, x: ndarray, y: ndarray, num_mod: int, balanced: Union[bool, dict],
+              num_feat: int, feat_gen: object, feat_imp: ndarray, ts_gen: object) -&gt; Tuple[list, list]:
+    &#34;&#34;&#34;
+    Samples train datasets for bagging during the boosting phase.
+
+    Parameters
+    ----------
+    pred_proba : array-like
+        Class probabilities predicted by AutoBalanceBoost for the correct class.
+
+    ts : list
+        A range of train sample shares for base learner estimation.
+
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    num_mod : int
+        The number of estimators in the base ensemble.
+
+    balanced : bool or dict
+        Balancing strategy parameter.
+
+    num_feat : int
+        The number of features that are not zeroed.
+
+    feat_gen : instance
+        Random sample generator.
+
+    feat_imp : array-like
+        Normalized feature importances.
+
+    ts_gen : instance
+        Random sample generator.
+
+    Returns
+    -------
+    train_datasets : list
+        Randomly generated train datasets for bagging.
+
+    class_prop : list
+        Class shares for each train dataset.
+    &#34;&#34;&#34;
+    train_datasets = []
+    pred_proba_res = pred_proba.copy()
+    pred_proba_res = 1 - pred_proba_res
+    pred_proba_res[pred_proba_res == 0] = 1e-5
+    class_prop = []
+    np.random.seed(42)
+    for i in range(num_mod):
+        if isinstance(ts, list):
+            if len(ts) == 0:
+                ts_opt = ts[0]
+            else:
+                ts_opt = ts_gen.choice(ts, size=None, replace=False)
+        else:
+            ts_opt = ts
+        sub_train_dataset = {}
+        if balanced:
+            class_unique, class_count = np.unique(y, return_counts=True)
+            pred_proba_res_norm = pred_proba_res / np.sum(pred_proba_res)
+            pred_proba_res_balanced = pred_proba_res_norm.copy()
+            if isinstance(balanced, dict):
+                maj_class = class_unique[np.argmax(class_count)]
+                num_classes_balanced = class_unique.shape[0] - balanced[&#34;Not_balanced&#34;].shape[0]
+                balance_share = 0
+                for class_v in balanced[&#34;Not_balanced&#34;]:
+                    class_arg = np.where(class_unique == class_v)[0]
+                    balance_share += class_count[class_arg] / y.shape[0]
+                target_maj_share = 1 / (1 + balanced[&#34;balance&#34;] * (num_classes_balanced - 1) + balance_share)
+                target_min_share = (1 - target_maj_share - balance_share) / (num_classes_balanced - 1)
+                for n, class_val in enumerate(class_unique):
+                    if class_val in balanced[&#34;Not_balanced&#34;]:
+                        target_share = class_count[n] / y.shape[0]
+                    else:
+                        if class_val == maj_class:
+                            target_share = target_maj_share
+                        else:
+                            target_share = target_min_share
+                    sum_proba_class = np.sum(pred_proba_res_norm[y == class_val])
+                    diff_sum = sum_proba_class - target_share
+                    pred_proba_res_balanced[y == class_val] = pred_proba_res_balanced[y == class_val] * (
+                            1 - diff_sum / sum_proba_class)
+                new_train_ind = np.random.choice(list(range(x.shape[0])), int(x.shape[0] * ts_opt), replace=True,
+                                                 p=pred_proba_res_balanced)
+            else:
+                maj_class = class_unique[np.argmax(class_count)]
+                maj_share = 1 / (1 + balanced * (class_unique.shape[0] - 1))
+                for class_val in class_unique:
+                    if class_val == maj_class:
+                        target_share = maj_share
+                    else:
+                        target_share = (1 - maj_share) / (class_unique.shape[0] - 1)
+                    sum_proba_class = np.sum(pred_proba_res_norm[y == class_val])
+                    diff_sum = sum_proba_class - target_share
+                    pred_proba_res_balanced[y == class_val] = pred_proba_res_balanced[y == class_val] * (
+                            1 - diff_sum / sum_proba_class)
+                new_train_ind = np.random.choice(list(range(x.shape[0])), int(x.shape[0] * ts_opt), replace=True,
+                                                 p=pred_proba_res_balanced)
+        else:
+            pred_proba_res_norm = pred_proba_res / np.sum(pred_proba_res)
+            new_train_ind = np.random.choice(list(range(x.shape[0])), int(x.shape[0] * ts_opt), replace=True,
+                                             p=pred_proba_res_norm)
+        sub_train_dataset[&#34;x_train&#34;] = x[new_train_ind]
+        if num_feat != x.shape[1]:
+            sub_train_dataset[&#34;x_train&#34;] = choose_feat(sub_train_dataset[&#34;x_train&#34;], num_feat, feat_gen, feat_imp)
+        sub_train_dataset[&#34;Y_train&#34;] = y[new_train_ind]
+        train_datasets.append(sub_train_dataset)
+        class_prop.append(
+            np.unique(sub_train_dataset[&#34;Y_train&#34;], return_counts=True)[1] / sub_train_dataset[&#34;Y_train&#34;].shape[0])
+    return train_datasets, class_prop</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.get_pred"><code class="name flex">
+<span>def <span class="ident">get_pred</span></span>(<span>model_list: list, x_test: numpy.ndarray) ‑> numpy.ndarray</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Predicts class labels.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>model_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost.</dd>
+<dt><strong><code>x_test</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Test sample.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>pred_mean_hard</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The predicted class.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_pred(model_list: list, x_test: ndarray) -&gt; ndarray:
+    &#34;&#34;&#34;
+    Predicts class labels.
+
+    Parameters
+    ----------
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    x_test : array-like of shape (n_samples, n_features)
+        Test sample.
+
+    Returns
+    -------
+    pred_mean_hard : array-like
+        The predicted class.
+    &#34;&#34;&#34;
+    pred_list = []
+    for i in range(len(model_list)):
+        for j in range(len(model_list[i])):
+            if not isinstance(model_list[i][j], list):
+                pred = model_list[i][j].predict(x_test)
+                pred_list.append(pred)
+            else:
+                for cv_i in range(len(model_list[i][j])):
+                    for iter in range(len(model_list[i][j][cv_i])):
+                        pred = model_list[i][j][cv_i][iter].predict(x_test)
+                        pred_list.append(pred)
+    pred_list = np.array(pred_list)
+    pred_mean_hard = np.array(list(
+        map(lambda y: np.unique(pred_list[:, y])[np.argmax(np.unique(pred_list[:, y], return_counts=True)[1])],
+            list(range(x_test.shape[0])))))
+    return pred_mean_hard</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.get_pred_proba"><code class="name flex">
+<span>def <span class="ident">get_pred_proba</span></span>(<span>model_list: list, x_test: numpy.ndarray) ‑> numpy.ndarray</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Predicts class probabilities.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>model_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost.</dd>
+<dt><strong><code>x_test</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Test sample.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>proba_mean_hard</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_classes)</code></dt>
+<dd>The predicted class probabilities.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_pred_proba(model_list: list, x_test: ndarray) -&gt; ndarray:
+    &#34;&#34;&#34;
+    Predicts class probabilities.
+
+    Parameters
+    ----------
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    x_test : array-like of shape (n_samples, n_features)
+        Test sample.
+
+    Returns
+    -------
+    proba_mean_hard : array-like of shape (n_samples, n_classes)
+        The predicted class probabilities.
+    &#34;&#34;&#34;
+    pred_list = []
+    for i in range(len(model_list)):
+        for j in range(len(model_list[i])):
+            if not isinstance(model_list[i][j], list):
+                pred = model_list[i][j].predict(x_test)
+                pred_list.append(pred)
+            else:
+                for cv_i in range(len(model_list[i][j])):
+                    for iter in range(len(model_list[i][j][cv_i])):
+                        pred = model_list[i][j][cv_i][iter].predict(x_test)
+                        pred_list.append(pred)
+    pred_list = np.array(pred_list)
+    proba_mean_hard = []
+    col_names = np.unique(pred_list)
+    for cl_val in col_names:
+        proba_mean_hard.append(np.array(list(
+            map(lambda y: (pred_list[:, y] == cl_val).sum() / pred_list[:, y].shape[0], list(range(x_test.shape[0]))))))
+    proba_mean_hard = np.vstack(proba_mean_hard).T
+    return proba_mean_hard</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.num_feat_procedure"><code class="name flex">
+<span>def <span class="ident">num_feat_procedure</span></span>(<span>x: numpy.ndarray, y: numpy.ndarray, bagging_ensemble_param: dict) ‑> Tuple[dict, list]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Chooses an optimal number of zeroed features.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>y</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The target values.</dd>
+<dt><strong><code>bagging_ensemble_param</code></strong> :&ensp;<code>dict</code></dt>
+<dd>CV procedure data.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>bagging_ensemble_param</code></strong> :&ensp;<code>dict</code></dt>
+<dd>CV procedure data.</dd>
+<dt><strong><code>res_model</code></strong> :&ensp;<code>list</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def num_feat_procedure(x: ndarray, y: ndarray, bagging_ensemble_param: dict) -&gt; Tuple[dict, list]:
+    &#34;&#34;&#34;
+    Chooses an optimal number of zeroed features.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    y : array-like
+        The target values.
+
+    bagging_ensemble_param : dict
+        CV procedure data.
+
+    Returns
+    -------
+    bagging_ensemble_param : dict
+        CV procedure data.
+
+    res_model : list
+        Fitted base estimators in AutoBalanceBoost.
+    &#34;&#34;&#34;
+    skf = StratifiedShuffleSplit(n_splits=10, test_size=0.5, random_state=42)
+    feat_imp_norm = bagging_ensemble_param[&#34;feat_imp_norm&#34;]
+    feat_imp_norm = feat_imp_norm / sum(feat_imp_norm)
+    feat_imp_norm_sort_ind = np.argsort(feat_imp_norm)[::-1]
+    feat_imp_norm_cumsum = np.cumsum(feat_imp_norm[feat_imp_norm_sort_ind])
+    ind_chosen = feat_imp_norm_sort_ind[feat_imp_norm_cumsum &lt; 0.95]
+    feature_val = [x.shape[1] - element for element in list(range(ind_chosen.shape[0]))]
+    res_model = [[] for i in feature_val]
+    cv_val = [[] for i in feature_val]
+    count = 0
+    for train_index, test_index in skf.split(x, y):
+        x_train, x_test = x[train_index], x[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+        for i, val in enumerate(feature_val):
+            model_list, feat_imp_list_mean = fit_ensemble(x_train, y_train, bagging_ensemble_param[&#34;opt_split&#34;], 5, 6,
+                                                          bagging_ensemble_param[&#34;opt_balance&#34;], None, val,
+                                                          feat_imp_norm, bagging_ensemble_param[&#34;classes&#34;])
+            res_model[i].append(model_list)
+            bootst_res, bootst_res_val = calc_fscore(x_test, y_test, model_list, bagging_ensemble_param[&#34;classes&#34;])
+            cv_val[i].append(bootst_res)
+        count += 1
+    cv_val_mean = np.mean(cv_val, axis=1)
+    bagging_ensemble_param[&#34;opt_feat&#34;] = feature_val[np.argmax(cv_val_mean)]
+    res_model = res_model[np.argmax(cv_val_mean)]
+    return bagging_ensemble_param, res_model</code></pre>
+</details>
+</dd>
+<dt id="asid.automl_imbalanced.tools_abb.other_ensemble_procedure"><code class="name flex">
+<span>def <span class="ident">other_ensemble_procedure</span></span>(<span>x: numpy.ndarray, train_datasets: list, pred_proba_list: list, model_list: list, classes_sorted_train: numpy.ndarray) ‑> Tuple[list, list]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Fits bagging during the boosting phase.</p>
+<h2 id="parameters">Parameters</h2>
+<dl>
+<dt><strong><code>x</code></strong> :&ensp;<code>array-like</code> of <code>shape (n_samples, n_features)</code></dt>
+<dd>Training sample.</dd>
+<dt><strong><code>train_datasets</code></strong> :&ensp;<code>list</code></dt>
+<dd>Randomly generated train datasets for bagging.</dd>
+<dt><strong><code>pred_proba_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Class probabilities predicted by each base estimator in AutoBalanceBoost.</dd>
+<dt><strong><code>model_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost.</dd>
+<dt><strong><code>classes_sorted_train</code></strong> :&ensp;<code>array-like</code></dt>
+<dd>The sorted unique class values.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><strong><code>pred_proba_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Class probabilities predicted by each base estimator in AutoBalanceBoost.</dd>
+<dt><strong><code>model_list</code></strong> :&ensp;<code>list</code></dt>
+<dd>Fitted base estimators in AutoBalanceBoost.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def other_ensemble_procedure(x: ndarray, train_datasets: list, pred_proba_list: list, model_list: list,
+                             classes_sorted_train: ndarray) -&gt; Tuple[list, list]:
+    &#34;&#34;&#34;
+    Fits bagging during the boosting phase.
+
+    Parameters
+    ----------
+    x : array-like of shape (n_samples, n_features)
+        Training sample.
+
+    train_datasets : list
+        Randomly generated train datasets for bagging.
+
+    pred_proba_list : list
+        Class probabilities predicted by each base estimator in AutoBalanceBoost.
+
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+
+    classes_sorted_train : array-like
+        The sorted unique class values.
+
+    Returns
+    -------
+    pred_proba_list : list
+        Class probabilities predicted by each base estimator in AutoBalanceBoost.
+
+    model_list : list
+        Fitted base estimators in AutoBalanceBoost.
+    &#34;&#34;&#34;
+    sub_model_list = []
+    sub_pred_proba_list = []
+    for element in train_datasets:
+        clf = tree.DecisionTreeClassifier(random_state=42)
+        clf.fit(element[&#34;x_train&#34;], element[&#34;Y_train&#34;])
+        pred_proba = clf.predict_proba(x)
+        if pred_proba.shape[1] &lt; len(classes_sorted_train):
+            classes_sorted_model = np.argsort(clf.classes_)
+            classes_dict_model = dict(zip(clf.classes_, classes_sorted_model))
+            res_proba = []
+            for cl in classes_sorted_train:
+                if cl not in classes_dict_model:
+                    res_proba.append(np.array([0] * pred_proba.shape[0]))
+                else:
+                    res_proba.append(pred_proba[:, classes_dict_model[cl]])
+            pred_proba = np.column_stack(res_proba)
+        else:
+            classes_sorted = np.argsort(clf.classes_)
+            pred_proba = pred_proba[:, classes_sorted]
+        sub_pred_proba_list.append(pred_proba.copy())
+        sub_model_list.append(clf)
+    pred_proba_mean = np.mean(sub_pred_proba_list, axis=0)
+    pred_proba_list.append(pred_proba_mean)
+    model_list.append(sub_model_list)
+    return pred_proba_list, model_list</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="asid.automl_imbalanced" href="index.html">asid.automl_imbalanced</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="asid.automl_imbalanced.tools_abb.boosting_of_bagging_procedure" href="#asid.automl_imbalanced.tools_abb.boosting_of_bagging_procedure">boosting_of_bagging_procedure</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.calc_fscore" href="#asid.automl_imbalanced.tools_abb.calc_fscore">calc_fscore</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.calc_share" href="#asid.automl_imbalanced.tools_abb.calc_share">calc_share</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.choose_feat" href="#asid.automl_imbalanced.tools_abb.choose_feat">choose_feat</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.cv_balance_procedure" href="#asid.automl_imbalanced.tools_abb.cv_balance_procedure">cv_balance_procedure</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.cv_split_procedure" href="#asid.automl_imbalanced.tools_abb.cv_split_procedure">cv_split_procedure</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.first_ensemble_procedure" href="#asid.automl_imbalanced.tools_abb.first_ensemble_procedure">first_ensemble_procedure</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.first_ensemble_procedure_with_cv_model" href="#asid.automl_imbalanced.tools_abb.first_ensemble_procedure_with_cv_model">first_ensemble_procedure_with_cv_model</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.fit_ensemble" href="#asid.automl_imbalanced.tools_abb.fit_ensemble">fit_ensemble</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.get_best_bc" href="#asid.automl_imbalanced.tools_abb.get_best_bc">get_best_bc</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.get_bootstrap_balanced_samples" href="#asid.automl_imbalanced.tools_abb.get_bootstrap_balanced_samples">get_bootstrap_balanced_samples</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.get_feat_imp" href="#asid.automl_imbalanced.tools_abb.get_feat_imp">get_feat_imp</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.get_newds" href="#asid.automl_imbalanced.tools_abb.get_newds">get_newds</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.get_pred" href="#asid.automl_imbalanced.tools_abb.get_pred">get_pred</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.get_pred_proba" href="#asid.automl_imbalanced.tools_abb.get_pred_proba">get_pred_proba</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.num_feat_procedure" href="#asid.automl_imbalanced.tools_abb.num_feat_procedure">num_feat_procedure</a></code></li>
+<li><code><a title="asid.automl_imbalanced.tools_abb.other_ensemble_procedure" href="#asid.automl_imbalanced.tools_abb.other_ensemble_procedure">other_ensemble_procedure</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
