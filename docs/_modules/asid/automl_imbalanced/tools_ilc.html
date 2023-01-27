@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>asid.automl_imbalanced.tools_ilc &mdash; asid 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> asid
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">asid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">asid</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">asid.automl_imbalanced.tools_ilc</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for asid.automl_imbalanced.tools_ilc</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains helping functions for ImbalancedLearningClassifier class.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">StratifiedKFold</span><span class="p">,</span> <span class="n">StratifiedShuffleSplit</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">imblearn.pipeline</span> <span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span> <span class="nn">imblearn.over_sampling</span> <span class="kn">import</span> <span class="n">SMOTE</span><span class="p">,</span> <span class="n">RandomOverSampler</span><span class="p">,</span> <span class="n">ADASYN</span>
+<span class="kn">from</span> <span class="nn">imblearn.under_sampling</span> <span class="kn">import</span> <span class="n">RandomUnderSampler</span>
+<span class="kn">import</span> <span class="nn">xgboost</span> <span class="k">as</span> <span class="nn">xgb</span>
+<span class="kn">from</span> <span class="nn">catboost</span> <span class="kn">import</span> <span class="n">CatBoostClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">import</span> <span class="nn">lightgbm</span> <span class="k">as</span> <span class="nn">lgb</span>
+<span class="kn">from</span> <span class="nn">hyperopt</span> <span class="kn">import</span> <span class="n">fmin</span><span class="p">,</span> <span class="n">tpe</span><span class="p">,</span> <span class="n">space_eval</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">log_loss</span>
+<span class="kn">from</span> <span class="nn">.abb</span> <span class="kn">import</span> <span class="n">AutoBalanceBoost</span>
+<span class="kn">from</span> <span class="nn">hyperopt</span> <span class="kn">import</span> <span class="n">hp</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">rankdata</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">balance_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;SMOTE&quot;</span><span class="p">:</span> <span class="n">SMOTE</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+                <span class="s2">&quot;RandomOverSampler&quot;</span><span class="p">:</span> <span class="n">RandomOverSampler</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+                <span class="s2">&quot;ADASYN&quot;</span><span class="p">:</span> <span class="n">ADASYN</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+                <span class="s2">&quot;RandomUnderSampler&quot;</span><span class="p">:</span> <span class="n">RandomUnderSampler</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)}</span>
+
+<span class="n">classificator_dict</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;XGB&quot;</span><span class="p">:</span> <span class="n">xgb</span><span class="o">.</span><span class="n">XGBClassifier</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">verbosity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">use_label_encoder</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+                      <span class="s2">&quot;RF&quot;</span><span class="p">:</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">),</span>
+                      <span class="s2">&quot;LGBM&quot;</span><span class="p">:</span> <span class="n">lgb</span><span class="o">.</span><span class="n">LGBMClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+                      <span class="s2">&quot;catboost&quot;</span><span class="p">:</span> <span class="n">CatBoostClassifier</span><span class="p">(</span><span class="n">random_seed</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)}</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;automl_imbalanced&quot;</span><span class="p">)[</span>
+              <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;automl_imbalanced/sampling_hyperparameters_space.pickle&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">space_dict</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="get_cv_type"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.tools_ilc.get_cv_type">[docs]</a><span class="k">def</span> <span class="nf">get_cv_type</span><span class="p">(</span><span class="n">split_num</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Defines the type of splitting iterations.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    split_num : int</span>
+<span class="sd">        The number of splitting iterations.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    cv_type : str</span>
+<span class="sd">        The chosen type of splitting iterations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">split_num</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">cv_type</span> <span class="o">=</span> <span class="s2">&quot;kfold&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cv_type</span> <span class="o">=</span> <span class="s2">&quot;split&quot;</span>
+    <span class="k">return</span> <span class="n">cv_type</span></div>
+
+
+<div class="viewcode-block" id="scale_data"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.tools_ilc.scale_data">[docs]</a><span class="k">def</span> <span class="nf">scale_data</span><span class="p">(</span><span class="n">X_train</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fits scaler and applies it to the train sample.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X_train : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Training sample.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    X_train_scaled : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Scaled sample.</span>
+
+<span class="sd">    scaler : instance</span>
+<span class="sd">        Fitted scaler.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+    <span class="n">scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+    <span class="n">X_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">scaler</span></div>
+
+
+<div class="viewcode-block" id="get_sampl_strat_for_case"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.tools_ilc.get_sampl_strat_for_case">[docs]</a><span class="k">def</span> <span class="nf">get_sampl_strat_for_case</span><span class="p">(</span><span class="n">ss</span><span class="p">,</span> <span class="n">count_class</span><span class="p">,</span> <span class="n">balance_method</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the sampling strategy parameter.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ss : float</span>
+<span class="sd">        Sampling strategy parameter generated by Hyperopt.</span>
+
+<span class="sd">    count_class : array-like</span>
+<span class="sd">        The sorted unique values with the number of counts.</span>
+
+<span class="sd">    balance_method : str</span>
+<span class="sd">        Balancing procedure label.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ss_corr : float or dict</span>
+<span class="sd">        The adjusted sampling strategy parameter.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">min_cl_arg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">max_cl_arg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">count_class</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">balance_method</span> <span class="o">==</span> <span class="s2">&quot;RandomUnderSampler&quot;</span><span class="p">:</span>
+            <span class="n">new_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">count_class</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">min_cl_arg</span><span class="p">:</span>
+                    <span class="n">new_dict</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new_dict</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">min_cl_arg</span><span class="p">]</span> <span class="o">/</span> <span class="n">ss</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">new_dict</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">count_class</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">max_cl_arg</span><span class="p">:</span>
+                    <span class="n">new_dict</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">new_dict</span><span class="p">[</span><span class="n">val</span><span class="p">]</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">max_cl_arg</span><span class="p">]</span> <span class="o">*</span> <span class="n">ss</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">ss_corr</span> <span class="o">=</span> <span class="n">new_dict</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ss_corr</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">min_cl_arg</span><span class="p">]</span> <span class="o">/</span> <span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">max_cl_arg</span><span class="p">],</span> <span class="n">ss</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ss_corr</span></div>
+
+
+<div class="viewcode-block" id="calc_pipeline_acc"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.tools_ilc.calc_pipeline_acc">[docs]</a><span class="k">def</span> <span class="nf">calc_pipeline_acc</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bal_alg</span><span class="p">,</span> <span class="n">alg</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluates the pipeline.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    params : dict</span>
+<span class="sd">        Parameters generated by Hyperopt.</span>
+
+<span class="sd">    X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Training sample.</span>
+
+<span class="sd">    y : array-like</span>
+<span class="sd">        The target values.</span>
+
+<span class="sd">    bal_alg : str</span>
+<span class="sd">        Sampling procedure label.</span>
+
+<span class="sd">    alg : str</span>
+<span class="sd">        Ensemble classifier label.</span>
+
+<span class="sd">    metric : str</span>
+<span class="sd">        Metric that is used to evaluate the model performance.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    score : float</span>
+<span class="sd">        Evaluation of the model performance.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">score_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+        <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+        <span class="n">estimator</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;balancing&#39;</span><span class="p">,</span> <span class="n">balance_dict</span><span class="p">[</span><span class="n">bal_alg</span><span class="p">]),</span>
+            <span class="p">(</span><span class="s1">&#39;classification&#39;</span><span class="p">,</span> <span class="n">classificator_dict</span><span class="p">[</span><span class="n">alg</span><span class="p">])])</span>
+        <span class="k">if</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">count_class</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">params</span><span class="p">[</span><span class="s2">&quot;balancing__sampling_strategy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_sampl_strat_for_case</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;balancing__sampling_strategy&quot;</span><span class="p">],</span>
+                                                                              <span class="n">count_class</span><span class="p">,</span> <span class="n">bal_alg</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;balancing__k_neighbors&quot;</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                <span class="n">params</span><span class="p">[</span><span class="s2">&quot;balancing__k_neighbors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;balancing__k_neighbors&quot;</span><span class="p">])</span>
+            <span class="k">elif</span> <span class="s2">&quot;balancing__n_neighbors&quot;</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+                <span class="n">params</span><span class="p">[</span><span class="s2">&quot;balancing__n_neighbors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">params</span><span class="p">[</span><span class="s2">&quot;balancing__n_neighbors&quot;</span><span class="p">])</span>
+        <span class="n">estimator</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> <span class="n">scale_data</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+            <span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">metric</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;roc_auc&quot;</span><span class="p">,</span> <span class="s2">&quot;log_loss&quot;</span><span class="p">]:</span>
+                <span class="n">pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">)</span>
+                <span class="n">score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calc_metric</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">metric</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">)</span>
+                <span class="n">score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calc_metric</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">metric</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;log_loss&quot;</span><span class="p">:</span>
+                <span class="n">score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">score_list</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">metric</span> <span class="o">!=</span> <span class="s2">&quot;log_loss&quot;</span><span class="p">:</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="o">-</span><span class="n">score</span>
+    <span class="k">return</span> <span class="n">score</span></div>
+
+
+<div class="viewcode-block" id="get_balance_params"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.tools_ilc.get_balance_params">[docs]</a><span class="k">def</span> <span class="nf">get_balance_params</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bal_alg</span><span class="p">,</span> <span class="n">alg</span><span class="p">,</span> <span class="n">hyp_time</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Searches for optimal hyper-parameters for balancing procedure using Hyperopt.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Training sample.</span>
+
+<span class="sd">    y : array-like</span>
+<span class="sd">        The target values.</span>
+
+<span class="sd">    bal_alg : str</span>
+<span class="sd">        Sampling procedure label.</span>
+
+<span class="sd">    alg : str</span>
+<span class="sd">        Ensemble classifier label.</span>
+
+<span class="sd">    hyp_time : int</span>
+<span class="sd">        The runtime setting (in seconds) for Hyperopt optimization.</span>
+
+<span class="sd">    metric : str</span>
+<span class="sd">        Metric that is used to evaluate the model performance.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    best : dict</span>
+<span class="sd">        Optimal hyper-parameters for balancing procedure chosen by Hyperopt.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">count_class</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">space_ds</span> <span class="o">=</span> <span class="n">space_dict</span><span class="p">[</span><span class="n">bal_alg</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">min_cl_arg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">min_class</span> <span class="o">=</span> <span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">min_cl_arg</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">count_class</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">space_ds</span><span class="p">[</span><span class="s2">&quot;balancing__sampling_strategy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hp</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="s2">&quot;balancing__sampling_strategy&quot;</span><span class="p">,</span> <span class="n">min_class</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">best</span> <span class="o">=</span> <span class="n">fmin</span><span class="p">(</span><span class="n">fn</span><span class="o">=</span><span class="k">lambda</span> <span class="n">params</span><span class="p">:</span> <span class="n">calc_pipeline_acc</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bal_alg</span><span class="p">,</span> <span class="n">alg</span><span class="p">,</span> <span class="n">metric</span><span class="p">),</span> <span class="n">space</span><span class="o">=</span><span class="n">space_ds</span><span class="p">,</span>
+                <span class="n">algo</span><span class="o">=</span><span class="n">tpe</span><span class="o">.</span><span class="n">suggest</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">hyp_time</span><span class="p">,</span> <span class="n">rstate</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">))</span>
+    <span class="n">best</span> <span class="o">=</span> <span class="n">space_eval</span><span class="p">(</span><span class="n">space_ds</span><span class="p">,</span> <span class="n">best</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;balancing__k_neighbors&quot;</span> <span class="ow">in</span> <span class="n">best</span><span class="p">:</span>
+        <span class="n">best</span><span class="p">[</span><span class="s2">&quot;balancing__k_neighbors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="s2">&quot;balancing__k_neighbors&quot;</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="s2">&quot;balancing__n_neighbors&quot;</span> <span class="ow">in</span> <span class="n">best</span><span class="p">:</span>
+        <span class="n">best</span><span class="p">[</span><span class="s2">&quot;balancing__n_neighbors&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">best</span><span class="p">[</span><span class="s2">&quot;balancing__n_neighbors&quot;</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">best</span></div>
+
+
+<div class="viewcode-block" id="balance_exp"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.tools_ilc.balance_exp">[docs]</a><span class="k">def</span> <span class="nf">balance_exp</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">skf</span><span class="p">,</span> <span class="n">bal_alg</span><span class="p">,</span> <span class="n">alg</span><span class="p">,</span> <span class="n">hyperopt_time</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluates model performance on a range of splits.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Training sample.</span>
+
+<span class="sd">    y : array-like</span>
+<span class="sd">        The target values.</span>
+
+<span class="sd">    skf : instance</span>
+<span class="sd">        Splitting strategy instance.</span>
+
+<span class="sd">    bal_alg : str</span>
+<span class="sd">        Sampling procedure label.</span>
+
+<span class="sd">    alg : str</span>
+<span class="sd">        Ensemble classifier label.</span>
+
+<span class="sd">    hyperopt_time : int</span>
+<span class="sd">        The runtime setting (in seconds) for Hyperopt optimization.</span>
+
+<span class="sd">    metric : str</span>
+<span class="sd">        Metric that is used to evaluate the model performance.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    score_list : list</span>
+<span class="sd">        Model performance on a range of splits.</span>
+
+<span class="sd">    time_list : list</span>
+<span class="sd">         Model fitting and prediction time on a range of splits.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">score_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">time_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">time_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+        <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">hyperopt_time</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">balance_params</span> <span class="o">=</span> <span class="n">get_balance_params</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">bal_alg</span><span class="p">,</span> <span class="n">alg</span><span class="p">,</span> <span class="n">hyperopt_time</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+            <span class="n">balance_params</span><span class="p">[</span><span class="s2">&quot;balancing__sampling_strategy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_sampl_strat_for_case</span><span class="p">(</span>
+                <span class="n">balance_params</span><span class="p">[</span><span class="s2">&quot;balancing__sampling_strategy&quot;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">bal_alg</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">balance_params</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> <span class="n">scale_data</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+        <span class="n">estimator</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;balancing&#39;</span><span class="p">,</span> <span class="n">balance_dict</span><span class="p">[</span><span class="n">bal_alg</span><span class="p">]),</span>
+            <span class="p">(</span><span class="s1">&#39;classification&#39;</span><span class="p">,</span> <span class="n">classificator_dict</span><span class="p">[</span><span class="n">alg</span><span class="p">])])</span>
+        <span class="k">if</span> <span class="n">balance_params</span><span class="p">:</span>
+            <span class="n">estimator</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">balance_params</span><span class="p">)</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">estimator</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_scaled</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">time_dict</span><span class="p">[</span><span class="s2">&quot;train_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+        <span class="n">X_test_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">metric</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;roc_auc&quot;</span><span class="p">,</span> <span class="s2">&quot;log_loss&quot;</span><span class="p">]:</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">)</span>
+            <span class="n">time_dict</span><span class="p">[</span><span class="s2">&quot;predict_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+            <span class="n">score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calc_metric</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">metric</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="n">estimator</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_scaled</span><span class="p">)</span>
+            <span class="n">time_dict</span><span class="p">[</span><span class="s2">&quot;predict_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+            <span class="n">score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calc_metric</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">metric</span><span class="p">))</span>
+        <span class="n">time_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">score_list</span><span class="p">,</span> <span class="n">time_list</span></div>
+
+
+<div class="viewcode-block" id="calc_metric"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.tools_ilc.calc_metric">[docs]</a><span class="k">def</span> <span class="nf">calc_metric</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the evaluation metric.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    y_test : array-like</span>
+<span class="sd">        Correct target values.</span>
+
+<span class="sd">    pred : array-like</span>
+<span class="sd">        Predicted target values.</span>
+
+<span class="sd">    metric : str</span>
+<span class="sd">        Metric that is used to evaluate the model performance.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    score : float</span>
+<span class="sd">        Metric value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">metric</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;f1&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;f1_macro&quot;</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;macro&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;f1_micro&quot;</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;micro&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;f1_weighted&quot;</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;weighted&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;accuracy&quot;</span><span class="p">:</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;roc_auc&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y_test</span><span class="p">))</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">score</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">metric</span> <span class="o">==</span> <span class="s2">&quot;log_loss&quot;</span><span class="p">:</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="n">log_loss</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">score</span></div>
+
+
+<div class="viewcode-block" id="abb_exp"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.tools_ilc.abb_exp">[docs]</a><span class="k">def</span> <span class="nf">abb_exp</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">skf</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluates AutoBalanceBoost performance on a partial range of splits.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Training sample.</span>
+
+<span class="sd">    y : array-like</span>
+<span class="sd">        The target values.</span>
+
+<span class="sd">    skf : instance</span>
+<span class="sd">        Splitting strategy instance.</span>
+
+<span class="sd">    metric : str</span>
+<span class="sd">        Metric that is used to evaluate the model performance.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    score_list : list</span>
+<span class="sd">        Model performance on a range of splits.</span>
+
+<span class="sd">    time_list : list</span>
+<span class="sd">         Model fitting and prediction time on a range of splits.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">score_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">time_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">train_index</span><span class="p">,</span> <span class="n">test_index</span> <span class="ow">in</span> <span class="n">skf</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">X</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+        <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">train_index</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">test_index</span><span class="p">]</span>
+        <span class="n">time_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">AutoBalanceBoost</span><span class="p">()</span>
+        <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+        <span class="n">time_dict</span><span class="p">[</span><span class="s2">&quot;train_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+        <span class="k">if</span> <span class="n">metric</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;roc_auc&quot;</span><span class="p">,</span> <span class="s2">&quot;log_loss&quot;</span><span class="p">]:</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+            <span class="n">time_dict</span><span class="p">[</span><span class="s2">&quot;predict_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+            <span class="n">score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calc_metric</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">metric</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+            <span class="n">time_dict</span><span class="p">[</span><span class="s2">&quot;predict_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+            <span class="n">score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">calc_metric</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">metric</span><span class="p">))</span>
+        <span class="n">time_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">time_dict</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">score_list</span><span class="p">,</span> <span class="n">time_list</span></div>
+
+
+<div class="viewcode-block" id="fit_alg"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.tools_ilc.fit_alg">[docs]</a><span class="k">def</span> <span class="nf">fit_alg</span><span class="p">(</span><span class="n">cv_type</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bal_alg</span><span class="p">,</span> <span class="n">alg</span><span class="p">,</span> <span class="n">hyperopt_time</span><span class="p">,</span> <span class="n">split_num</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Evaluates model performance on a full range of splits.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cv_type : str</span>
+<span class="sd">        The chosen type of splitting iterations.</span>
+
+<span class="sd">    X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Training sample.</span>
+
+<span class="sd">    y : array-like</span>
+<span class="sd">        The target values.</span>
+
+<span class="sd">    bal_alg : str or None</span>
+<span class="sd">        Sampling procedure label.</span>
+
+<span class="sd">    alg : str</span>
+<span class="sd">        Ensemble classifier label.</span>
+
+<span class="sd">    hyperopt_time : int</span>
+<span class="sd">        The runtime setting (in seconds) for Hyperopt optimization.</span>
+
+<span class="sd">    split_num : int</span>
+<span class="sd">        The number of splitting iterations.</span>
+
+<span class="sd">    metric : str</span>
+<span class="sd">        Metric that is used to evaluate the model performance.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    score_list : list</span>
+<span class="sd">        Model performance on a range of splits.</span>
+
+<span class="sd">    time_list : list</span>
+<span class="sd">        Model fitting and prediction time on a range of splits.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">score_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">time_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">cv_type</span> <span class="o">==</span> <span class="s2">&quot;split&quot;</span><span class="p">:</span>
+        <span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="n">split_num</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">alg</span> <span class="o">==</span> <span class="s2">&quot;AutoBalanceBoost&quot;</span><span class="p">:</span>
+            <span class="n">sub_score_list</span><span class="p">,</span> <span class="n">sub_time_list</span> <span class="o">=</span> <span class="n">abb_exp</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">skf</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sub_score_list</span><span class="p">,</span> <span class="n">sub_time_list</span> <span class="o">=</span> <span class="n">balance_exp</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">skf</span><span class="p">,</span> <span class="n">bal_alg</span><span class="p">,</span> <span class="n">alg</span><span class="p">,</span> <span class="n">hyperopt_time</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+        <span class="n">score_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">sub_score_list</span><span class="p">)</span>
+        <span class="n">time_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">sub_time_list</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+        <span class="n">seed_val</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">)),</span> <span class="n">split_num</span> <span class="o">//</span> <span class="mi">5</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">seed</span> <span class="ow">in</span> <span class="n">seed_val</span><span class="p">:</span>
+            <span class="n">skf</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="n">seed</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">alg</span> <span class="o">==</span> <span class="s2">&quot;AutoBalanceBoost&quot;</span><span class="p">:</span>
+                <span class="n">sub_score_list</span><span class="p">,</span> <span class="n">sub_time_list</span> <span class="o">=</span> <span class="n">abb_exp</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">skf</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sub_score_list</span><span class="p">,</span> <span class="n">sub_time_list</span> <span class="o">=</span> <span class="n">balance_exp</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">skf</span><span class="p">,</span> <span class="n">bal_alg</span><span class="p">,</span> <span class="n">alg</span><span class="p">,</span> <span class="n">hyperopt_time</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+            <span class="n">score_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">sub_score_list</span><span class="p">)</span>
+            <span class="n">time_list</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">sub_time_list</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">score_list</span><span class="p">,</span> <span class="n">time_list</span></div>
+
+
+<div class="viewcode-block" id="fit_res_model"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.tools_ilc.fit_res_model">[docs]</a><span class="k">def</span> <span class="nf">fit_res_model</span><span class="p">(</span><span class="n">option_label</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">hyp_time</span><span class="p">,</span> <span class="n">metric</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fits the resulting estimator.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    option_label : str</span>
+<span class="sd">        Classifier label.</span>
+
+<span class="sd">    X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Training sample.</span>
+
+<span class="sd">    y : array-like</span>
+<span class="sd">        The target values.</span>
+
+<span class="sd">    hyp_time : int</span>
+<span class="sd">        The runtime setting (in seconds) for Hyperopt optimization.</span>
+
+<span class="sd">    metric : str</span>
+<span class="sd">        Metric that is used to evaluate the model performance.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    model : instance</span>
+<span class="sd">        Fitted estimator.</span>
+
+<span class="sd">    scaler : instance</span>
+<span class="sd">        Fitted scaler.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">option_label</span> <span class="o">==</span> <span class="s2">&quot;AutoBalanceBoost&quot;</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">AutoBalanceBoost</span><span class="p">()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">scaler</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ol</span> <span class="o">=</span> <span class="n">option_label</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="n">bal_alg</span> <span class="o">=</span> <span class="n">ol</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">alg</span> <span class="o">=</span> <span class="n">ol</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">hyp_time</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">balance_params</span> <span class="o">=</span> <span class="n">get_balance_params</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bal_alg</span><span class="p">,</span> <span class="n">alg</span><span class="p">,</span> <span class="n">hyp_time</span><span class="p">,</span> <span class="n">metric</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">balance_params</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">X_scaled</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> <span class="n">scale_data</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+            <span class="p">(</span><span class="s1">&#39;balancing&#39;</span><span class="p">,</span> <span class="n">balance_dict</span><span class="p">[</span><span class="n">bal_alg</span><span class="p">]),</span>
+            <span class="p">(</span><span class="s1">&#39;classification&#39;</span><span class="p">,</span> <span class="n">classificator_dict</span><span class="p">[</span><span class="n">alg</span><span class="p">])])</span>
+        <span class="k">if</span> <span class="n">balance_params</span><span class="p">:</span>
+            <span class="n">balance_params</span><span class="p">[</span><span class="s2">&quot;balancing__sampling_strategy&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_sampl_strat_for_case</span><span class="p">(</span>
+                <span class="n">balance_params</span><span class="p">[</span><span class="s2">&quot;balancing__sampling_strategy&quot;</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">bal_alg</span><span class="p">)</span>
+            <span class="n">model</span><span class="o">.</span><span class="n">set_params</span><span class="p">(</span><span class="o">**</span><span class="n">balance_params</span><span class="p">)</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">model</span><span class="p">,</span> <span class="n">scaler</span></div>
+
+
+<div class="viewcode-block" id="choose_and_fit_ilc"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.tools_ilc.choose_and_fit_ilc">[docs]</a><span class="k">def</span> <span class="nf">choose_and_fit_ilc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Chooses the optimal classifier and fits the resulting estimator.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Training sample.</span>
+
+<span class="sd">    y : array-like</span>
+<span class="sd">        The target values.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    classifer : instance</span>
+<span class="sd">        Optimal fitted classifier.</span>
+
+<span class="sd">    option_label : str</span>
+<span class="sd">        Optimal classifier label.</span>
+
+<span class="sd">    score : float</span>
+<span class="sd">        Averaged out-of-fold value of eval_metric for the optimal classifier.</span>
+
+<span class="sd">    scaler : instance</span>
+<span class="sd">        Fitted scaler that is applied prior to classifier estimation.</span>
+
+<span class="sd">    score_dict : dict</span>
+<span class="sd">        Score series for the range of estimated classifiers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">res_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">score_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">time_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">cv_type</span> <span class="o">=</span> <span class="n">get_cv_type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split_num</span><span class="p">)</span>
+    <span class="n">option_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">alg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;catboost&quot;</span><span class="p">,</span> <span class="s2">&quot;RF&quot;</span><span class="p">,</span> <span class="s2">&quot;LGBM&quot;</span><span class="p">,</span> <span class="s2">&quot;XGB&quot;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">bal_alg</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;RandomOverSampler&quot;</span><span class="p">,</span> <span class="s2">&quot;SMOTE&quot;</span><span class="p">,</span> <span class="s2">&quot;RandomUnderSampler&quot;</span><span class="p">,</span> <span class="s2">&quot;ADASYN&quot;</span><span class="p">]:</span>
+            <span class="n">score_list</span><span class="p">,</span> <span class="n">time_list</span> <span class="o">=</span> <span class="n">fit_alg</span><span class="p">(</span><span class="n">cv_type</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">bal_alg</span><span class="p">,</span> <span class="n">alg</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hyperopt_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_num</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">eval_metric</span><span class="p">)</span>
+            <span class="n">option_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bal_alg</span> <span class="o">+</span> <span class="s2">&quot;+&quot;</span> <span class="o">+</span> <span class="n">alg</span><span class="p">)</span>
+            <span class="n">score_dict</span><span class="p">[</span><span class="n">option_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">score_list</span>
+            <span class="n">res_dict</span><span class="p">[</span><span class="n">option_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">score_list</span><span class="p">)</span>
+    <span class="n">score_list</span><span class="p">,</span> <span class="n">time_list</span> <span class="o">=</span> <span class="n">fit_alg</span><span class="p">(</span><span class="n">cv_type</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;AutoBalanceBoost&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hyperopt_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">split_num</span><span class="p">,</span>
+                                    <span class="bp">self</span><span class="o">.</span><span class="n">eval_metric</span><span class="p">)</span>
+    <span class="n">option_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;AutoBalanceBoost&quot;</span><span class="p">)</span>
+    <span class="n">score_dict</span><span class="p">[</span><span class="n">option_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">score_list</span>
+    <span class="n">time_dict</span><span class="p">[</span><span class="n">option_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">time_list</span>
+    <span class="n">res_dict</span><span class="p">[</span><span class="n">option_list</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">score_list</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_metric</span> <span class="o">==</span> <span class="s2">&quot;log_loss&quot;</span><span class="p">:</span>
+        <span class="n">res_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">res_dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]))}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">res_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">res_dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
+    <span class="n">option_label</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">res_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">res_dict</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">classifier</span><span class="p">,</span> <span class="n">scaler</span> <span class="o">=</span> <span class="n">fit_res_model</span><span class="p">(</span><span class="n">option_label</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">hyperopt_time</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_metric</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">classifier</span><span class="p">,</span> <span class="n">option_label</span><span class="p">,</span> <span class="n">score</span><span class="p">,</span> <span class="n">scaler</span><span class="p">,</span> <span class="n">score_dict</span><span class="p">,</span> <span class="n">time_dict</span></div>
+
+
+<div class="viewcode-block" id="calc_leaderboard"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.tools_ilc.calc_leaderboard">[docs]</a><span class="k">def</span> <span class="nf">calc_leaderboard</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Calculates the leaderboard statistics.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    ls : dict</span>
+<span class="sd">        The leaderboard statistics that includes sorted lists in accordance with the following indicators:</span>
+<span class="sd">        &quot;Mean score&quot;, &quot;Mean rank&quot;, &quot;Share of experiments with the first place, %&quot;,</span>
+<span class="sd">        &quot;Average difference with the leader, %&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ls</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">mean_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">sub_rank_list</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">split_num</span><span class="p">))]</span>
+    <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluated_models_scores_</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="n">mean_dict</span><span class="p">[</span><span class="n">el</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluated_models_scores_</span><span class="p">[</span><span class="n">el</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluated_models_scores_</span><span class="p">[</span><span class="n">el</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_metric</span> <span class="o">==</span> <span class="s2">&quot;log_loss&quot;</span><span class="p">:</span>
+                <span class="n">sub_rank_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">sub_rank_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="o">-</span><span class="n">val</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_metric</span> <span class="o">==</span> <span class="s2">&quot;log_loss&quot;</span><span class="p">:</span>
+        <span class="n">mean_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mean_dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]))}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">mean_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">mean_dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
+    <span class="n">leader</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">mean_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ls</span><span class="p">[</span><span class="s2">&quot;Mean score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean_dict</span>
+    <span class="n">model_rank</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sub_rank_list</span><span class="p">)):</span>
+        <span class="n">model_rank</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rankdata</span><span class="p">(</span><span class="n">sub_rank_list</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;dense&#39;</span><span class="p">))</span>
+    <span class="n">model_rank</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">model_rank</span><span class="p">)</span>
+    <span class="n">rank_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">leader_share</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">diff_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">el</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluated_models_scores_</span><span class="o">.</span><span class="n">keys</span><span class="p">())):</span>
+        <span class="n">rank_dict</span><span class="p">[</span><span class="n">el</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">model_rank</span><span class="p">[:,</span> <span class="n">i</span><span class="p">])</span>
+        <span class="n">leader_share</span><span class="p">[</span><span class="n">el</span><span class="p">]</span> <span class="o">=</span> <span class="n">model_rank</span><span class="p">[</span><span class="n">model_rank</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">model_rank</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
+        <span class="k">if</span> <span class="n">el</span> <span class="o">!=</span> <span class="n">leader</span><span class="p">:</span>
+            <span class="n">diff</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluated_models_scores_</span><span class="p">[</span><span class="n">el</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">evaluated_models_scores_</span><span class="p">[</span><span class="n">leader</span><span class="p">]))</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">evaluated_models_scores_</span><span class="p">[</span><span class="n">leader</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+            <span class="n">diff_dict</span><span class="p">[</span><span class="n">el</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">diff</span><span class="p">)</span>
+    <span class="n">rank_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">rank_dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]))}</span>
+    <span class="n">leader_share</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">leader_share</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
+    <span class="n">diff_dict</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">diff_dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)}</span>
+    <span class="n">ls</span><span class="p">[</span><span class="s2">&quot;Mean rank&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rank_dict</span>
+    <span class="n">ls</span><span class="p">[</span><span class="s2">&quot;Share of experiments with the first place, %&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">leader_share</span>
+    <span class="n">ls</span><span class="p">[</span><span class="s2">&quot;Average difference with the leader, %&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">diff_dict</span>
+    <span class="k">return</span> <span class="n">ls</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Ekaterina Plesovskaya, Sergey Ivanov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
