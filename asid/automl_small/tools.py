@@ -136,10 +136,10 @@ def check_num_type(x: Any, num_type: type, num_cl: str):
         raise TypeError("The parameter should be of " + str(num_type))
 
 
-def check_x_y(X: ndarray, y: Union[ndarray, None] = None):
-    if not isinstance(X, np.ndarray):
-        raise TypeError("X should be an array-like type.")
-    if X.size == 0:
+def check_x_y(x: ndarray, y: Union[ndarray, None] = None):
+    if not isinstance(x, np.ndarray):
+        raise TypeError("x should be an array-like type.")
+    if x.size == 0:
         raise ValueError("The dataset has no samples.")
     if y is not None:
         if hasattr(y, "size"):
@@ -148,8 +148,8 @@ def check_x_y(X: ndarray, y: Union[ndarray, None] = None):
         else:
             if len(y) == 0:
                 raise ValueError("The dataset has no samples.")
-        if X.shape[0] != len(y):
-            raise ValueError("The X and y contain different number of samples.")
+        if x.shape[0] != len(y):
+            raise ValueError("The x and y contain different number of samples.")
 
 
 def check_gm_fitted(self):

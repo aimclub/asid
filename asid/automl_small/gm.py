@@ -146,7 +146,7 @@ class GenerativeModel(object):
         return sampled_data
 
     def score(self, train_data: ndarray, similarity_metric: str = "zu", test_data: Union[None, ndarray] = None) -> \
-    Union[float, dict]:
+            Union[float, dict]:
         """
         Evaluates the similarity of GenerativeModel samples and train data with the specified similarity metric.
 

@@ -4,7 +4,7 @@ This module contains functions for dataset similarity metrics calculation.
 
 from scipy import stats
 from sklearn.model_selection import StratifiedKFold
-from sklearn.neighbors import NearestNeighbors as NN
+from sklearn.neighbors import NearestNeighbors
 from scipy.stats import mannwhitneyu
 import xgboost as xgb
 from sklearn.metrics import roc_auc_score
@@ -123,10 +123,10 @@ def c2st_accuracy(data_orig: ndarray, sampled: ndarray) -> Tuple[float, float]:
     y_pred = []
     n_var = data_res.shape[1] - 1
     for train_index, test_index in loo.split(data_res):
-        X_train, X_test = data_res.iloc[train_index, :n_var - 1], data_res.iloc[test_index, :n_var - 1]
+        x_train, x_test = data_res.iloc[train_index, :n_var - 1], data_res.iloc[test_index, :n_var - 1]
         y_train, y_test = data_res.iloc[train_index, n_var], data_res.iloc[test_index, n_var]
-        NN_clf = KNeighborsClassifier(n_neighbors=1).fit(X_train, y_train)
-        preds = NN_clf.predict(X_test)
+        nn_clf = KNeighborsClassifier(n_neighbors=1).fit(x_train, y_train)
+        preds = nn_clf.predict(x_test)
         y_true.extend(y_test)
         y_pred.extend(preds)
     res = pd.DataFrame({"y_pred": y_pred, "y_true": y_true})
@@ -160,7 +160,7 @@ def ks_permutation(stat: list, df1: ndarray, df2: ndarray) -> float:
     p_val = None
     i = 0
     p_val_list = []
-    while p_val == None:
+    while p_val is None:
         x1 = df1[:, i]
         x2 = df2[:, i]
         p_val_stat = ks_permutation_var(stat[i], x1, x2)
@@ -240,18 +240,18 @@ def zu_overfitting_statistic(df1: ndarray, df2: ndarray, df3: ndarray) -> float:
     """
     m = df2.shape[0]
     n = df1.shape[0]
-    T_NN = NN(n_neighbors=1).fit(df3)
-    LQm, _ = T_NN.kneighbors(X=df2, n_neighbors=1)
-    LPn, _ = T_NN.kneighbors(X=df1, n_neighbors=1)
-    u, p = mannwhitneyu(LQm, LPn, alternative='less')
+    t_nn = NearestNeighbors(n_neighbors=1).fit(df3)
+    lqm, _ = t_nn.kneighbors(X=df2, n_neighbors=1)
+    lpn, _ = t_nn.kneighbors(X=df1, n_neighbors=1)
+    u, p = mannwhitneyu(lqm, lpn, alternative='less')
     mean = (n * m / 2) - 0.5
     std = np.sqrt(n * m * (n + m + 1) / 12)
     zu_stat = (u - mean) / std
     return zu_stat
 
 
-def calc_metrics(data: ndarray, sampled_data: ndarray, metric: str, test_data: Union[None, ndarray] = None) -> Union[
-    float, list]:
+def calc_metrics(data: ndarray, sampled_data: ndarray, metric: str, test_data: Union[None, ndarray] = None) -> \
+        Union[float, list]:
     """
     Calculates dataset similarity metrics.
 
