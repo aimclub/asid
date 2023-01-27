@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>asid.automl_small.tools &mdash; asid 0.0.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> asid
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">asid</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">asid</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">asid.automl_small.tools</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for asid.automl_small.tools</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">This module contains helping functions for GenerativeModel class.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">.generative_model_estimation</span> <span class="kn">import</span> <span class="n">fit_model</span>
+<span class="kn">from</span> <span class="nn">.generative_model_sampling</span> <span class="kn">import</span> <span class="n">get_sampled_data</span>
+<span class="kn">from</span> <span class="nn">.dataset_similarity_metrics</span> <span class="kn">import</span> <span class="n">calc_metrics</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">ShuffleSplit</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+
+<div class="viewcode-block" id="choose_and_fit_model"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.choose_and_fit_model">[docs]</a><span class="k">def</span> <span class="nf">choose_and_fit_model</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">similarity_metric</span><span class="p">,</span> <span class="n">scaler</span><span class="p">,</span> <span class="n">data_scaled</span><span class="p">,</span> <span class="n">num_syn_samples</span><span class="p">,</span> <span class="n">hyp_time</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Chooses an optimal generative model and fits GenerativeModel instance.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Training sample.</span>
+
+<span class="sd">    similarity_metric : {&quot;zu&quot;, &quot;c2st_acc&quot;} or None, default=&quot;zu&quot;</span>
+<span class="sd">        Metric that is used to choose the optimal generative model.</span>
+
+<span class="sd">    scaler : instance</span>
+<span class="sd">        Fitted scaler that is applied prior to generative model estimation.</span>
+
+<span class="sd">    data_scaled : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        Normalized training sample.</span>
+
+<span class="sd">    num_syn_samples : int</span>
+<span class="sd">        The number of synthetic samples generated to evaluate the similarity_metric score.</span>
+<span class="sd">        </span>
+<span class="sd">    hyp_time : int</span>
+<span class="sd">        The runtime setting (in seconds) for Hyperopt optimization. Hyperopt is used to find the optimal</span>
+<span class="sd">        hyper-parameters for generative models.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    gen_model : instance</span>
+<span class="sd">        Optimal fitted generative model.</span>
+
+<span class="sd">    best_alg_label : str</span>
+<span class="sd">        Optimal generative algorithm label.</span>
+
+<span class="sd">    best_score : float</span>
+<span class="sd">        Mean value of similarity_metric for the optimal generative model.</span>
+
+<span class="sd">    log_dict : dict</span>
+<span class="sd">        Score and time data series for the range of estimated generative models.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">best_model</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">best_score</span> <span class="o">=</span> <span class="o">+</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span>
+    <span class="n">best_alg_label</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">seed_val</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">)),</span> <span class="n">num_syn_samples</span><span class="p">)</span>
+    <span class="n">log_dict</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">gen_meth</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;sklearn_kde&quot;</span><span class="p">,</span> <span class="s2">&quot;stats_kde_cv_ml&quot;</span><span class="p">,</span> <span class="s2">&quot;stats_kde_cv_ls&quot;</span><span class="p">,</span> <span class="s2">&quot;gmm&quot;</span><span class="p">,</span> <span class="s2">&quot;bayesian_gmm&quot;</span><span class="p">,</span> <span class="s2">&quot;ctgan&quot;</span><span class="p">,</span>
+                     <span class="s2">&quot;copula&quot;</span><span class="p">,</span> <span class="s2">&quot;copulagan&quot;</span><span class="p">,</span> <span class="s2">&quot;tvae&quot;</span><span class="p">]:</span>
+        <span class="n">log_dict</span><span class="p">[</span><span class="n">gen_meth</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">if</span> <span class="n">similarity_metric</span> <span class="o">==</span> <span class="s2">&quot;c2st_acc&quot;</span><span class="p">:</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">gen_model</span> <span class="o">=</span> <span class="n">fit_model</span><span class="p">(</span><span class="n">gen_meth</span><span class="p">,</span> <span class="n">data_scaled</span><span class="p">,</span> <span class="n">hyp_time</span><span class="p">)</span>
+            <span class="n">log_dict</span><span class="p">[</span><span class="n">gen_meth</span><span class="p">][</span><span class="s2">&quot;train_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">sampled_data_list</span> <span class="o">=</span> <span class="n">get_sampled_data</span><span class="p">(</span><span class="n">gen_model</span><span class="p">,</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">seed_val</span><span class="p">,</span> <span class="n">gen_meth</span><span class="p">,</span> <span class="n">scaler</span><span class="p">)</span>
+            <span class="n">log_dict</span><span class="p">[</span><span class="n">gen_meth</span><span class="p">][</span><span class="s2">&quot;sampling_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+            <span class="n">score_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">sampled_data</span> <span class="ow">in</span> <span class="n">sampled_data_list</span><span class="p">:</span>
+                <span class="n">score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">calc_metrics</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sampled_data</span><span class="p">,</span> <span class="n">similarity_metric</span><span class="p">)))</span>
+            <span class="n">log_dict</span><span class="p">[</span><span class="n">gen_meth</span><span class="p">][</span><span class="s2">&quot;calc_metric_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+        <span class="k">elif</span> <span class="n">similarity_metric</span> <span class="o">==</span> <span class="s2">&quot;zu&quot;</span><span class="p">:</span>
+            <span class="n">rs</span> <span class="o">=</span> <span class="n">ShuffleSplit</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">train_size</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">indexes</span> <span class="ow">in</span> <span class="n">rs</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+                <span class="n">data_train</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">indexes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">:]</span>
+                <span class="n">data_test</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">indexes</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">:]</span>
+            <span class="n">train_scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+            <span class="n">train_scaler</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_train</span><span class="p">)</span>
+            <span class="n">data_train_scaled</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">data_train</span><span class="p">)</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">gen_model</span> <span class="o">=</span> <span class="n">fit_model</span><span class="p">(</span><span class="n">gen_meth</span><span class="p">,</span> <span class="n">data_train_scaled</span><span class="p">,</span> <span class="n">hyp_time</span><span class="p">)</span>
+            <span class="n">log_dict</span><span class="p">[</span><span class="n">gen_meth</span><span class="p">][</span><span class="s2">&quot;train_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">sampled_data_list</span> <span class="o">=</span> <span class="n">get_sampled_data</span><span class="p">(</span><span class="n">gen_model</span><span class="p">,</span> <span class="n">data_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">seed_val</span><span class="p">,</span> <span class="n">gen_meth</span><span class="p">,</span>
+                                                 <span class="n">train_scaler</span><span class="p">)</span>
+            <span class="n">log_dict</span><span class="p">[</span><span class="n">gen_meth</span><span class="p">][</span><span class="s2">&quot;sampling_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+            <span class="n">score_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">sampled_data</span> <span class="ow">in</span> <span class="n">sampled_data_list</span><span class="p">:</span>
+                <span class="n">score_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">calc_metrics</span><span class="p">(</span><span class="n">data_train</span><span class="p">,</span> <span class="n">sampled_data</span><span class="p">,</span> <span class="n">similarity_metric</span><span class="p">,</span> <span class="n">data_test</span><span class="p">)))</span>
+            <span class="n">log_dict</span><span class="p">[</span><span class="n">gen_meth</span><span class="p">][</span><span class="s2">&quot;calc_metric_time&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span>
+        <span class="n">score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">score_list</span><span class="p">)</span>
+        <span class="n">log_dict</span><span class="p">[</span><span class="n">gen_meth</span><span class="p">][</span><span class="s2">&quot;score&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">score_list</span>
+        <span class="k">if</span> <span class="n">score</span> <span class="o">&lt;</span> <span class="n">best_score</span><span class="p">:</span>
+            <span class="n">best_score</span> <span class="o">=</span> <span class="n">score</span>
+            <span class="n">best_model</span> <span class="o">=</span> <span class="n">gen_model</span>
+            <span class="n">best_alg_label</span> <span class="o">=</span> <span class="n">gen_meth</span>
+    <span class="k">if</span> <span class="n">similarity_metric</span> <span class="o">==</span> <span class="s2">&quot;zu&quot;</span><span class="p">:</span>
+        <span class="n">gen_model</span> <span class="o">=</span> <span class="n">fit_model</span><span class="p">(</span><span class="n">best_alg_label</span><span class="p">,</span> <span class="n">data_scaled</span><span class="p">,</span> <span class="n">hyp_time</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">gen_model</span> <span class="o">=</span> <span class="n">best_model</span>
+    <span class="k">return</span> <span class="n">gen_model</span><span class="p">,</span> <span class="n">best_alg_label</span><span class="p">,</span> <span class="n">best_score</span><span class="p">,</span> <span class="n">log_dict</span></div>
+
+
+<div class="viewcode-block" id="check_gen_model_list"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_gen_model_list">[docs]</a><span class="k">def</span> <span class="nf">check_gen_model_list</span><span class="p">(</span><span class="n">metric</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">metric</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;optimize&quot;</span><span class="p">,</span> <span class="s2">&quot;sklearn_kde&quot;</span><span class="p">,</span> <span class="s2">&quot;stats_kde_cv_ml&quot;</span><span class="p">,</span> <span class="s2">&quot;stats_kde_cv_ls&quot;</span><span class="p">,</span> <span class="s2">&quot;gmm&quot;</span><span class="p">,</span> <span class="s2">&quot;bayesian_gmm&quot;</span><span class="p">,</span> <span class="s2">&quot;ctgan&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;copula&quot;</span><span class="p">,</span> <span class="s2">&quot;copulagan&quot;</span><span class="p">,</span> <span class="s2">&quot;tvae&quot;</span><span class="p">]:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Generative model &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; is not implemented.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="check_sim_metric_list"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_sim_metric_list">[docs]</a><span class="k">def</span> <span class="nf">check_sim_metric_list</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">mtype</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">mtype</span> <span class="o">==</span> <span class="s2">&quot;optimize&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">metric</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;zu&quot;</span><span class="p">,</span> <span class="s2">&quot;c2st_acc&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Metric &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; is not implemented.&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">mtype</span> <span class="o">==</span> <span class="s2">&quot;score&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">metric</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;zu&quot;</span><span class="p">,</span> <span class="s2">&quot;c2st_acc&quot;</span><span class="p">,</span> <span class="s2">&quot;roc_auc&quot;</span><span class="p">,</span> <span class="s2">&quot;ks_test&quot;</span><span class="p">]:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Metric &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; is not implemented.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="check_num_type"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_num_type">[docs]</a><span class="k">def</span> <span class="nf">check_num_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">num_type</span><span class="p">,</span> <span class="n">num_cl</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">num_type</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">num_cl</span> <span class="o">==</span> <span class="s2">&quot;positive&quot;</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The parameter should be &quot;</span> <span class="o">+</span> <span class="n">num_cl</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">num_cl</span> <span class="o">==</span> <span class="s2">&quot;non-negative&quot;</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The parameter should be &quot;</span> <span class="o">+</span> <span class="n">num_cl</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">num_cl</span> <span class="o">==</span> <span class="s2">&quot;negative&quot;</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The parameter should be &quot;</span> <span class="o">+</span> <span class="n">num_cl</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The parameter should be of &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_type</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="check_x_y"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_x_y">[docs]</a><span class="k">def</span> <span class="nf">check_x_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;X should be an array-like type.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The dataset has no samples.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">y</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The dataset has no samples.&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The dataset has no samples.&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The X and y contain different number of samples.&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="check_gm_fitted"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_gm_fitted">[docs]</a><span class="k">def</span> <span class="nf">check_gm_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">gen_model_</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;GenerativeModel is not fitted.&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Ekaterina Plesovskaya, Sergey Ivanov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

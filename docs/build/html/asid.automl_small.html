@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>asid.automl_small package &mdash; asid 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="asid.automl_imbalanced package" href="asid.automl_imbalanced.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> asid
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">asid</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="asid.html">asid package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="asid.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="asid.automl_imbalanced.html">asid.automl_imbalanced package</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">asid.automl_small package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="asid.html#module-asid">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">asid</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">asid</a></li>
+          <li class="breadcrumb-item"><a href="asid.html">asid package</a></li>
+      <li class="breadcrumb-item active">asid.automl_small package</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/asid.automl_small.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="asid-automl-small-package">
+<h1>asid.automl_small package<a class="headerlink" href="#asid-automl-small-package" title="Permalink to this heading"></a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-asid.automl_small.dataset_similarity_metrics">
+<span id="asid-automl-small-dataset-similarity-metrics-module"></span><h2>asid.automl_small.dataset_similarity_metrics module<a class="headerlink" href="#module-asid.automl_small.dataset_similarity_metrics" title="Permalink to this heading"></a></h2>
+<p>This module contains functions for dataset similarity metrics calculation.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.dataset_similarity_metrics.c2st_accuracy">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.dataset_similarity_metrics.</span></span><span class="sig-name descname"><span class="pre">c2st_accuracy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_orig</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampled</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/dataset_similarity_metrics.html#c2st_accuracy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.dataset_similarity_metrics.c2st_accuracy" title="Permalink to this definition"></a></dt>
+<dd><p>Classifier Two-Sample Test: LOO Accuracy for 1-NN classifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_orig</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Train sample.</p></li>
+<li><p><strong>sampled</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Synthetic sample.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>acc_r</strong> (<em>float</em>) – Accuracy for real samples.</p></li>
+<li><p><strong>acc_g</strong> (<em>float</em>) – Accuracy for generated samples.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Xu, Q. et al. (2018) “An empirical study on evaluation metrics of generative adversarial networks” arXiv preprint
+arXiv:1806.07755.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.dataset_similarity_metrics.c2st_roc_auc">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.dataset_similarity_metrics.</span></span><span class="sig-name descname"><span class="pre">c2st_roc_auc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/dataset_similarity_metrics.html#c2st_roc_auc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.dataset_similarity_metrics.c2st_roc_auc" title="Permalink to this definition"></a></dt>
+<dd><p>Classifier Two-Sample Test: ROC AUC for gradient boosting classifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df1</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Train sample.</p></li>
+<li><p><strong>df2</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Synthetic sample.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>roc_auc</strong> – ROC AUC value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Friedman, J. H. (2003) “On Multivariate Goodness–of–Fit and Two–Sample Testing” Statistical Problems in Particle
+Physics, Astrophysics and Cosmology, PHYSTAT2003: 311-313.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.dataset_similarity_metrics.calc_metrics">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.dataset_similarity_metrics.</span></span><span class="sig-name descname"><span class="pre">calc_metrics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sampled_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/dataset_similarity_metrics.html#calc_metrics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.dataset_similarity_metrics.calc_metrics" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates dataset similarity metrics.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>sampled_data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Synthetic sample.</p></li>
+<li><p><strong>metric</strong> (<em>{&quot;zu&quot;</em><em>, </em><em>&quot;c2st_acc&quot;</em><em>, </em><em>&quot;roc_auc&quot;</em><em>, </em><em>&quot;ks_test&quot;}</em>) – Metric that is used to choose the optimal generative model.</p></li>
+<li><p><strong>test_data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>result</strong> – Metric value. For “ks_test” a list [statistic, p-value] is output.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float or list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.dataset_similarity_metrics.ks_permutation">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.dataset_similarity_metrics.</span></span><span class="sig-name descname"><span class="pre">ks_permutation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/dataset_similarity_metrics.html#ks_permutation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.dataset_similarity_metrics.ks_permutation" title="Permalink to this definition"></a></dt>
+<dd><p>Kolmogorov-Smirnov permutation test applied to each maginal distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stat</strong> (<em>list</em>) – List of statistic values for marginal distributions.</p></li>
+<li><p><strong>df1</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Train sample.</p></li>
+<li><p><strong>df2</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Synthetic sample.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>p_val</strong> – P-value obtained using permutation test.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.dataset_similarity_metrics.ks_permutation_var">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.dataset_similarity_metrics.</span></span><span class="sig-name descname"><span class="pre">ks_permutation_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">series1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">series2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/dataset_similarity_metrics.html#ks_permutation_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.dataset_similarity_metrics.ks_permutation_var" title="Permalink to this definition"></a></dt>
+<dd><p>Kolmogorov-Smirnov permutation test for marginal distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>stat</strong> (<em>float</em>) – Statistic value for marginal distribution.</p></li>
+<li><p><strong>series1</strong> (<em>array-like</em>) – Train sample series.</p></li>
+<li><p><strong>series2</strong> (<em>array-like</em>) – Synthetic sample series.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>p_val</strong> – P-value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.dataset_similarity_metrics.ks_test">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.dataset_similarity_metrics.</span></span><span class="sig-name descname"><span class="pre">ks_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/dataset_similarity_metrics.html#ks_test"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.dataset_similarity_metrics.ks_test" title="Permalink to this definition"></a></dt>
+<dd><p>Kolmogorov-Smirnov test applied to each marginal distribution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df1</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Train sample.</p></li>
+<li><p><strong>df2</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Synthetic sample.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>p_val_list</strong> (<em>list</em>) – List of p-values for marginal distributions.</p></li>
+<li><p><strong>stat_list</strong> (<em>list</em>) – List of statistic values for marginal distributions.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.dataset_similarity_metrics.zu_overfitting_statistic">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.dataset_similarity_metrics.</span></span><span class="sig-name descname"><span class="pre">zu_overfitting_statistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/dataset_similarity_metrics.html#zu_overfitting_statistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.dataset_similarity_metrics.zu_overfitting_statistic" title="Permalink to this definition"></a></dt>
+<dd><p>Zu overfitting statistic calculation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df1</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p></li>
+<li><p><strong>df2</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Synthetic sample.</p></li>
+<li><p><strong>df3</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Train sample.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>zu_stat</strong> – Metric value.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Meehan C., Chaudhuri K., Dasgupta S. (2020) “A non-parametric test to detect data-copying in generative models”
+International Conference on Artificial Intelligence and Statistics.</p>
+</dd></dl>
+
+</section>
+<section id="module-asid.automl_small.generative_model_estimation">
+<span id="asid-automl-small-generative-model-estimation-module"></span><h2>asid.automl_small.generative_model_estimation module<a class="headerlink" href="#module-asid.automl_small.generative_model_estimation" title="Permalink to this heading"></a></h2>
+<p>This module contains functions for generative models estimation.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.calc_bayesian_gmm_acc">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">calc_bayesian_gmm_acc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#calc_bayesian_gmm_acc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.calc_bayesian_gmm_acc" title="Permalink to this definition"></a></dt>
+<dd><p>Estimates the performance of BayesianGaussianMixture model with hyper-parameters values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>dict</em>) – Hyper-parameters values.</p></li>
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>score</strong> – Performance score.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.calc_gmm_acc">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">calc_gmm_acc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#calc_gmm_acc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.calc_gmm_acc" title="Permalink to this definition"></a></dt>
+<dd><p>Estimates the performance of GaussianMixture model with hyper-parameters values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>dict</em>) – Hyper-parameters values.</p></li>
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>score</strong> – Performance score.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.calc_kde_acc">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">calc_kde_acc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#calc_kde_acc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.calc_kde_acc" title="Permalink to this definition"></a></dt>
+<dd><p>Estimates the performance of KDE (sklearn implementation) with hyper-parameters values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>dict</em>) – Hyper-parameters values.</p></li>
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>score</strong> – Performance score.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.calc_sdv_acc">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">calc_sdv_acc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#calc_sdv_acc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.calc_sdv_acc" title="Permalink to this definition"></a></dt>
+<dd><p>Estimates the performance of SDV model with hyper-parameters values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params</strong> (<em>dict</em>) – Hyper-parameters values.</p></li>
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>alg</strong> (<em>str</em>) – Algorithm label.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>score</strong> – Performance score.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.fit_model">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">fit_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gen_algorithm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyp_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#fit_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.fit_model" title="Permalink to this definition"></a></dt>
+<dd><p>Fits generative model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gen_algorithm</strong> (<em>{&quot;sklearn_kde&quot;</em><em>, </em><em>&quot;stats_kde_cv_ml&quot;</em><em>, </em><em>&quot;stats_kde_cv_ls&quot;</em><em>, </em><em>&quot;gmm&quot;</em><em>, </em><em>&quot;bayesian_gmm&quot;</em><em>, </em><em>&quot;ctgan&quot;</em><em>,</em>) – “copula”, “copulagan”, “tvae”}
+Generative algorithm label.</p></li>
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>hyp_time</strong> (<em>int</em>) – The runtime setting (in seconds) for Hyperopt optimization.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>model</strong> – Fitted generative model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.get_bayesian_gmm_model">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">get_bayesian_gmm_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyp_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#get_bayesian_gmm_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.get_bayesian_gmm_model" title="Permalink to this definition"></a></dt>
+<dd><p>Estimates Bayesian GMM model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>hyp_time</strong> (<em>int</em>) – The runtime setting (in seconds) for Hyperopt optimization.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>gmm</strong> – Fitted generative model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.get_copula_model">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">get_copula_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#get_copula_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.get_copula_model" title="Permalink to this definition"></a></dt>
+<dd><p>Estimates Copula model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>model</strong> – Fitted generative model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.get_copulagan_model">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">get_copulagan_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyp_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#get_copulagan_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.get_copulagan_model" title="Permalink to this definition"></a></dt>
+<dd><p>Estimates CopulaGAN model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>hyp_time</strong> (<em>int</em>) – The runtime setting (in seconds) for Hyperopt optimization.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>model</strong> – Fitted generative model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.get_ctgan_model">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">get_ctgan_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyp_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#get_ctgan_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.get_ctgan_model" title="Permalink to this definition"></a></dt>
+<dd><p>Estimates CTGAN model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>hyp_time</strong> (<em>int</em>) – The runtime setting (in seconds) for Hyperopt optimization.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>model</strong> – Fitted generative model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.get_gmm_model">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">get_gmm_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyp_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#get_gmm_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.get_gmm_model" title="Permalink to this definition"></a></dt>
+<dd><p>Estimates GMM model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>hyp_time</strong> (<em>int</em>) – The runtime setting (in seconds) for Hyperopt optimization.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>gmm</strong> – Fitted generative model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.get_tvae_model">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">get_tvae_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyp_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#get_tvae_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.get_tvae_model" title="Permalink to this definition"></a></dt>
+<dd><p>Estimates TVAE model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>hyp_time</strong> (<em>int</em>) – The runtime setting (in seconds) for Hyperopt optimization.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>model</strong> – Fitted generative model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.sklearn_kde">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">sklearn_kde</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyp_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#sklearn_kde"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.sklearn_kde" title="Permalink to this definition"></a></dt>
+<dd><p>Estimates KDE (sklearn implementation).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>hyp_time</strong> (<em>int</em>) – The runtime setting (in seconds) for Hyperopt optimization.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>kde</strong> – Fitted generative model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_estimation.stats_kde">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_estimation.</span></span><span class="sig-name descname"><span class="pre">stats_kde</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_estimation.html#stats_kde"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_estimation.stats_kde" title="Permalink to this definition"></a></dt>
+<dd><p>Estimates KDE (Statsmodels).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>method</strong> (<em>{&quot;cv_ml&quot;</em><em>, </em><em>&quot;cv_ls&quot;}</em>) – CV type for bandwidth selection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>kde</strong> – Fitted generative model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-asid.automl_small.generative_model_sampling">
+<span id="asid-automl-small-generative-model-sampling-module"></span><h2>asid.automl_small.generative_model_sampling module<a class="headerlink" href="#module-asid.automl_small.generative_model_sampling" title="Permalink to this heading"></a></h2>
+<p>This module contains functions for sampling from fitted generative models.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_sampling.get_sampled_data">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_sampling.</span></span><span class="sig-name descname"><span class="pre">get_sampled_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaling</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_sampling.html#get_sampled_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_sampling.get_sampled_data" title="Permalink to this definition"></a></dt>
+<dd><p>Calls a sampling function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>instance</em>) – Fitted generative model.</p></li>
+<li><p><strong>sample_len</strong> (<em>int</em>) – Synthetic sample size.</p></li>
+<li><p><strong>seed_list</strong> (<em>list</em>) – The list of random seeds for each synthetic dataset.</p></li>
+<li><p><strong>method</strong> (<em>{&quot;sklearn_kde&quot;</em><em>, </em><em>&quot;stats_kde_cv_ml&quot;</em><em>, </em><em>&quot;stats_kde_cv_ls&quot;</em><em>, </em><em>&quot;gmm&quot;</em><em>, </em><em>&quot;bayesian_gmm&quot;</em><em>, </em><em>&quot;ctgan&quot;</em><em>,</em>) – “copula”, “copulagan”, “tvae”}
+Generative algorithm label.</p></li>
+<li><p><strong>scaling</strong> (<em>instance</em>) – Fitted scaler that is applied prior to generative model estimation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sampled_data_list</strong> – The list with synthetiс datasets.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_sampling.gmm_sample_procedure">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_sampling.</span></span><span class="sig-name descname"><span class="pre">gmm_sample_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaling</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_samples</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_sampling.html#gmm_sample_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_sampling.gmm_sample_procedure" title="Permalink to this definition"></a></dt>
+<dd><p>Sampling from GMM model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>instance</em>) – Fitted generative model.</p></li>
+<li><p><strong>sample_len</strong> (<em>int</em>) – Synthetic sample size.</p></li>
+<li><p><strong>scaling</strong> (<em>instance</em>) – Fitted scaler that is applied prior to generative model estimation.</p></li>
+<li><p><strong>num_samples</strong> (<em>int</em>) – Required number of synthetic datasets.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sampled_data_list</strong> – The list with synthetiс datasets.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_sampling.sample_sdv_procedure">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_sampling.</span></span><span class="sig-name descname"><span class="pre">sample_sdv_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaling</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_sampling.html#sample_sdv_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_sampling.sample_sdv_procedure" title="Permalink to this definition"></a></dt>
+<dd><p>Sampling from SDV library model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>instance</em>) – Fitted generative model.</p></li>
+<li><p><strong>sample_len</strong> (<em>int</em>) – Synthetic sample size.</p></li>
+<li><p><strong>seed_list</strong> (<em>list</em>) – The list of random seeds for each synthetic dataset.</p></li>
+<li><p><strong>scaling</strong> (<em>instance</em>) – Fitted scaler that is applied prior to generative model estimation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sampled_data_list</strong> – The list with synthetiс datasets.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_sampling.sample_stats">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_sampling.</span></span><span class="sig-name descname"><span class="pre">sample_stats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kde</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_sampling.html#sample_stats"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_sampling.sample_stats" title="Permalink to this definition"></a></dt>
+<dd><p>Base sampling procedure from Statsmodel’s KDE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kde</strong> (<em>instance</em>) – Fitted KDE model.</p></li>
+<li><p><strong>size</strong> (<em>int</em>) – Synthetic sample size.</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Random seed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sampled_data</strong> – Synthetic sample.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array-like of shape (n_samples, n_features)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_sampling.simple_sample_sklearn_procedure">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_sampling.</span></span><span class="sig-name descname"><span class="pre">simple_sample_sklearn_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaling</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_sampling.html#simple_sample_sklearn_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_sampling.simple_sample_sklearn_procedure" title="Permalink to this definition"></a></dt>
+<dd><p>Sampling synthetic datasets from sklearn KDE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>instance</em>) – Fitted generative model.</p></li>
+<li><p><strong>sample_len</strong> (<em>int</em>) – Synthetic sample size.</p></li>
+<li><p><strong>seed_list</strong> (<em>list</em>) – The list of random seeds for each synthetic dataset.</p></li>
+<li><p><strong>scaling</strong> (<em>instance</em>) – Fitted scaler that is applied prior to generative model estimation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sampled_data_list</strong> – The list with synthetiс datasets.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.generative_model_sampling.simple_sample_stats_procedure">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.generative_model_sampling.</span></span><span class="sig-name descname"><span class="pre">simple_sample_stats_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_len</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaling</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/generative_model_sampling.html#simple_sample_stats_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.generative_model_sampling.simple_sample_stats_procedure" title="Permalink to this definition"></a></dt>
+<dd><p>Sampling synthetic datasets from Statsmodel’s KDE.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>instance</em>) – Fitted generative model.</p></li>
+<li><p><strong>sample_len</strong> (<em>int</em>) – Synthetic sample size.</p></li>
+<li><p><strong>seed_list</strong> (<em>list</em>) – The list of random seeds for each synthetic dataset.</p></li>
+<li><p><strong>scaling</strong> (<em>instance</em>) – Fitted scaler that is applied prior to generative model estimation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sampled_data_list</strong> – The list with synthetiс datasets.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-asid.automl_small.gm">
+<span id="asid-automl-small-gm-module"></span><h2>asid.automl_small.gm module<a class="headerlink" href="#module-asid.automl_small.gm" title="Permalink to this heading"></a></h2>
+<p>This module contains GenerativeModel class.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="asid.automl_small.gm.GenerativeModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">asid.automl_small.gm.</span></span><span class="sig-name descname"><span class="pre">GenerativeModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gen_model_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'optimize'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_syn_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperopt_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/gm.html#GenerativeModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.gm.GenerativeModel" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>GenerativeModel is a tool designed to find an appropriate generative model for small tabular data. It estimates the
+similarity of synthetic samples, accounts for overfitting and outputs the optimal option.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gen_model_type</strong> (<em>{&quot;optimize&quot;</em><em>, </em><em>&quot;sklearn_kde&quot;</em><em>, </em><em>&quot;stats_kde_cv_ml&quot;</em><em>, </em><em>&quot;stats_kde_cv_ls&quot;</em><em>, </em><em>&quot;gmm&quot;</em><em>, </em><em>&quot;bayesian_gmm&quot;</em><em>, </em><em>&quot;ctgan&quot;</em><em>,</em>) – “copula”, “copulagan”, “tvae”}, default=”optimize”
+An “optimize” option refers to the process of choosing the optimal generative model with regard to the
+overfitting or a specific type of generative model could be chosen.</p></li>
+<li><p><strong>similarity_metric</strong> (<em>{&quot;zu&quot;</em><em>, </em><em>&quot;c2st_acc&quot;}</em><em> or </em><em>None</em><em>, </em><em>default=&quot;zu&quot;</em>) – Metric that is used to choose the optimal generative model. “zu” metric refers to a Data-Copying Test from (C.
+Meehan et al., 2020). “c2st_acc” refers to a Classifier Two-Sample Test, that uses a 1-Nearest Neighbor
+classifier and computes the leave-one-out (LOO) accuracy separately for the real and generated samples (Q. Xu et
+al., 2018).</p></li>
+<li><p><strong>num_syn_samples</strong> (<em>int</em><em>, </em><em>default=100</em>) – The number of synthetic samples generated to evaluate the similarity_metric score.</p></li>
+<li><p><strong>hyperopt_time</strong> (<em>int</em><em>, </em><em>default=0</em>) – The runtime setting (in seconds) for Hyperopt optimization. Hyperopt is used to find the optimal
+hyper-parameters for generative models except for “stats_kde_cv_ml”, “stats_kde_cv_ls”, “copula” methods.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asid.automl_small.gm.GenerativeModel.gen_model_">
+<span class="sig-name descname"><span class="pre">gen_model_</span></span><a class="headerlink" href="#asid.automl_small.gm.GenerativeModel.gen_model_" title="Permalink to this definition"></a></dt>
+<dd><p>Fitted generative model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asid.automl_small.gm.GenerativeModel.gen_model_label_">
+<span class="sig-name descname"><span class="pre">gen_model_label_</span></span><a class="headerlink" href="#asid.automl_small.gm.GenerativeModel.gen_model_label_" title="Permalink to this definition"></a></dt>
+<dd><p>Generative algorithm label.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asid.automl_small.gm.GenerativeModel.score_">
+<span class="sig-name descname"><span class="pre">score_</span></span><a class="headerlink" href="#asid.automl_small.gm.GenerativeModel.score_" title="Permalink to this definition"></a></dt>
+<dd><p>Mean value of similarity_metric for the optimal generative model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asid.automl_small.gm.GenerativeModel.scaler_">
+<span class="sig-name descname"><span class="pre">scaler_</span></span><a class="headerlink" href="#asid.automl_small.gm.GenerativeModel.scaler_" title="Permalink to this definition"></a></dt>
+<dd><p>Fitted scaler that is applied prior to generative model estimation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asid.automl_small.gm.GenerativeModel.info_">
+<span class="sig-name descname"><span class="pre">info_</span></span><a class="headerlink" href="#asid.automl_small.gm.GenerativeModel.info_" title="Permalink to this definition"></a></dt>
+<dd><p>Score and time data series for the range of estimated generative models.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">References</p>
+<p>Meehan C., Chaudhuri K., Dasgupta S. (2020) “A non-parametric test to detect data-copying in generative models”
+International Conference on Artificial Intelligence and Statistics.</p>
+<p>Xu, Q., Huang, G., Yuan, Y., Guo, C., Sun, Y., Wu, F., &amp; Weinberger, K. (2018) “An empirical study on evaluation
+metrics of generative adversarial networks” arXiv preprint arXiv:1806.07755.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="asid.automl_small.gm.GenerativeModel.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/gm.html#GenerativeModel.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.gm.GenerativeModel.fit" title="Permalink to this definition"></a></dt>
+<dd><p>Fits GenerativeModel instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>self</strong> – Fitted generative model.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>GenerativeModel instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="asid.automl_small.gm.GenerativeModel.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_size</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/gm.html#GenerativeModel.sample"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.gm.GenerativeModel.sample" title="Permalink to this definition"></a></dt>
+<dd><p>Generates synthetic sample from GenerativeModel.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sample_size</strong> (<em>int</em>) – Required sample size.</p></li>
+<li><p><strong>random_state</strong> (<em>int</em>) – Random state.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>sampled_data</strong> – Synthetic sample.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array-like of shape (n_samples, n_features)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="asid.automl_small.gm.GenerativeModel.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">train_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'zu'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/gm.html#GenerativeModel.score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.gm.GenerativeModel.score" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluates the similarity of GenerativeModel samples and train data with the specified similarity metric.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>test_data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample for “zu” calculation.</p></li>
+<li><p><strong>similarity_metric</strong> (<em>{&quot;zu&quot;</em><em>, </em><em>&quot;c2st_acc&quot;</em><em>, </em><em>&quot;roc_auc&quot;</em><em>, </em><em>&quot;ks_test&quot;}</em><em>, </em><em>default=&quot;zu&quot;</em>) – Metric that is used to choose the optimal generative model. “zu” metric refers to a Data-Copying Test from
+(C. Meehan et al., 2020). “c2st_acc” refers to a Classifier Two-Sample Test, that uses a 1-Nearest Neighbor
+classifier and computes the leave-one-out (LOO) accuracy separately for the real and generated samples (Q.
+Xu et al., 2018). “roc_auc” refers to ROC AUC for gradient boosting classifier (Lopez-Paz, D., &amp; Oquab, M.,
+2017). “ks_test”: the marginal distributions of samples are compared using Kolmogorov-Smirnov test (Massey
+Jr, F. J., 1951).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>res_score</strong> – Mean value of similarity_metric. For “ks_test” dictionary is output with statistic and p-value resulting
+from permutation test.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float or dict</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Meehan C., Chaudhuri K., Dasgupta S. (2020) “A non-parametric test to detect data-copying in generative models”
+International Conference on Artificial Intelligence and Statistics.</p>
+<p>Xu, Q., Huang, G., Yuan, Y., Guo, C., Sun, Y., Wu, F., &amp; Weinberger, K. (2018) “An empirical study on evaluation
+metrics of generative adversarial networks” arXiv preprint arXiv:1806.07755.</p>
+<p>Lopez-Paz, D., &amp; Oquab, M. (2017) “Revisiting classifier two-sample tests” International Conference on Learning
+Representations.</p>
+<blockquote>
+<div><p>Massey Jr, F. J. (1951) “The Kolmogorov-Smirnov test for goodness of fit” Journal of the American statistical
+Association, 46(253): 68-78.</p>
+</div></blockquote>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-asid.automl_small.tools">
+<span id="asid-automl-small-tools-module"></span><h2>asid.automl_small.tools module<a class="headerlink" href="#module-asid.automl_small.tools" title="Permalink to this heading"></a></h2>
+<p>This module contains helping functions for GenerativeModel class.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.tools.check_gen_model_list">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.tools.</span></span><span class="sig-name descname"><span class="pre">check_gen_model_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/tools.html#check_gen_model_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.tools.check_gen_model_list" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.tools.check_gm_fitted">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.tools.</span></span><span class="sig-name descname"><span class="pre">check_gm_fitted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/tools.html#check_gm_fitted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.tools.check_gm_fitted" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.tools.check_num_type">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.tools.</span></span><span class="sig-name descname"><span class="pre">check_num_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_cl</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/tools.html#check_num_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.tools.check_num_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.tools.check_sim_metric_list">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.tools.</span></span><span class="sig-name descname"><span class="pre">check_sim_metric_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mtype</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/tools.html#check_sim_metric_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.tools.check_sim_metric_list" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.tools.check_x_y">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.tools.</span></span><span class="sig-name descname"><span class="pre">check_x_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/tools.html#check_x_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.tools.check_x_y" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="asid.automl_small.tools.choose_and_fit_model">
+<span class="sig-prename descclassname"><span class="pre">asid.automl_small.tools.</span></span><span class="sig-name descname"><span class="pre">choose_and_fit_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">similarity_metric</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scaler</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_scaled</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_syn_samples</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyp_time</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_small/tools.html#choose_and_fit_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_small.tools.choose_and_fit_model" title="Permalink to this definition"></a></dt>
+<dd><p>Chooses an optimal generative model and fits GenerativeModel instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>similarity_metric</strong> (<em>{&quot;zu&quot;</em><em>, </em><em>&quot;c2st_acc&quot;}</em><em> or </em><em>None</em><em>, </em><em>default=&quot;zu&quot;</em>) – Metric that is used to choose the optimal generative model.</p></li>
+<li><p><strong>scaler</strong> (<em>instance</em>) – Fitted scaler that is applied prior to generative model estimation.</p></li>
+<li><p><strong>data_scaled</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Normalized training sample.</p></li>
+<li><p><strong>num_syn_samples</strong> (<em>int</em>) – The number of synthetic samples generated to evaluate the similarity_metric score.</p></li>
+<li><p><strong>hyp_time</strong> (<em>int</em>) – The runtime setting (in seconds) for Hyperopt optimization. Hyperopt is used to find the optimal
+hyper-parameters for generative models.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>gen_model</strong> (<em>instance</em>) – Optimal fitted generative model.</p></li>
+<li><p><strong>best_alg_label</strong> (<em>str</em>) – Optimal generative algorithm label.</p></li>
+<li><p><strong>best_score</strong> (<em>float</em>) – Mean value of similarity_metric for the optimal generative model.</p></li>
+<li><p><strong>log_dict</strong> (<em>dict</em>) – Score and time data series for the range of estimated generative models.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-asid.automl_small">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-asid.automl_small" title="Permalink to this heading"></a></h2>
+<p>This module contains sub-modules that allow to fit a generative model on small dataset.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="asid.automl_imbalanced.html" class="btn btn-neutral float-left" title="asid.automl_imbalanced package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Ekaterina Plesovskaya, Sergey Ivanov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
