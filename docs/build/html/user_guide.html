@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Guide &mdash; asid 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="asid.automl_small package" href="asid.automl_small.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> asid
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">ASID Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asid_algorithms.html">ASID Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#synthetic-dataset-generation-in-asid">Synthetic dataset generation in ASID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#imbalanced-learning-in-asid">Imbalanced learning in ASID</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#autobalanceboost">AutoBalanceBoost</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#choosing-an-imbalanced-learning-classifier">Choosing an imbalanced learning classifier</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">asid</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">User Guide</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/user_guide.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="user-guide">
+<h1>User Guide<a class="headerlink" href="#user-guide" title="Permalink to this heading"></a></h1>
+<section id="synthetic-dataset-generation-in-asid">
+<h2>Synthetic dataset generation in ASID<a class="headerlink" href="#synthetic-dataset-generation-in-asid" title="Permalink to this heading"></a></h2>
+<p>To fit a generative model with ASID import a <code class="docutils literal notranslate"><span class="pre">GenerativeModel</span></code> instance.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">asid.automl_small.gm</span> <span class="kn">import</span> <span class="n">GenerativeModel</span>
+</pre></div>
+</div>
+<p>There are several modes of generative model estimation available in GenerativeModel class. Firstly, a certain type of generative algorithm could be chosen. For example, a scikit-learn implementation of KDE could be fitted.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">()</span><span class="o">.</span><span class="n">data</span>
+<span class="n">genmod</span> <span class="o">=</span> <span class="n">GenerativeModel</span><span class="p">(</span><span class="n">gen_model_type</span><span class="o">=</span><span class="s2">&quot;sklearn_kde&quot;</span><span class="p">)</span>
+<span class="n">genmod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The option <code class="docutils literal notranslate"><span class="pre">optimize</span></code> allows to search through a number of generative algorithms and returns an optimal option in terms of overfitting. It is also possible to control the number of synthetic samples that are used to evaluate overfitting with <code class="docutils literal notranslate"><span class="pre">num_syn_samples</span></code> parameter, and Hyperopt time for generative model hyper-parameters optimization with <code class="docutils literal notranslate"><span class="pre">hyperopt_time</span></code> parameter.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">genmod</span> <span class="o">=</span> <span class="n">GenerativeModel</span><span class="p">(</span><span class="n">gen_model_type</span><span class="o">=</span><span class="s2">&quot;optimize&quot;</span><span class="p">,</span> <span class="n">num_syn_samples</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">hyperopt_time</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">genmod</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>After the model is fitted it is possible to generate synthetic datasets of the required size or evaluate the similarity of model’s samples with the train dataset with one of the implemented indicators.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">genmod</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">genmod</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="s2">&quot;ks_test&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="imbalanced-learning-in-asid">
+<h2>Imbalanced learning in ASID<a class="headerlink" href="#imbalanced-learning-in-asid" title="Permalink to this heading"></a></h2>
+</section>
+<section id="autobalanceboost">
+<h2>AutoBalanceBoost<a class="headerlink" href="#autobalanceboost" title="Permalink to this heading"></a></h2>
+<p>Import an <code class="docutils literal notranslate"><span class="pre">AutoBalanceBoost</span></code> instance from an <code class="docutils literal notranslate"><span class="pre">automl_imbalanced</span></code> module.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">asid.automl_imbalanced.abb</span> <span class="kn">import</span> <span class="n">AutoBalanceBoost</span>
+</pre></div>
+</div>
+<p>AutoBalanceBoost is an easy-to-use tool, that allows to obtain a high-quality model without time-consuming hyper-parameters tuning.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_classification</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">f1_score</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">make_classification</span><span class="p">(</span><span class="n">n_classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_repeated</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                               <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">flip_y</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">n_samples</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span>
+                               <span class="n">weights</span><span class="o">=</span><span class="p">(</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">))</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">AutoBalanceBoost</span><span class="p">()</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;macro&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In addition to that, feature importances of AutoBalanceBoost could be also calculated.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">feat_imp</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">feature_importances</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="choosing-an-imbalanced-learning-classifier">
+<h2>Choosing an imbalanced learning classifier<a class="headerlink" href="#choosing-an-imbalanced-learning-classifier" title="Permalink to this heading"></a></h2>
+<p>Import an <code class="docutils literal notranslate"><span class="pre">ImbalancedLearningClassifier</span></code> instance from an <code class="docutils literal notranslate"><span class="pre">automl_imbalanced</span></code> module.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">asid.automl_imbalanced.ilc</span> <span class="kn">import</span> <span class="n">ImbalancedLearningClassifier</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">ImbalancedLearningClassifier</span></code> looks through the combinations of state-of-the-art classifiers and balancing procedures, compares their result with AutoBalanceBoost and chooses the best classifier. Users could control the number of splits (<code class="docutils literal notranslate"><span class="pre">split_num</span></code>) that are used to evaluate the classifiers performance, Hyperopt time (<code class="docutils literal notranslate"><span class="pre">hyperopt_time</span></code>) for balancing algorithms hyper-parameters optimization and classification score metric (<code class="docutils literal notranslate"><span class="pre">eval_metric</span></code>).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span> <span class="o">=</span> <span class="n">ImbalancedLearningClassifier</span><span class="p">(</span><span class="n">split_num</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">hyperopt_time</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">eval_metric</span><span class="o">=</span><span class="s2">&quot;f1_macro&quot;</span><span class="p">)</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred</span><span class="p">,</span> <span class="n">average</span><span class="o">=</span><span class="s2">&quot;macro&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The leaderboard statistics is also available once <code class="docutils literal notranslate"><span class="pre">ImbalancedLearningClassifier</span></code> is fitted. It includes sorted lists in accordance with the following indicators: “Mean score”, “Mean rank”, “Share of experiments with the first place, %”, “Average difference with the leader, %”.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">clf</span><span class="o">.</span><span class="n">leaderboard</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="asid.automl_small.html" class="btn btn-neutral float-left" title="asid.automl_small package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Ekaterina Plesovskaya, Sergey Ivanov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

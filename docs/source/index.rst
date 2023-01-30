@@ -12,7 +12,9 @@ Welcome to asid's documentation!
 
    introduction
    asid_algorithms
+   installation
    modules
+   user_guide
 
 
 
