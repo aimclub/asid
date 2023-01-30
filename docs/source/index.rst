@@ -11,6 +11,7 @@ Welcome to asid's documentation!
    :caption: Contents:
 
    introduction
+   asid_algorithms
    modules
 
 
