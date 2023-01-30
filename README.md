@@ -80,7 +80,7 @@ score = f1_score(y_test, pred, average="macro")
 # Бенчмарки
 Результаты эмпирического анализа алгоритмов ASID на различных датасетах доступны [здесь](https://github.com/ekplesovskaya/asid/wiki/5.-Benchmarks).
 # Документация
-Документация для ASID опубликована на странице [wiki](https://github.com/ekplesovskaya/asid/wiki).
+Документация для ASID доступна по этому [адресу](https://aimclub.github.io/asid/docs/build/html/index.html).
 
 Примеры использования доступны по этой [ссылке](https://gitlab.actcognitive.org/itmo-sai-code/asid/-/tree/master/examples).
 # Цитирование

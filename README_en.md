@@ -79,7 +79,7 @@ score = f1_score(y_test, pred, average="macro")
 # Benchmarks
 Results or empirical experiments with ASID algorithms are available [here](https://github.com/ekplesovskaya/asid/wiki/5.-Benchmarks).
 # Documentation
-Documentation about ASID could be found in [wiki](https://github.com/ekplesovskaya/asid/wiki).
+Documentation about ASID could be found [here](https://aimclub.github.io/asid/docs/build/html/index.html).
 
 Examples of usage could be obtained from [examples](https://github.com/ekplesovskaya/asid/tree/master/examples).
 # Citation
