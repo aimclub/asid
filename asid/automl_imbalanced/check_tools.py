@@ -1,7 +1,3 @@
-"""
-This module contains functions for exception handling.
-"""
-
 import numpy as np
 from typing import Any
 

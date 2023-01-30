@@ -1,7 +1,3 @@
-"""
-This module contains helping functions for GenerativeModel class.
-"""
-
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 from .generative_model_estimation import fit_model

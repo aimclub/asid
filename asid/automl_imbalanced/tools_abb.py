@@ -1,7 +1,3 @@
-"""
-This module contains helping functions for AutoBalanceBoost class.
-"""
-
 from sklearn.model_selection import StratifiedShuffleSplit
 import numpy as np
 from sklearn import tree

@@ -1,7 +1,3 @@
-"""
-This module contains functions for dataset similarity metrics calculation.
-"""
-
 from scipy import stats
 from sklearn.model_selection import StratifiedKFold
 from sklearn.neighbors import NearestNeighbors

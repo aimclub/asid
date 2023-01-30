@@ -1,7 +1,3 @@
-"""
-This module contains ImbalancedLearningClassifier class.
-"""
-
 from .tools_ilc import choose_and_fit_ilc, calc_leaderboard
 from .check_tools import check_num_type, check_eval_metric_list, check_x_y, check_ilc_fitted
 from datetime import datetime

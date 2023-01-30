@@ -152,7 +152,7 @@ Due to the large imbalance this problem could be solved using ``ImbalancedLearni
 As can bee seen, the optimal model includes ADASYN balancing procedure and XGBoost classifier. The mean F-score averaged by classes for optimal model is 0.82, which states a good quality of the resulting model. We also checked an out-of-fold score on a 20% test sample for the optimal model and obtained the following report. It can be concluded that classification score varies from 0.57 to 0.97 depending on a fault type.
 
 .. image:: img/scores.png
-   :width: 100%
+   :width: 60%
 
 
 

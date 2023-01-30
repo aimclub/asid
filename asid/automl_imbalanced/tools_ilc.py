@@ -1,7 +1,3 @@
-"""
-This module contains helping functions for ImbalancedLearningClassifier class.
-"""
-
 import random
 from sklearn.model_selection import StratifiedKFold, StratifiedShuffleSplit
 from sklearn.preprocessing import StandardScaler
