@@ -13,5 +13,5 @@ Requirements: Python 3.8.
 
 .. code-block:: python
 
-    pip install https://github.com/ekplesovskaya/asid-master.zip
+    pip install  https://github.com/aimclub/asid/archive/refs/heads/master.zip
 

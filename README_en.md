@@ -31,7 +31,7 @@ Requirements: Python 3.8.
     ```
 2. Install ASID library as a package
     ```
-    pip install https://github.com/ekplesovskaya/asid-master.zip
+    pip install https://github.com/aimclub/asid/archive/refs/heads/master.zip
     ```
 # Usage examples
 Fitting a GenerativeModel instance on small sample and generating a synthetic dataset:

@@ -32,7 +32,7 @@
     ```
 2. Установите библиотеку ASID
     ```
-    pip install https://github.com/ekplesovskaya/asid-master.zip
+    pip install  https://github.com/aimclub/asid/archive/refs/heads/master.zip
     ```
 # Примеры использования
 Обучение модели по малой выборке с помощью GenerativeModel и генерация синтетического датасета:

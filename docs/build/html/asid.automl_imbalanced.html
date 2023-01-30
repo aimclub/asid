@@ -44,7 +44,7 @@
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">ASID Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="asid_algorithms.html">ASID Algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">API</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">asid</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="asid.html">asid package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="asid.html#subpackages">Subpackages</a><ul class="current">
 <li class="toctree-l4 current"><a class="current reference internal" href="#">asid.automl_imbalanced package</a></li>
@@ -74,7 +74,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">API</a></li>
+          <li class="breadcrumb-item"><a href="modules.html">asid</a></li>
           <li class="breadcrumb-item"><a href="asid.html">asid package</a></li>
       <li class="breadcrumb-item active">asid.automl_imbalanced package</li>
       <li class="wy-breadcrumbs-aside">
@@ -93,7 +93,6 @@
 </section>
 <section id="module-asid.automl_imbalanced.abb">
 <span id="asid-automl-imbalanced-abb-module"></span><h2>asid.automl_imbalanced.abb module<a class="headerlink" href="#module-asid.automl_imbalanced.abb" title="Permalink to this heading"></a></h2>
-<p>This module contains AutoBalanceBoost class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.abb.AutoBalanceBoost">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.abb.</span></span><span class="sig-name descname"><span class="pre">AutoBalanceBoost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_est</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/abb.html#AutoBalanceBoost"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.abb.AutoBalanceBoost" title="Permalink to this definition"></a></dt>
@@ -132,7 +131,7 @@ with the built-in hyper-parameters tuning procedure.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.abb.AutoBalanceBoost.feature_importances">
-<span class="sig-name descname"><span class="pre">feature_importances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/abb.html#AutoBalanceBoost.feature_importances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.abb.AutoBalanceBoost.feature_importances" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">feature_importances</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/abb.html#AutoBalanceBoost.feature_importances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.abb.AutoBalanceBoost.feature_importances" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates normalized feature importances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -146,12 +145,12 @@ with the built-in hyper-parameters tuning procedure.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.abb.AutoBalanceBoost.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/abb.html#AutoBalanceBoost.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.abb.AutoBalanceBoost.fit" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/abb.html#AutoBalanceBoost.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.abb.AutoBalanceBoost.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Fits AutoBalanceBoost model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 </ul>
 </dd>
@@ -166,11 +165,11 @@ with the built-in hyper-parameters tuning procedure.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.abb.AutoBalanceBoost.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/abb.html#AutoBalanceBoost.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.abb.AutoBalanceBoost.predict" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/abb.html#AutoBalanceBoost.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.abb.AutoBalanceBoost.predict" title="Permalink to this definition"></a></dt>
 <dd><p>Predicts class label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>pred</strong> – The predicted class.</p>
@@ -183,11 +182,11 @@ with the built-in hyper-parameters tuning procedure.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.abb.AutoBalanceBoost.predict_proba">
-<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/abb.html#AutoBalanceBoost.predict_proba"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.abb.AutoBalanceBoost.predict_proba" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/abb.html#AutoBalanceBoost.predict_proba"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.abb.AutoBalanceBoost.predict_proba" title="Permalink to this definition"></a></dt>
 <dd><p>Predicts class probability.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>pred_proba</strong> – The predicted class probabilities.</p>
@@ -203,7 +202,6 @@ with the built-in hyper-parameters tuning procedure.</p>
 </section>
 <section id="module-asid.automl_imbalanced.check_tools">
 <span id="asid-automl-imbalanced-check-tools-module"></span><h2>asid.automl_imbalanced.check_tools module<a class="headerlink" href="#module-asid.automl_imbalanced.check_tools" title="Permalink to this heading"></a></h2>
-<p>This module contains functions for exception handling.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.check_tools.check_abb_fitted">
 <span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.check_tools.</span></span><span class="sig-name descname"><span class="pre">check_abb_fitted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/check_tools.html#check_abb_fitted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.check_tools.check_abb_fitted" title="Permalink to this definition"></a></dt>
@@ -211,7 +209,7 @@ with the built-in hyper-parameters tuning procedure.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.check_tools.check_eval_metric_list">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.check_tools.</span></span><span class="sig-name descname"><span class="pre">check_eval_metric_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/check_tools.html#check_eval_metric_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.check_tools.check_eval_metric_list" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.check_tools.</span></span><span class="sig-name descname"><span class="pre">check_eval_metric_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/check_tools.html#check_eval_metric_list"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.check_tools.check_eval_metric_list" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -221,18 +219,17 @@ with the built-in hyper-parameters tuning procedure.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.check_tools.check_num_type">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.check_tools.</span></span><span class="sig-name descname"><span class="pre">check_num_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_cl</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/check_tools.html#check_num_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.check_tools.check_num_type" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.check_tools.</span></span><span class="sig-name descname"><span class="pre">check_num_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_cl</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/check_tools.html#check_num_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.check_tools.check_num_type" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.check_tools.check_x_y">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.check_tools.</span></span><span class="sig-name descname"><span class="pre">check_x_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/check_tools.html#check_x_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.check_tools.check_x_y" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.check_tools.</span></span><span class="sig-name descname"><span class="pre">check_x_y</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/check_tools.html#check_x_y"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.check_tools.check_x_y" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </section>
 <section id="module-asid.automl_imbalanced.ilc">
 <span id="asid-automl-imbalanced-ilc-module"></span><h2>asid.automl_imbalanced.ilc module<a class="headerlink" href="#module-asid.automl_imbalanced.ilc" title="Permalink to this heading"></a></h2>
-<p>This module contains ImbalancedLearningClassifier class.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.ilc.</span></span><span class="sig-name descname"><span class="pre">ImbalancedLearningClassifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_num</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperopt_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eval_metric</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'f1_macro'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/ilc.html#ImbalancedLearningClassifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier" title="Permalink to this definition"></a></dt>
@@ -297,6 +294,28 @@ hyper-parameters for balancing procedures.</p></li>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.encoder_">
+<span class="sig-name descname"><span class="pre">encoder_</span></span><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.encoder_" title="Permalink to this definition"></a></dt>
+<dd><p>Fitted label encoder.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>instance</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.classes_">
+<span class="sig-name descname"><span class="pre">classes_</span></span><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.classes_" title="Permalink to this definition"></a></dt>
+<dd><p>Class labels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>array-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.evaluated_models_scores_">
 <span class="sig-name descname"><span class="pre">evaluated_models_scores_</span></span><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.evaluated_models_scores_" title="Permalink to this definition"></a></dt>
 <dd><p>Score series for the range of estimated classifiers.</p>
@@ -318,14 +337,25 @@ hyper-parameters for balancing procedures.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.conf_int_">
+<span class="sig-name descname"><span class="pre">conf_int_</span></span><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.conf_int_" title="Permalink to this definition"></a></dt>
+<dd><p>95% confidence interval for the out-of-fold value of eval_metric for the optimal classifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.fit">
-<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/ilc.html#ImbalancedLearningClassifier.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.fit" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/ilc.html#ImbalancedLearningClassifier.fit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.fit" title="Permalink to this definition"></a></dt>
 <dd><p>Fits ImbalancedLearningClassifier model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 </ul>
 </dd>
@@ -340,7 +370,7 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.leaderboard">
-<span class="sig-name descname"><span class="pre">leaderboard</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/ilc.html#ImbalancedLearningClassifier.leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.leaderboard" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">leaderboard</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/ilc.html#ImbalancedLearningClassifier.leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.leaderboard" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the leaderboard statistics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -356,11 +386,11 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/ilc.html#ImbalancedLearningClassifier.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/ilc.html#ImbalancedLearningClassifier.predict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict" title="Permalink to this definition"></a></dt>
 <dd><p>Predicts class label.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>pred</strong> – The predicted class.</p>
@@ -373,11 +403,11 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict_proba">
-<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/ilc.html#ImbalancedLearningClassifier.predict_proba"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict_proba" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">predict_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/ilc.html#ImbalancedLearningClassifier.predict_proba"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict_proba" title="Permalink to this definition"></a></dt>
 <dd><p>Predicts class label probability.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><strong>pred_proba</strong> – The predicted class probabilities.</p>
@@ -393,15 +423,14 @@ hyper-parameters for balancing procedures.</p></li>
 </section>
 <section id="module-asid.automl_imbalanced.tools_abb">
 <span id="asid-automl-imbalanced-tools-abb-module"></span><h2>asid.automl_imbalanced.tools_abb module<a class="headerlink" href="#module-asid.automl_imbalanced.tools_abb" title="Permalink to this heading"></a></h2>
-<p>This module contains helping functions for AutoBalanceBoost class.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.boosting_of_bagging_procedure">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">boosting_of_bagging_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_mod</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#boosting_of_bagging_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.boosting_of_bagging_procedure" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">boosting_of_bagging_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_mod</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#boosting_of_bagging_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.boosting_of_bagging_procedure" title="Permalink to this definition"></a></dt>
 <dd><p>Fits an AutoBalanceBoost model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X_train</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x_train</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>y_train</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>num_iter</strong> (<em>int</em>) – The number of boosting iterations.</p></li>
 <li><p><strong>num_mod</strong> (<em>int</em>) – The number of estimators in the base ensemble.</p></li>
@@ -419,14 +448,15 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.calc_fscore">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">calc_fscore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#calc_fscore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.calc_fscore" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">calc_fscore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_sorted_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#calc_fscore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.calc_fscore" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the CV test score.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
-<li><p><strong>Y</strong> (<em>array-like</em>) – The target values.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>model_list</strong> (<em>list</em>) – Fitted base estimators in AutoBalanceBoost.</p></li>
+<li><p><strong>classes_sorted_train</strong> (<em>array-like</em>) – Class labels.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -441,7 +471,7 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.calc_share">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">calc_share</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series_a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">series_b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_gen1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_gen2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#calc_share"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.calc_share" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">calc_share</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">series_a</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">series_b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_gen1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_gen2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#calc_share"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.calc_share" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates performance shares for different bagging share values.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -463,19 +493,19 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.choose_feat">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">choose_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_gen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_imp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#choose_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.choose_feat" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">choose_feat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_gen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_imp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#choose_feat"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.choose_feat" title="Permalink to this definition"></a></dt>
 <dd><p>Samples the zeroed features.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>n</strong> (<em>int</em>) – The number of features that are not zeroed.</p></li>
 <li><p><strong>feat_gen</strong> (<em>instance</em>) – Random sample generator.</p></li>
 <li><p><strong>feat_imp</strong> (<em>array-like</em>) – Normalized feature importances.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>X</strong> – Training sample with zeroed features.</p>
+<dd class="field-even"><p><strong>x</strong> – Training sample with zeroed features.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>array-like of shape (n_samples, n_features)</p>
@@ -485,14 +515,15 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.cv_balance_procedure">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">cv_balance_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_coef</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#cv_balance_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.cv_balance_procedure" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">cv_balance_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_coef</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#cv_balance_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.cv_balance_procedure" title="Permalink to this definition"></a></dt>
 <dd><p>Chooses the optimal balancing strategy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
-<li><p><strong>Y</strong> (<em>array-like</em>) – The target values.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>split_coef</strong> (<em>float</em>) – Train sample share for base learner estimation.</p></li>
+<li><p><strong>classes</strong> (<em>array-like</em>) – Class labels.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -506,13 +537,13 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.cv_split_procedure">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">cv_split_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bagging_ensemble_param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#cv_split_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.cv_split_procedure" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">cv_split_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bagging_ensemble_param</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#cv_split_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.cv_split_procedure" title="Permalink to this definition"></a></dt>
 <dd><p>Chooses an optimal list of bagging shares.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
-<li><p><strong>Y</strong> (<em>array-like</em>) – The target values.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>bagging_ensemble_param</strong> (<em>dict</em>) – CV procedure data.</p></li>
 </ul>
 </dd>
@@ -527,13 +558,13 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.first_ensemble_procedure">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">first_ensemble_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balanced</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_feat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_gen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_feat_imp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_sorted_train</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts_gen</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#first_ensemble_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.first_ensemble_procedure" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">first_ensemble_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_mod</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balanced</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_feat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_gen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">res_feat_imp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_sorted_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts_gen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#first_ensemble_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.first_ensemble_procedure" title="Permalink to this definition"></a></dt>
 <dd><p>Fits bagging at the first iteration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
-<li><p><strong>Y</strong> (<em>array-like</em>) – The target values.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>ts</strong> (<em>list</em>) – A range of train sample shares for base learner estimation.</p></li>
 <li><p><strong>num_mod</strong> (<em>int</em>) – The number of estimators in the base ensemble.</p></li>
 <li><p><strong>balanced</strong> (<em>bool</em><em> or </em><em>dict</em>) – Balancing strategy parameter.</p></li>
@@ -557,12 +588,12 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.first_ensemble_procedure_with_cv_model">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">first_ensemble_procedure_with_cv_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_sorted_train</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#first_ensemble_procedure_with_cv_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.first_ensemble_procedure_with_cv_model" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">first_ensemble_procedure_with_cv_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_sorted_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#first_ensemble_procedure_with_cv_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.first_ensemble_procedure_with_cv_model" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the prediction probabilities of the CV bagging.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>first_model</strong> (<em>list</em>) – Fitted base estimators in AutoBalanceBoost at the first iteration.</p></li>
 <li><p><strong>classes_sorted_train</strong> (<em>array-like</em>) – The sorted unique class values.</p></li>
 </ul>
@@ -579,13 +610,13 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.fit_ensemble">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">fit_ensemble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_lim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balanced</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_feat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_imp</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#fit_ensemble"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.fit_ensemble" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">fit_ensemble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">iter_lim</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_mod</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balanced</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">first_model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_feat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_imp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#fit_ensemble"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.fit_ensemble" title="Permalink to this definition"></a></dt>
 <dd><p>Iteratively fits the resulting ensemble.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
-<li><p><strong>Y</strong> (<em>array-like</em>) – The target values.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>ts</strong> (<em>float</em><em> or </em><em>list</em>) – A range of train sample shares for base learner estimation.</p></li>
 <li><p><strong>iter_lim</strong> (<em>int</em>) – The number of boosting iterations.</p></li>
 <li><p><strong>num_mod</strong> (<em>int</em>) – The number of estimators in the base ensemble.</p></li>
@@ -593,6 +624,7 @@ hyper-parameters for balancing procedures.</p></li>
 <li><p><strong>first_model</strong> (<em>list</em><em> or </em><em>None</em>) – Fitted base estimators in AutoBalanceBoost at the first iteration.</p></li>
 <li><p><strong>num_feat</strong> (<em>int</em>) – The number of features that are not zeroed.</p></li>
 <li><p><strong>feat_imp</strong> (<em>array-like</em>) – Normalized feature importances.</p></li>
+<li><p><strong>classes</strong> (<em>array-like</em>) – Class labels.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -607,7 +639,7 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.get_best_bc">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">get_best_bc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_range</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_score_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_gen1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_gen2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#get_best_bc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.get_best_bc" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">get_best_bc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_range</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_score_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_gen1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_gen2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#get_best_bc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.get_best_bc" title="Permalink to this definition"></a></dt>
 <dd><p>Chooses a list of bagging shares with the best performance.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -630,13 +662,13 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.get_bootstrap_balanced_samples">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">get_bootstrap_balanced_samples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balanced</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_gen</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#get_bootstrap_balanced_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.get_bootstrap_balanced_samples" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">get_bootstrap_balanced_samples</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balanced</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sample_gen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#get_bootstrap_balanced_samples"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.get_bootstrap_balanced_samples" title="Permalink to this definition"></a></dt>
 <dd><p>Balancing procedure at the first iteration.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
-<li><p><strong>Y</strong> (<em>array-like</em>) – The target values.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>ts</strong> (<em>list</em>) – A range of train sample shares for base learner estimation.</p></li>
 <li><p><strong>balanced</strong> (<em>bool</em><em> or </em><em>dict</em>) – Balancing strategy parameter.</p></li>
 <li><p><strong>sample_gen</strong> (<em>instance</em>) – Random sample generator.</p></li>
@@ -644,8 +676,8 @@ hyper-parameters for balancing procedures.</p></li>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>X_sampled</strong> (<em>array-like of shape (n_samples, n_features)</em>) – Generated training sample.</p></li>
-<li><p><strong>Y_sampled</strong> (<em>array-like</em>) – Generated target values.</p></li>
+<li><p><strong>x_sampled</strong> (<em>array-like of shape (n_samples, n_features)</em>) – Generated training sample.</p></li>
+<li><p><strong>y_sampled</strong> (<em>array-like</em>) – Generated target values.</p></li>
 </ul>
 </p>
 </dd>
@@ -654,7 +686,7 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.get_feat_imp">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">get_feat_imp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_list</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#get_feat_imp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.get_feat_imp" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">get_feat_imp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#get_feat_imp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.get_feat_imp" title="Permalink to this definition"></a></dt>
 <dd><p>Returns normalized feature importances.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -671,15 +703,15 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.get_newds">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">get_newds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred_proba</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_mod</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balanced</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_feat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_gen</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_imp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts_gen</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#get_newds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.get_newds" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">get_newds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pred_proba</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_mod</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balanced</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_feat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_gen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">feat_imp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ts_gen</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#get_newds"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.get_newds" title="Permalink to this definition"></a></dt>
 <dd><p>Samples train datasets for bagging during the boosting phase.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pred_proba</strong> (<em>array-like</em>) – Class probabilities predicted by AutoBalanceBoost for the correct class.</p></li>
 <li><p><strong>ts</strong> (<em>list</em>) – A range of train sample shares for base learner estimation.</p></li>
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
-<li><p><strong>Y</strong> (<em>array-like</em>) – The target values.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>num_mod</strong> (<em>int</em>) – The number of estimators in the base ensemble.</p></li>
 <li><p><strong>balanced</strong> (<em>bool</em><em> or </em><em>dict</em>) – Balancing strategy parameter.</p></li>
 <li><p><strong>num_feat</strong> (<em>int</em>) – The number of features that are not zeroed.</p></li>
@@ -700,13 +732,13 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.get_pred">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">get_pred</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_test</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#get_pred"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.get_pred" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">get_pred</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#get_pred"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.get_pred" title="Permalink to this definition"></a></dt>
 <dd><p>Predicts class labels.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model_list</strong> (<em>list</em>) – Fitted base estimators in AutoBalanceBoost.</p></li>
-<li><p><strong>X_test</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p></li>
+<li><p><strong>x_test</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -720,13 +752,13 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.get_pred_proba">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">get_pred_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X_test</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#get_pred_proba"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.get_pred_proba" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">get_pred_proba</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#get_pred_proba"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.get_pred_proba" title="Permalink to this definition"></a></dt>
 <dd><p>Predicts class probabilities.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>model_list</strong> (<em>list</em>) – Fitted base estimators in AutoBalanceBoost.</p></li>
-<li><p><strong>X_test</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p></li>
+<li><p><strong>x_test</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Test sample.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -740,13 +772,13 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.num_feat_procedure">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">num_feat_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bagging_ensemble_param</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#num_feat_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.num_feat_procedure" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">num_feat_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bagging_ensemble_param</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#num_feat_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.num_feat_procedure" title="Permalink to this definition"></a></dt>
 <dd><p>Chooses an optimal number of zeroed features.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
-<li><p><strong>Y</strong> (<em>array-like</em>) – The target values.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>bagging_ensemble_param</strong> (<em>dict</em>) – CV procedure data.</p></li>
 </ul>
 </dd>
@@ -762,12 +794,12 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_abb.other_ensemble_procedure">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">other_ensemble_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_datasets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_proba_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_sorted_train</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#other_ensemble_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.other_ensemble_procedure" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_abb.</span></span><span class="sig-name descname"><span class="pre">other_ensemble_procedure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_datasets</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred_proba_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">classes_sorted_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_abb.html#other_ensemble_procedure"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_abb.other_ensemble_procedure" title="Permalink to this definition"></a></dt>
 <dd><p>Fits bagging during the boosting phase.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>train_datasets</strong> (<em>list</em>) – Randomly generated train datasets for bagging.</p></li>
 <li><p><strong>pred_proba_list</strong> (<em>list</em>) – Class probabilities predicted by each base estimator in AutoBalanceBoost.</p></li>
 <li><p><strong>model_list</strong> (<em>list</em>) – Fitted base estimators in AutoBalanceBoost.</p></li>
@@ -787,15 +819,14 @@ hyper-parameters for balancing procedures.</p></li>
 </section>
 <section id="module-asid.automl_imbalanced.tools_ilc">
 <span id="asid-automl-imbalanced-tools-ilc-module"></span><h2>asid.automl_imbalanced.tools_ilc module<a class="headerlink" href="#module-asid.automl_imbalanced.tools_ilc" title="Permalink to this heading"></a></h2>
-<p>This module contains helping functions for ImbalancedLearningClassifier class.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_ilc.abb_exp">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">abb_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#abb_exp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.abb_exp" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">abb_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#abb_exp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.abb_exp" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluates AutoBalanceBoost performance on a partial range of splits.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>skf</strong> (<em>instance</em>) – Splitting strategy instance.</p></li>
 <li><p><strong>metric</strong> (<em>str</em>) – Metric that is used to evaluate the model performance.</p></li>
@@ -813,12 +844,12 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_ilc.balance_exp">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">balance_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bal_alg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperopt_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#balance_exp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.balance_exp" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">balance_exp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">skf</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bal_alg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperopt_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#balance_exp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.balance_exp" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluates model performance on a range of splits.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>skf</strong> (<em>instance</em>) – Splitting strategy instance.</p></li>
 <li><p><strong>bal_alg</strong> (<em>str</em>) – Sampling procedure label.</p></li>
@@ -839,7 +870,7 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_ilc.calc_leaderboard">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">calc_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#calc_leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.calc_leaderboard" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">calc_leaderboard</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#calc_leaderboard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.calc_leaderboard" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the leaderboard statistics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -855,7 +886,7 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_ilc.calc_metric">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">calc_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_test</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#calc_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.calc_metric" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">calc_metric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y_test</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pred</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#calc_metric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.calc_metric" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the evaluation metric.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -876,13 +907,13 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_ilc.calc_pipeline_acc">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">calc_pipeline_acc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bal_alg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#calc_pipeline_acc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.calc_pipeline_acc" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">calc_pipeline_acc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bal_alg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#calc_pipeline_acc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.calc_pipeline_acc" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluates the pipeline.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>params</strong> (<em>dict</em>) – Parameters generated by Hyperopt.</p></li>
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>bal_alg</strong> (<em>str</em>) – Sampling procedure label.</p></li>
 <li><p><strong>alg</strong> (<em>str</em>) – Ensemble classifier label.</p></li>
@@ -900,12 +931,12 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_ilc.choose_and_fit_ilc">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">choose_and_fit_ilc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#choose_and_fit_ilc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.choose_and_fit_ilc" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">choose_and_fit_ilc</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#choose_and_fit_ilc"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.choose_and_fit_ilc" title="Permalink to this definition"></a></dt>
 <dd><p>Chooses the optimal classifier and fits the resulting estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 </ul>
 </dd>
@@ -916,6 +947,8 @@ hyper-parameters for balancing procedures.</p></li>
 <li><p><strong>score</strong> (<em>float</em>) – Averaged out-of-fold value of eval_metric for the optimal classifier.</p></li>
 <li><p><strong>scaler</strong> (<em>instance</em>) – Fitted scaler that is applied prior to classifier estimation.</p></li>
 <li><p><strong>score_dict</strong> (<em>dict</em>) – Score series for the range of estimated classifiers.</p></li>
+<li><p><strong>time_dict</strong> (<em>dict</em>) – Time data for the range of estimated classifiers.</p></li>
+<li><p><strong>conf_int</strong> (<em>tuple</em>) – 95% confidence interval for the out-of-fold value of eval_metric for the optimal classifier.</p></li>
 </ul>
 </p>
 </dd>
@@ -924,13 +957,13 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_ilc.fit_alg">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">fit_alg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cv_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bal_alg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperopt_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_num</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#fit_alg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.fit_alg" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">fit_alg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cv_type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bal_alg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyperopt_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">split_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#fit_alg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.fit_alg" title="Permalink to this definition"></a></dt>
 <dd><p>Evaluates model performance on a full range of splits.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>cv_type</strong> (<em>str</em>) – The chosen type of splitting iterations.</p></li>
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>bal_alg</strong> (<em>str</em><em> or </em><em>None</em>) – Sampling procedure label.</p></li>
 <li><p><strong>alg</strong> (<em>str</em>) – Ensemble classifier label.</p></li>
@@ -951,13 +984,13 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_ilc.fit_res_model">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">fit_res_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_label</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyp_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#fit_res_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.fit_res_model" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">fit_res_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyp_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">object</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#fit_res_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.fit_res_model" title="Permalink to this definition"></a></dt>
 <dd><p>Fits the resulting estimator.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>option_label</strong> (<em>str</em>) – Classifier label.</p></li>
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>hyp_time</strong> (<em>int</em>) – The runtime setting (in seconds) for Hyperopt optimization.</p></li>
 <li><p><strong>metric</strong> (<em>str</em>) – Metric that is used to evaluate the model performance.</p></li>
@@ -975,12 +1008,12 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_ilc.get_balance_params">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">get_balance_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bal_alg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyp_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#get_balance_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.get_balance_params" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">get_balance_params</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bal_alg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hyp_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#get_balance_params"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.get_balance_params" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for optimal hyper-parameters for balancing procedure using Hyperopt.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>X</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
+<li><p><strong>x</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p></li>
 <li><p><strong>y</strong> (<em>array-like</em>) – The target values.</p></li>
 <li><p><strong>bal_alg</strong> (<em>str</em>) – Sampling procedure label.</p></li>
 <li><p><strong>alg</strong> (<em>str</em>) – Ensemble classifier label.</p></li>
@@ -999,7 +1032,7 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_ilc.get_cv_type">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">get_cv_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_num</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#get_cv_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.get_cv_type" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">get_cv_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">split_num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#get_cv_type"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.get_cv_type" title="Permalink to this definition"></a></dt>
 <dd><p>Defines the type of splitting iterations.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1016,7 +1049,7 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_ilc.get_sampl_strat_for_case">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">get_sampl_strat_for_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ss</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count_class</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_method</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#get_sampl_strat_for_case"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.get_sampl_strat_for_case" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">get_sampl_strat_for_case</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ss</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">balance_method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#get_sampl_strat_for_case"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.get_sampl_strat_for_case" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the sampling strategy parameter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1037,15 +1070,15 @@ hyper-parameters for balancing procedures.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="asid.automl_imbalanced.tools_ilc.scale_data">
-<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">scale_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X_train</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#scale_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.scale_data" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">asid.automl_imbalanced.tools_ilc.</span></span><span class="sig-name descname"><span class="pre">scale_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x_train</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">object</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/asid/automl_imbalanced/tools_ilc.html#scale_data"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#asid.automl_imbalanced.tools_ilc.scale_data" title="Permalink to this definition"></a></dt>
 <dd><p>Fits scaler and applies it to the train sample.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>X_train</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p>
+<dd class="field-odd"><p><strong>x_train</strong> (<em>array-like</em><em> of </em><em>shape</em><em> (</em><em>n_samples</em><em>, </em><em>n_features</em><em>)</em>) – Training sample.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>X_train_scaled</strong> (<em>array-like of shape (n_samples, n_features)</em>) – Scaled sample.</p></li>
+<li><p><strong>x_train_scaled</strong> (<em>array-like of shape (n_samples, n_features)</em>) – Scaled sample.</p></li>
 <li><p><strong>scaler</strong> (<em>instance</em>) – Fitted scaler.</p></li>
 </ul>
 </p>
@@ -1056,7 +1089,6 @@ hyper-parameters for balancing procedures.</p></li>
 </section>
 <section id="module-asid.automl_imbalanced">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-asid.automl_imbalanced" title="Permalink to this heading"></a></h2>
-<p>This module contains sub-modules that allow to deal with imbalanced datasets in classification tasks.</p>
 </section>
 </section>
 

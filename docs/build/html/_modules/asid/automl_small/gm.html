@@ -41,7 +41,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">ASID Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../asid_algorithms.html">ASID Algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">asid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../benchmarks.html">Benchmarks</a></li>
 </ul>
@@ -71,11 +71,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for asid.automl_small.gm</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module contains GenerativeModel class.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">choose_and_fit_model</span><span class="p">,</span> <span class="n">check_gen_model_list</span><span class="p">,</span> <span class="n">check_sim_metric_list</span><span class="p">,</span> <span class="n">check_num_type</span><span class="p">,</span> <span class="n">check_x_y</span><span class="p">,</span> \
+<span></span><span class="kn">from</span> <span class="nn">.tools</span> <span class="kn">import</span> <span class="n">choose_and_fit_model</span><span class="p">,</span> <span class="n">check_gen_model_list</span><span class="p">,</span> <span class="n">check_sim_metric_list</span><span class="p">,</span> <span class="n">check_num_type</span><span class="p">,</span> <span class="n">check_x_y</span><span class="p">,</span> \
     <span class="n">check_gm_fitted</span>
 <span class="kn">from</span> <span class="nn">.generative_model_estimation</span> <span class="kn">import</span> <span class="n">fit_model</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
@@ -84,6 +80,8 @@
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
 
 <div class="viewcode-block" id="GenerativeModel"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.gm.GenerativeModel">[docs]</a><span class="k">class</span> <span class="nc">GenerativeModel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -152,7 +150,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">info_</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="GenerativeModel.fit"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.gm.GenerativeModel.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<div class="viewcode-block" id="GenerativeModel.fit"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.gm.GenerativeModel.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fits GenerativeModel instance.</span>
 
@@ -191,7 +189,7 @@
             <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training time: &quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="GenerativeModel.sample"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.gm.GenerativeModel.sample">[docs]</a>    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">):</span>
+<div class="viewcode-block" id="GenerativeModel.sample"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.gm.GenerativeModel.sample">[docs]</a>    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sample_size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generates synthetic sample from GenerativeModel.</span>
 
@@ -216,7 +214,8 @@
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Synthetic sample is generated. The shape of sampled dataset: &quot;</span><span class="p">,</span> <span class="n">sampled_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">sampled_data</span></div>
 
-<div class="viewcode-block" id="GenerativeModel.score"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.gm.GenerativeModel.score">[docs]</a>    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">,</span> <span class="n">similarity_metric</span><span class="o">=</span><span class="s2">&quot;zu&quot;</span><span class="p">,</span> <span class="n">test_data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="GenerativeModel.score"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.gm.GenerativeModel.score">[docs]</a>    <span class="k">def</span> <span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">train_data</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">similarity_metric</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;zu&quot;</span><span class="p">,</span> <span class="n">test_data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> \
+            <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Evaluates the similarity of GenerativeModel samples and train data with the specified similarity metric.</span>
 
@@ -253,15 +252,15 @@
 <span class="sd">        Lopez-Paz, D., &amp; Oquab, M. (2017) “Revisiting classifier two-sample tests” International Conference on Learning</span>
 <span class="sd">        Representations.</span>
 
-<span class="sd">         Massey Jr, F. J. (1951) “The Kolmogorov-Smirnov test for goodness of fit” Journal of the American statistical</span>
-<span class="sd">         Association, 46(253): 68-78.</span>
+<span class="sd">        Massey Jr, F. J. (1951) “The Kolmogorov-Smirnov test for goodness of fit” Journal of the American statistical</span>
+<span class="sd">        Association, 46(253): 68-78.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">check_gm_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
         <span class="n">check_x_y</span><span class="p">(</span><span class="n">train_data</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">test_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">check_x_y</span><span class="p">(</span><span class="n">test_data</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">similarity_metric</span><span class="o">==</span><span class="s2">&quot;zu&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">similarity_metric</span> <span class="o">==</span> <span class="s2">&quot;zu&quot;</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Test data is required for zu calculation.&quot;</span><span class="p">)</span>
         <span class="n">check_sim_metric_list</span><span class="p">(</span><span class="n">similarity_metric</span><span class="p">,</span> <span class="s2">&quot;score&quot;</span><span class="p">)</span>
         <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>

@@ -41,7 +41,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">ASID Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../asid_algorithms.html">ASID Algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">asid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../benchmarks.html">Benchmarks</a></li>
 </ul>
@@ -71,16 +71,13 @@
            <div itemprop="articleBody">
              
   <h1>Source code for asid.automl_small.generative_model_sampling</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module contains functions for sampling from fitted generative models.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span>
 
 
-<div class="viewcode-block" id="simple_sample_sklearn_procedure"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.simple_sample_sklearn_procedure">[docs]</a><span class="k">def</span> <span class="nf">simple_sample_sklearn_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">,</span> <span class="n">scaling</span><span class="p">):</span>
+<div class="viewcode-block" id="simple_sample_sklearn_procedure"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.simple_sample_sklearn_procedure">[docs]</a><span class="k">def</span> <span class="nf">simple_sample_sklearn_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">scaling</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sampling synthetic datasets from sklearn KDE.</span>
 
@@ -112,7 +109,7 @@
     <span class="k">return</span> <span class="n">sampled_data_list</span></div>
 
 
-<div class="viewcode-block" id="sample_stats"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.sample_stats">[docs]</a><span class="k">def</span> <span class="nf">sample_stats</span><span class="p">(</span><span class="n">kde</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">seed</span><span class="p">):</span>
+<div class="viewcode-block" id="sample_stats"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.sample_stats">[docs]</a><span class="k">def</span> <span class="nf">sample_stats</span><span class="p">(</span><span class="n">kde</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base sampling procedure from Statsmodel&#39;s KDE.</span>
 
@@ -142,7 +139,7 @@
     <span class="k">return</span> <span class="n">sampled_data</span></div>
 
 
-<div class="viewcode-block" id="simple_sample_stats_procedure"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.simple_sample_stats_procedure">[docs]</a><span class="k">def</span> <span class="nf">simple_sample_stats_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">,</span> <span class="n">scaling</span><span class="p">):</span>
+<div class="viewcode-block" id="simple_sample_stats_procedure"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.simple_sample_stats_procedure">[docs]</a><span class="k">def</span> <span class="nf">simple_sample_stats_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">scaling</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sampling synthetic datasets from Statsmodel&#39;s KDE.</span>
 
@@ -174,7 +171,7 @@
     <span class="k">return</span> <span class="n">sampled_data_list</span></div>
 
 
-<div class="viewcode-block" id="gmm_sample_procedure"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.gmm_sample_procedure">[docs]</a><span class="k">def</span> <span class="nf">gmm_sample_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">scaling</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">):</span>
+<div class="viewcode-block" id="gmm_sample_procedure"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.gmm_sample_procedure">[docs]</a><span class="k">def</span> <span class="nf">gmm_sample_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">scaling</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">num_samples</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sampling from GMM model.</span>
 
@@ -207,7 +204,7 @@
     <span class="k">return</span> <span class="n">sampled_data_list</span></div>
 
 
-<div class="viewcode-block" id="sample_sdv_procedure"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.sample_sdv_procedure">[docs]</a><span class="k">def</span> <span class="nf">sample_sdv_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">,</span> <span class="n">scaling</span><span class="p">):</span>
+<div class="viewcode-block" id="sample_sdv_procedure"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.sample_sdv_procedure">[docs]</a><span class="k">def</span> <span class="nf">sample_sdv_procedure</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">scaling</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sampling from SDV library model.</span>
 
@@ -244,7 +241,7 @@
     <span class="k">return</span> <span class="n">sampled_data_list</span></div>
 
 
-<div class="viewcode-block" id="get_sampled_data"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.get_sampled_data">[docs]</a><span class="k">def</span> <span class="nf">get_sampled_data</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">scaling</span><span class="p">):</span>
+<div class="viewcode-block" id="get_sampled_data"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.generative_model_sampling.get_sampled_data">[docs]</a><span class="k">def</span> <span class="nf">get_sampled_data</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">sample_len</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">seed_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">method</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">scaling</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calls a sampling function.</span>
 

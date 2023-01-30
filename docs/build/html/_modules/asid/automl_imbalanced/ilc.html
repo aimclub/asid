@@ -41,7 +41,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">ASID Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../asid_algorithms.html">ASID Algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">asid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../benchmarks.html">Benchmarks</a></li>
 </ul>
@@ -71,13 +71,11 @@
            <div itemprop="articleBody">
              
   <h1>Source code for asid.automl_imbalanced.ilc</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module contains ImbalancedLearningClassifier class.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">from</span> <span class="nn">.tools_ilc</span> <span class="kn">import</span> <span class="n">choose_and_fit_ilc</span><span class="p">,</span> <span class="n">calc_leaderboard</span>
+<span></span><span class="kn">from</span> <span class="nn">.tools_ilc</span> <span class="kn">import</span> <span class="n">choose_and_fit_ilc</span><span class="p">,</span> <span class="n">calc_leaderboard</span>
 <span class="kn">from</span> <span class="nn">.check_tools</span> <span class="kn">import</span> <span class="n">check_num_type</span><span class="p">,</span> <span class="n">check_eval_metric_list</span><span class="p">,</span> <span class="n">check_x_y</span><span class="p">,</span> <span class="n">check_ilc_fitted</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">preprocessing</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span>
 
 
 <div class="viewcode-block" id="ImbalancedLearningClassifier"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier">[docs]</a><span class="k">class</span> <span class="nc">ImbalancedLearningClassifier</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -114,11 +112,20 @@
 <span class="sd">    scaler_ : instance</span>
 <span class="sd">        Fitted scaler that is applied prior to classifier estimation.</span>
 
+<span class="sd">    encoder_ : instance</span>
+<span class="sd">        Fitted label encoder.</span>
+
+<span class="sd">    classes_ : array-like</span>
+<span class="sd">        Class labels.</span>
+
 <span class="sd">    evaluated_models_scores_ : dict</span>
 <span class="sd">        Score series for the range of estimated classifiers.</span>
 
 <span class="sd">    evaluated_models_time_ : dict</span>
 <span class="sd">        Time data for the range of estimated classifiers.</span>
+
+<span class="sd">    conf_int_ : tuple</span>
+<span class="sd">        95% confidence interval for the out-of-fold value of eval_metric for the optimal classifier.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">split_num</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">hyperopt_time</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">eval_metric</span><span class="o">=</span><span class="s2">&quot;f1_macro&quot;</span><span class="p">):</span>
@@ -131,17 +138,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">hyperopt_time</span> <span class="o">=</span> <span class="n">hyperopt_time</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">score_</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder_</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">evaluated_models_scores_</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">evaluated_models_time_</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">eval_metric</span> <span class="o">=</span> <span class="n">eval_metric</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conf_int_</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="ImbalancedLearningClassifier.fit"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<div class="viewcode-block" id="ImbalancedLearningClassifier.fit"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Fits ImbalancedLearningClassifier model.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        x : array-like of shape (n_samples, n_features)</span>
 <span class="sd">            Training sample.</span>
 
 <span class="sd">        y : array-like</span>
@@ -152,22 +162,27 @@
 <span class="sd">        self : ImbalancedLearningClassifier instance</span>
 <span class="sd">            Fitted estimator.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">check_x_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">check_x_y</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="n">t0</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+        <span class="n">le</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="o">.</span><span class="n">LabelEncoder</span><span class="p">()</span>
+        <span class="n">le</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">classes_</span> <span class="o">=</span> <span class="n">le</span><span class="o">.</span><span class="n">classes_</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">encoder_</span> <span class="o">=</span> <span class="n">le</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">classifer_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifer_label_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">score_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluated_models_scores_</span><span class="p">,</span> \
-        <span class="bp">self</span><span class="o">.</span><span class="n">evaluated_models_time_</span> <span class="o">=</span> <span class="n">choose_and_fit_ilc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">evaluated_models_time_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf_int_</span> <span class="o">=</span> <span class="n">choose_and_fit_ilc</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The best generative model is &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifer_label_</span><span class="p">)</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Leader &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval_metric</span> <span class="o">+</span> <span class="s2">&quot; score: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">score_</span><span class="p">,</span> <span class="mi">4</span><span class="p">)))</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fitting time: &quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">t0</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span></div>
 
-<div class="viewcode-block" id="ImbalancedLearningClassifier.predict"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="viewcode-block" id="ImbalancedLearningClassifier.predict"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Predicts class label.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        x : array-like of shape (n_samples, n_features)</span>
 <span class="sd">            Test sample.</span>
 
 <span class="sd">        Returns</span>
@@ -176,21 +191,22 @@
 <span class="sd">            The predicted class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">check_ilc_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">check_x_y</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">check_x_y</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifer_label_</span> <span class="o">==</span> <span class="s2">&quot;AutoBalanceBoost&quot;</span><span class="p">:</span>
-            <span class="n">pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifer_</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifer_</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">X_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-            <span class="n">pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifer_</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>
+            <span class="n">x_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifer_</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)</span>
+        <span class="n">pred</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">encoder_</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pred</span></div>
 
-<div class="viewcode-block" id="ImbalancedLearningClassifier.predict_proba"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict_proba">[docs]</a>    <span class="k">def</span> <span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="viewcode-block" id="ImbalancedLearningClassifier.predict_proba"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.predict_proba">[docs]</a>    <span class="k">def</span> <span class="nf">predict_proba</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ndarray</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Predicts class label probability.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        X : array-like of shape (n_samples, n_features)</span>
+<span class="sd">        x : array-like of shape (n_samples, n_features)</span>
 <span class="sd">            Test sample.</span>
 
 <span class="sd">        Returns</span>
@@ -199,15 +215,15 @@
 <span class="sd">            The predicted class probabilities.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">check_ilc_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-        <span class="n">check_x_y</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">check_x_y</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifer_label_</span> <span class="o">==</span> <span class="s2">&quot;AutoBalanceBoost&quot;</span><span class="p">:</span>
-            <span class="n">pred_proba</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifer_</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">pred_proba</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifer_</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">X_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-            <span class="n">pred_proba</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifer_</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_scaled</span><span class="p">)</span>
+            <span class="n">x_scaled</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">pred_proba</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">classifer_</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">x_scaled</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">pred_proba</span></div>
 
-<div class="viewcode-block" id="ImbalancedLearningClassifier.leaderboard"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.leaderboard">[docs]</a>    <span class="k">def</span> <span class="nf">leaderboard</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ImbalancedLearningClassifier.leaderboard"><a class="viewcode-back" href="../../../asid.automl_imbalanced.html#asid.automl_imbalanced.ilc.ImbalancedLearningClassifier.leaderboard">[docs]</a>    <span class="k">def</span> <span class="nf">leaderboard</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates the leaderboard statistics.</span>
 

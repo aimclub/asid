@@ -41,7 +41,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">ASID Structure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../asid_algorithms.html">ASID Algorithms</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">asid</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../benchmarks.html">Benchmarks</a></li>
 </ul>
@@ -71,11 +71,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for asid.automl_small.tools</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">This module contains helping functions for GenerativeModel class.</span>
-<span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
 <span class="kn">from</span> <span class="nn">.generative_model_estimation</span> <span class="kn">import</span> <span class="n">fit_model</span>
 <span class="kn">from</span> <span class="nn">.generative_model_sampling</span> <span class="kn">import</span> <span class="n">get_sampled_data</span>
@@ -84,9 +80,12 @@
 <span class="kn">import</span> <span class="nn">random</span>
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">ndarray</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Any</span>
 
 
-<div class="viewcode-block" id="choose_and_fit_model"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.choose_and_fit_model">[docs]</a><span class="k">def</span> <span class="nf">choose_and_fit_model</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">similarity_metric</span><span class="p">,</span> <span class="n">scaler</span><span class="p">,</span> <span class="n">data_scaled</span><span class="p">,</span> <span class="n">num_syn_samples</span><span class="p">,</span> <span class="n">hyp_time</span><span class="p">):</span>
+<div class="viewcode-block" id="choose_and_fit_model"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.choose_and_fit_model">[docs]</a><span class="k">def</span> <span class="nf">choose_and_fit_model</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">similarity_metric</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">scaler</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">data_scaled</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span>
+                         <span class="n">num_syn_samples</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">hyp_time</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">object</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Chooses an optimal generative model and fits GenerativeModel instance.</span>
 
@@ -179,13 +178,13 @@
     <span class="k">return</span> <span class="n">gen_model</span><span class="p">,</span> <span class="n">best_alg_label</span><span class="p">,</span> <span class="n">best_score</span><span class="p">,</span> <span class="n">log_dict</span></div>
 
 
-<div class="viewcode-block" id="check_gen_model_list"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_gen_model_list">[docs]</a><span class="k">def</span> <span class="nf">check_gen_model_list</span><span class="p">(</span><span class="n">metric</span><span class="p">):</span>
+<div class="viewcode-block" id="check_gen_model_list"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_gen_model_list">[docs]</a><span class="k">def</span> <span class="nf">check_gen_model_list</span><span class="p">(</span><span class="n">metric</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">metric</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;optimize&quot;</span><span class="p">,</span> <span class="s2">&quot;sklearn_kde&quot;</span><span class="p">,</span> <span class="s2">&quot;stats_kde_cv_ml&quot;</span><span class="p">,</span> <span class="s2">&quot;stats_kde_cv_ls&quot;</span><span class="p">,</span> <span class="s2">&quot;gmm&quot;</span><span class="p">,</span> <span class="s2">&quot;bayesian_gmm&quot;</span><span class="p">,</span> <span class="s2">&quot;ctgan&quot;</span><span class="p">,</span>
                       <span class="s2">&quot;copula&quot;</span><span class="p">,</span> <span class="s2">&quot;copulagan&quot;</span><span class="p">,</span> <span class="s2">&quot;tvae&quot;</span><span class="p">]:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Generative model &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; is not implemented.&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="check_sim_metric_list"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_sim_metric_list">[docs]</a><span class="k">def</span> <span class="nf">check_sim_metric_list</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">mtype</span><span class="p">):</span>
+<div class="viewcode-block" id="check_sim_metric_list"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_sim_metric_list">[docs]</a><span class="k">def</span> <span class="nf">check_sim_metric_list</span><span class="p">(</span><span class="n">metric</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">mtype</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">mtype</span> <span class="o">==</span> <span class="s2">&quot;optimize&quot;</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">metric</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;zu&quot;</span><span class="p">,</span> <span class="s2">&quot;c2st_acc&quot;</span><span class="p">]:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Metric &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; is not implemented.&quot;</span><span class="p">)</span>
@@ -194,7 +193,7 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Metric &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">metric</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; is not implemented.&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="check_num_type"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_num_type">[docs]</a><span class="k">def</span> <span class="nf">check_num_type</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">num_type</span><span class="p">,</span> <span class="n">num_cl</span><span class="p">):</span>
+<div class="viewcode-block" id="check_num_type"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_num_type">[docs]</a><span class="k">def</span> <span class="nf">check_num_type</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">num_type</span><span class="p">:</span> <span class="nb">type</span><span class="p">,</span> <span class="n">num_cl</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">num_type</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">num_cl</span> <span class="o">==</span> <span class="s2">&quot;positive&quot;</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The parameter should be &quot;</span> <span class="o">+</span> <span class="n">num_cl</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
@@ -206,10 +205,10 @@
         <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;The parameter should be of &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">num_type</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="check_x_y"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_x_y">[docs]</a><span class="k">def</span> <span class="nf">check_x_y</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;X should be an array-like type.&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+<div class="viewcode-block" id="check_x_y"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_x_y">[docs]</a><span class="k">def</span> <span class="nf">check_x_y</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">ndarray</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">ndarray</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;x should be an array-like type.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The dataset has no samples.&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s2">&quot;size&quot;</span><span class="p">):</span>
@@ -218,8 +217,8 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The dataset has no samples.&quot;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The X and y contain different number of samples.&quot;</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The x and y contain different number of samples.&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="check_gm_fitted"><a class="viewcode-back" href="../../../asid.automl_small.html#asid.automl_small.tools.check_gm_fitted">[docs]</a><span class="k">def</span> <span class="nf">check_gm_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
