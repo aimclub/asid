@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Benchmarks &mdash; asid 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="User Guide" href="user_guide.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> asid
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">ASID Structure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="asid_algorithms.html">ASID Algorithms</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Benchmarks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#small-dataset-problem">Small dataset problem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#synthetic-dataset-generation">Synthetic dataset generation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-a-synthetic-dataset-for-supervised-learning">Using a synthetic dataset for supervised learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#imbalanced-learning">Imbalanced learning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#imbalanced-learning-in-industrial-tasks">Imbalanced learning in industrial tasks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">asid</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Benchmarks</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/benchmarks.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="benchmarks">
+<h1>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this heading"></a></h1>
+<section id="small-dataset-problem">
+<h2>Small dataset problem<a class="headerlink" href="#small-dataset-problem" title="Permalink to this heading"></a></h2>
+</section>
+<section id="synthetic-dataset-generation">
+<h2>Synthetic dataset generation<a class="headerlink" href="#synthetic-dataset-generation" title="Permalink to this heading"></a></h2>
+<p>A range of generative models were fitted on Iris Dataset using a <code class="docutils literal notranslate"><span class="pre">GenerativeModel</span></code> instance. The Hyperopt time parameter equaled 10 seconds and 100 synthetic samples were used to evaluate overfitting. Firstly, <code class="docutils literal notranslate"><span class="pre">GenerativeModel</span></code> instance was fitted with respect to Zu metric.</p>
+<a class="reference internal image-reference" href="_images/zu_iris.png"><img alt="_images/zu_iris.png" src="_images/zu_iris.png" style="width: 100%;" /></a>
+<p>Overall runtime took 1.13 min. The best performance was demonstrated by statsmodel’s implementation of KDE with likelihood maximization. Zu metric value for this option is quite close to zero, which means that a generative model outputs similar samples and does not overfit. Deep learning models for tabular data showed worse performance as they require more time for hyper-parameters tuning and larger sample volume.</p>
+<a class="reference internal image-reference" href="_images/c2st_iris.png"><img alt="_images/c2st_iris.png" src="_images/c2st_iris.png" style="width: 100%;" /></a>
+<p>In addition to that, <code class="docutils literal notranslate"><span class="pre">GenerativeModel</span></code> was fitted on Iris Dataset with respect to Classifier Two-Sample Test metric. As can be seen, it takes more time to calculate this metric in comparison with Zu metric. However, it complements the overfitting analysis and allows to have a look from another perspective. According to Classifier Two-Sample Test, scikit-learn implementation of KDE outputs the best synthetic samples.</p>
+<a class="reference internal image-reference" href="_images/zu_galaxy.png"><img alt="_images/zu_galaxy.png" src="_images/zu_galaxy.png" style="width: 100%;" /></a>
+<p>Another example of <code class="docutils literal notranslate"><span class="pre">GenerativeModel</span></code> estimation includes Visualizing Galaxy Dataset with respect to Zu metric. Here, the best overfitting score was obtained by statsmodel’s implementation of KDE with likelihood maximization.</p>
+</section>
+<section id="using-a-synthetic-dataset-for-supervised-learning">
+<h2>Using a synthetic dataset for supervised learning<a class="headerlink" href="#using-a-synthetic-dataset-for-supervised-learning" title="Permalink to this heading"></a></h2>
+<p>This example demonstrates an effect of supervised learning on synthetic dataset in case of limited sample. Full sample size of Skin Segmentation Dataset includes 80,000 instances. However, small samples were obtained from the original dataset to show the decrease in accuracy when learning on a truncated sample. After that, on each small sample KDE generation models for each class were fitted. Then a full sample of 80,000 instances was collected based on KDE synthetic datasets. Thus, we compare the accuracy obtained on a small dataset sample with the accuracy obtained on a large synthetic sample from KDE.</p>
+<a class="reference internal image-reference" href="_images/skin.png"><img alt="_images/skin.png" src="_images/skin.png" style="width: 100%;" /></a>
+<p>It could be concluded, that synthetic dataset generation allows to increase accuracy for small datasets with less than 1000 samples. Therefore, this approach should be further analysed.</p>
+</section>
+<section id="imbalanced-learning">
+<h2>Imbalanced learning<a class="headerlink" href="#imbalanced-learning" title="Permalink to this heading"></a></h2>
+</section>
+<section id="id1">
+<h2>Benchmarks<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<p>Empirical analysis was conducted on synthetic, semi-synthetic and empirical datasets with a range of imbalance ratios. The main goal was to analyze the performance of AutoBalanceBoost and the combinations of the most popular ensemble learning algorithms with the balancing procedures that are used in <code class="docutils literal notranslate"><span class="pre">ImbalancedLearningClassifier</span></code>. A series of experiments was run for each dataset and each competing algorithm. As a result, the mean values and confidence intervals were obtained for the test scores of the algorithms. Each dataset was split into 5 folds with 10 random seeds therefore for each baseline we ran 50 experiments and calculated the macro averaged F1-scores. Each baseline estimation time was limited by the ABB runtime. Here, ensemble algorithms were trained with the default parameters, whereas balancing procedures included hyper-parameters tuning.</p>
+<a class="reference internal image-reference" href="_images/credit.png"><img alt="_images/credit.png" src="_images/credit.png" style="width: 100%;" /></a>
+<p>In Give Me Some Credit example ABB and the combinations with random sampling algorithms demonstrate high level of accuracy.</p>
+<a class="reference internal image-reference" href="_images/amazon.png"><img alt="_images/amazon.png" src="_images/amazon.png" style="width: 100%;" /></a>
+<p>On Amazon Dataset almost every algorithm shows a comparable performance except for Random Forest + RandomOverSampler.</p>
+<a class="reference internal image-reference" href="_images/elec.png"><img alt="_images/elec.png" src="_images/elec.png" style="width: 100%;" /></a>
+<p>On Electricity Dataset AutoBalanceBoost significantly dominates the competition.</p>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">Dataset description</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 13%" />
+<col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Size</p></th>
+<th class="head"><p>Features</p></th>
+<th class="head"><p>Imbalance ratio</p></th>
+<th class="head"><p>ABB training time, sec.</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Synthetic Dataset</p></td>
+<td><p>20 000</p></td>
+<td><p>6</p></td>
+<td><p>14:4:1:1</p></td>
+<td><p>242</p></td>
+</tr>
+<tr class="row-odd"><td><p>Electricity</p></td>
+<td><p>22 656</p></td>
+<td><p>8</p></td>
+<td><p>1.4:1</p></td>
+<td><p>287</p></td>
+</tr>
+<tr class="row-even"><td><p>Semi-Synthetic Electricity</p></td>
+<td><p>22 656</p></td>
+<td><p>8</p></td>
+<td><p>10:1</p></td>
+<td><p>210</p></td>
+</tr>
+<tr class="row-odd"><td><p>Give Me Some Credit Dataset</p></td>
+<td><p>19 193</p></td>
+<td><p>10</p></td>
+<td><p>14:1</p></td>
+<td><p>167</p></td>
+</tr>
+<tr class="row-even"><td><p>Bank Marketing</p></td>
+<td><p>4 521</p></td>
+<td><p>16</p></td>
+<td><p>7.7:1</p></td>
+<td><p>67</p></td>
+</tr>
+<tr class="row-odd"><td><p>Default of Credit Card Clients</p></td>
+<td><p>6 000</p></td>
+<td><p>23</p></td>
+<td><p>3.5:1</p></td>
+<td><p>115</p></td>
+</tr>
+<tr class="row-even"><td><p>Mammography</p></td>
+<td><p>11 183</p></td>
+<td><p>6</p></td>
+<td><p>42:1</p></td>
+<td><p>66</p></td>
+</tr>
+<tr class="row-odd"><td><p>KC1 Software Defect Prediction</p></td>
+<td><p>2 109</p></td>
+<td><p>21</p></td>
+<td><p>5.5:1</p></td>
+<td><p>41</p></td>
+</tr>
+<tr class="row-even"><td><p>Amazon Employee Access</p></td>
+<td><p>32 769</p></td>
+<td><p>9</p></td>
+<td><p>16:1</p></td>
+<td><p>354</p></td>
+</tr>
+<tr class="row-odd"><td><p>Protein Homology</p></td>
+<td><p>14 576</p></td>
+<td><p>74</p></td>
+<td><p>111:1</p></td>
+<td><p>613</p></td>
+</tr>
+<tr class="row-even"><td><p>German Credit</p></td>
+<td><p>1 000</p></td>
+<td><p>20</p></td>
+<td><p>2.3:1</p></td>
+<td><p>29</p></td>
+</tr>
+</tbody>
+</table>
+<p>In addition to that, we calculated the rank of the algorithms based on their scores. After that we averaged these ranks across the experiments. The plot below demonstrates the averaged ranks for each dataset, the place of the algorithm by the averaged rank is highlighted by the color.</p>
+<a class="reference internal image-reference" href="_images/places.png"><img alt="_images/places.png" src="_images/places.png" style="width: 100%;" /></a>
+<p>As expected, among the combinations of ensembles and balancing procedures almost every type of the ensemble algorithm achieved a higher place by the average rank on some dataset, since the most effective frameworks were included into the analysis. Among balancing procedures such oversampling algorithms as SMOTE and ROS showed a better performance, although ROS is regarded as a naive strategy it proved to be quite effective. In general, with all the datasets considered ABB holds the first place with the averaged rank 4.5.</p>
+<p>To sum up, the performance of ensemble imbalanced learning algorithms differs depending on the dataset. Therefore, to get the highest score, one should search through numerous alternatives, which is time-consuming and requires a highly qualified researcher. In this case ASID might prove very helpful. Firstly, it comprises a <code class="docutils literal notranslate"><span class="pre">AutoBalanceBoost</span></code> estimator, that allows to obtain models of good quality with no additional action by the researcher. Moreover, <code class="docutils literal notranslate"><span class="pre">ImbalancedLearningClassifier</span></code> solves the problem of searching an optimal algorithm for the required estimation time.</p>
+</section>
+<section id="imbalanced-learning-in-industrial-tasks">
+<h2>Imbalanced learning in industrial tasks<a class="headerlink" href="#imbalanced-learning-in-industrial-tasks" title="Permalink to this heading"></a></h2>
+<p>This problem is based on a <a class="reference external" href="https://www.openml.org/d/1504">public dataset</a> and consists in steel plates fault detection. Automation of fault detection allows to improve the production quality and reduce testing costs. The complexity of this dataset lies in that there is a class imbalance between different types of faults. The sample consists of 1941 instances. Predictors represent 27 features that describe the fault geometry.</p>
+<a class="reference internal image-reference" href="_images/steel.png"><img alt="_images/steel.png" src="_images/steel.png" style="width: 100%;" /></a>
+<p>The class labels indicate the fault type. There are 7 classes with the largest imbalance of 1:12: bumps, K_scratches, Z_scratches, pastry, stains, dirtiness and other faults type.</p>
+<a class="reference internal image-reference" href="_images/types.png"><img alt="_images/types.png" src="_images/types.png" style="width: 100%;" /></a>
+<p>Due to the large imbalance this problem could be solved using <code class="docutils literal notranslate"><span class="pre">ImbalancedLearningClassifier</span></code> to fit an optimal model. Algorithm run took 29 minutes and 15 seconds. As a result the algorithm output classification scores on 15 dataset splits.</p>
+<a class="reference internal image-reference" href="_images/steel_res.png"><img alt="_images/steel_res.png" src="_images/steel_res.png" style="width: 100%;" /></a>
+<p>As can bee seen, the optimal model includes ADASYN balancing procedure and XGBoost classifier. The mean F-score averaged by classes for optimal model is 0.82, which states a good quality of the resulting model. We also checked an out-of-fold score on a 20% test sample for the optimal model and obtained the following report. It can be concluded that classification score varies from 0.57 to 0.97 depending on a fault type.</p>
+<a class="reference internal image-reference" href="_images/scores.png"><img alt="_images/scores.png" src="_images/scores.png" style="width: 100%;" /></a>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="user_guide.html" class="btn btn-neutral float-left" title="User Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Ekaterina Plesovskaya, Sergey Ivanov.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

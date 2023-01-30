@@ -15,6 +15,7 @@ Welcome to asid's documentation!
    installation
    modules
    user_guide
+   benchmarks
 
 
 
