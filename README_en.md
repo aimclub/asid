@@ -93,7 +93,21 @@ Documentation about ASID could be found [here](https://aimclub.github.io/asid/do
 Examples of usage could be obtained from [examples](https://github.com/ekplesovskaya/asid/tree/master/examples).
 
 # Citation
+```
 Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
+```
+
+```
+@article{plesovskaya2021empirical,
+  title={An empirical analysis of KDE-based generative models on small datasets},
+  author={Plesovskaya, Ekaterina and Ivanov, Sergey},
+  journal={Procedia Computer Science},
+  volume={193},
+  pages={442--452},
+  year={2021},
+  publisher={Elsevier}
+}
+```
 
 # Supported by
 The study is supported by the [Research Center Strong Artificial Intelligence in Industry](https://sai.itmo.ru/) of [ITMO University](https://itmo.ru/) as part of the plan of the center's program: Development and testing of an experimental prototype of a library of strong AI algorithms in terms of basic algorithms based on generative synthesis of complex digital objects for quality assessment and automatic adaptation of machine learning models to the complexity of the task and sample size
