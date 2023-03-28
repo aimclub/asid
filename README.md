@@ -115,7 +115,9 @@ Bibtex:
 # Поддержка
 Исследование проводится при поддержке [Исследовательского центра сильного искусственного интеллекта в промышленности](https://sai.itmo.ru/) [Университета ИТМО](https://itmo.ru/) в рамках мероприятия программы центра: Разработка и испытания экспериментального образца библиотеки алгоритмов сильного ИИ в части базовых алгоритмов оценки качества и автоматической адаптации моделей машинного обучения под сложность задачи и размер выборки на основе генеративного синтеза комплексных цифровых объектов 
 
-<img src='https://gitlab.actcognitive.org/itmo-sai-code/organ/-/raw/main/docs/AIM-Strong_Sign_Norm-01_Colors.svg' width='200'>
+<a href='https://sai.itmo.ru/'>
+  <img src='https://gitlab.actcognitive.org/itmo-sai-code/organ/-/raw/main/docs/AIM-Strong_Sign_Norm-01_Colors.svg' width='200'>
+</a>
 
 # Контакты
 [Екатерина Плесовская](https://scholar.google.com/citations?user=PdydDtQAAAAJ&hl=ru), ekplesovskaya@gmail.com
