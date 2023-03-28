@@ -94,11 +94,13 @@ score = f1_score(y_test, pred, average="macro")
 Примеры использования доступны по этой [ссылке](https://gitlab.actcognitive.org/itmo-sai-code/asid/-/tree/master/examples).
 
 # Цитирование
-```
-Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
-```
+ГОСТ:
 
-```
+> Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
+
+Bibtex:
+
+```bibtex
 @article{plesovskaya2021empirical,
   title={An empirical analysis of KDE-based generative models on small datasets},
   author={Plesovskaya, Ekaterina and Ivanov, Sergey},

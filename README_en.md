@@ -93,11 +93,13 @@ Documentation about ASID could be found [here](https://aimclub.github.io/asid/do
 Examples of usage could be obtained from [examples](https://github.com/ekplesovskaya/asid/tree/master/examples).
 
 # Citation
-```
-Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
-```
+GOST:
 
-```
+> Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
+
+Bibtex:
+
+```bibtex
 @article{plesovskaya2021empirical,
   title={An empirical analysis of KDE-based generative models on small datasets},
   author={Plesovskaya, Ekaterina and Ivanov, Sergey},
@@ -107,6 +109,7 @@ Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based G
   year={2021},
   publisher={Elsevier}
 }
+```
 ```
 
 # Supported by
