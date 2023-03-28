@@ -86,15 +86,17 @@ score = f1_score(y_test, pred, average="macro")
 ```
 # Benchmarks
 Results or empirical experiments with ASID algorithms are available [here](https://github.com/ekplesovskaya/asid/wiki/5.-Benchmarks).
+
 # Documentation
 Documentation about ASID could be found [here](https://aimclub.github.io/asid/docs/build/html/index.html).
 
 Examples of usage could be obtained from [examples](https://github.com/ekplesovskaya/asid/tree/master/examples).
+
 # Citation
 Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
+
 # Supported by
-The study is supported by the Research Center [**Strong Artificial Intelligence in Industry**](<https://sai.itmo.ru/>)
-of [**ITMO University**](https://itmo.ru) (Saint Petersburg, Russia)
+The study is supported by the [Research Center Strong Artificial Intelligence in Industry](https://sai.itmo.ru/) of [ITMO University](https://itmo.ru/) as part of the plan of the center's program: Development and testing of an experimental prototype of a library of strong AI algorithms in terms of basic algorithms based on generative synthesis of complex digital objects for quality assessment and automatic adaptation of machine learning models to the complexity of the task and sample size
 
 <img src='https://gitlab.actcognitive.org/itmo-sai-code/organ/-/raw/main/docs/AIM-Strong_Sign_Norm-01_Colors.svg' width='200'>
 
