@@ -1,4 +1,13 @@
 # ASID: AutoML for Small and Imbalanced Datasets
+[![SAI](https://github.com/ITMO-NSS-team/open-source-ops/blob/master/badges/SAI_badge_flat.svg)](https://sai.itmo.ru/)
+[![ITMO](https://github.com/ITMO-NSS-team/open-source-ops/blob/master/badges/ITMO_badge_flat_rus.svg)](https://en.itmo.ru/en/)
+
+[![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
+[![Documentation](https://github.com/aimclub/asid/actions/workflows/docs.yml/badge.svg)](https://aimclub.github.io/asid/docs/build/html/index.html)
+[![Tests](https://github.com/aimclub/asid/actions/workflows/test.yml/badge.svg)](https://github.com/aimclub/asid/actions/workflows/test.yml)
+[![Rus](https://img.shields.io/badge/lang-ru-yellow.svg)](/README.md)
+[![Mirror](https://camo.githubusercontent.com/9bd7b8c5b418f1364e72110a83629772729b29e8f3393b6c86bff237a6b784f6/68747470733a2f2f62616467656e2e6e65742f62616467652f6769746c61622f6d6972726f722f6f72616e67653f69636f6e3d6769746c6162)](https://gitlab.actcognitive.org/itmo-sai-code/asid/)
+
 ASID library comprises autoML tools for small and imbalanced tabular datasets.
 
 For **small datasets** we propose a [`GenerativeModel`](https://github.com/ekplesovskaya/asid/blob/master/asid/automl_small/gm.py) estimator that searches for an optimal generative algorithm, which outputs similar synthetic samples and does not overfit. Main features of this tool:
@@ -78,17 +87,37 @@ score = f1_score(y_test, pred, average="macro")
 ```
 # Benchmarks
 Results or empirical experiments with ASID algorithms are available [here](https://github.com/ekplesovskaya/asid/wiki/5.-Benchmarks).
+
 # Documentation
 Documentation about ASID could be found [here](https://aimclub.github.io/asid/docs/build/html/index.html).
 
 Examples of usage could be obtained from [examples](https://github.com/ekplesovskaya/asid/tree/master/examples).
-# Citation
-Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
-# Supported by
-The study is supported by the Research Center [**Strong Artificial Intelligence in Industry**](<https://sai.itmo.ru/>)
-of [**ITMO University**](https://itmo.ru) (Saint Petersburg, Russia)
 
-<img src='https://gitlab.actcognitive.org/itmo-sai-code/organ/-/raw/main/docs/AIM-Strong_Sign_Norm-01_Colors.svg' width='200'>
+# Citation
+GOST:
+
+> Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
+
+Bibtex:
+
+```bibtex
+@article{plesovskaya2021empirical,
+  title={An empirical analysis of KDE-based generative models on small datasets},
+  author={Plesovskaya, Ekaterina and Ivanov, Sergey},
+  journal={Procedia Computer Science},
+  volume={193},
+  pages={442--452},
+  year={2021},
+  publisher={Elsevier}
+}
+```
+
+# Supported by
+The study is supported by the [Research Center Strong Artificial Intelligence in Industry](https://sai.itmo.ru/) of [ITMO University](https://itmo.ru/) as part of the plan of the center's program: Development and testing of an experimental prototype of a library of strong AI algorithms in terms of basic algorithms based on generative synthesis of complex digital objects for quality assessment and automatic adaptation of machine learning models to the complexity of the task and sample size
+
+<a href='https://sai.itmo.ru/'>
+  <img src='https://gitlab.actcognitive.org/itmo-sai-code/organ/-/raw/main/docs/AIM-Strong_Sign_Norm-01_Colors.svg' width='200'>
+</a>
 
 # Contacts
 [Ekaterina Plesovskaya](https://scholar.google.com/citations?user=PdydDtQAAAAJ&hl=ru), ekplesovskaya@gmail.com

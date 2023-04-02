@@ -1,5 +1,14 @@
 
 # ASID: Автоматическое обучение для малых и несбалансированных выборок
+[![SAI](https://github.com/ITMO-NSS-team/open-source-ops/blob/master/badges/SAI_badge_flat.svg)](https://sai.itmo.ru/)
+[![ITMO](https://github.com/ITMO-NSS-team/open-source-ops/blob/master/badges/ITMO_badge_flat_rus.svg)](https://en.itmo.ru/en/)
+
+[![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
+[![Documentation](https://github.com/aimclub/asid/actions/workflows/docs.yml/badge.svg)](https://aimclub.github.io/asid/docs/build/html/index.html)
+[![Tests](https://github.com/aimclub/asid/actions/workflows/test.yml/badge.svg)](https://github.com/aimclub/asid/actions/workflows/test.yml)
+[![Eng](https://img.shields.io/badge/lang-en-red.svg)](/README_en.md)
+[![Mirror](https://camo.githubusercontent.com/9bd7b8c5b418f1364e72110a83629772729b29e8f3393b6c86bff237a6b784f6/68747470733a2f2f62616467656e2e6e65742f62616467652f6769746c61622f6d6972726f722f6f72616e67653f69636f6e3d6769746c6162)](https://gitlab.actcognitive.org/itmo-sai-code/asid/)
+
 Библиотека ASID включает в себя инструменты автоматического обучения на малых и несбалансированных выборках в табличном формате.
 
 Для **малых выборок** библиотека содержит алгоритм [`GenerativeModel`](https://gitlab.actcognitive.org/itmo-sai-code/asid/-/blob/master/asid/automl_small/gm.py). Он обучает оптимальную генеративную модель, которая сэмплирует схожие синтетические выборки и не переобучается. Основные преимущества алгоритма:
@@ -79,16 +88,37 @@ score = f1_score(y_test, pred, average="macro")
 ```
 # Бенчмарки
 Результаты эмпирического анализа алгоритмов ASID на различных датасетах доступны [здесь](https://github.com/ekplesovskaya/asid/wiki/5.-Benchmarks).
+
 # Документация
 Документация для ASID доступна по этому [адресу](https://aimclub.github.io/asid/docs/build/html/index.html).
 
 Примеры использования доступны по этой [ссылке](https://gitlab.actcognitive.org/itmo-sai-code/asid/-/tree/master/examples).
-# Цитирование
-Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
-# Поддержка
-Библиотека разработана при поддержке исследовательского центра [**"Сильный искусственный интеллект в промышленности"**](<https://sai.itmo.ru/>) [**Университета ИТМО**](https://itmo.ru) (г. Санкт-Петербург, Россия)
 
-<img src='https://gitlab.actcognitive.org/itmo-sai-code/organ/-/raw/main/docs/AIM-Strong_Sign_Norm-01_Colors.svg' width='200'>
+# Цитирование
+ГОСТ:
+
+> Plesovskaya, Ekaterina, and Sergey Ivanov. "An Empirical Analysis of KDE-based Generative Models on Small Datasets." Procedia Computer Science 193 (2021): 442-452.
+
+Bibtex:
+
+```bibtex
+@article{plesovskaya2021empirical,
+  title={An empirical analysis of KDE-based generative models on small datasets},
+  author={Plesovskaya, Ekaterina and Ivanov, Sergey},
+  journal={Procedia Computer Science},
+  volume={193},
+  pages={442--452},
+  year={2021},
+  publisher={Elsevier}
+}
+```
+
+# Поддержка
+Исследование проводится при поддержке [Исследовательского центра сильного искусственного интеллекта в промышленности](https://sai.itmo.ru/) [Университета ИТМО](https://itmo.ru/) в рамках мероприятия программы центра: Разработка и испытания экспериментального образца библиотеки алгоритмов сильного ИИ в части базовых алгоритмов оценки качества и автоматической адаптации моделей машинного обучения под сложность задачи и размер выборки на основе генеративного синтеза комплексных цифровых объектов 
+
+<a href='https://sai.itmo.ru/'>
+  <img src='https://gitlab.actcognitive.org/itmo-sai-code/organ/-/raw/main/docs/AIM-Strong_Sign_Norm-01_Colors.svg' width='200'>
+</a>
 
 # Контакты
 [Екатерина Плесовская](https://scholar.google.com/citations?user=PdydDtQAAAAJ&hl=ru), ekplesovskaya@gmail.com
