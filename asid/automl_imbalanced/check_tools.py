@@ -1,5 +1,6 @@
 import numpy as np
 from typing import Any
+from asid import utils
 
 
 def check_num_type(x: Any, num_type: type, num_cl: str):
@@ -16,15 +17,7 @@ def check_num_type(x: Any, num_type: type, num_cl: str):
     - ValueError: If the parameter does not match the specified classification.
     """
 
-    if isinstance(x, num_type):
-        if num_cl == "positive" and x <= 0:
-            raise ValueError("The parameter should be " + num_cl + ".")
-        elif num_cl == "non-negative" and x < 0:
-            raise ValueError("The parameter should be " + num_cl + ".")
-        elif num_cl == "negative" and x >= 0:
-            raise ValueError("The parameter should be " + num_cl + ".")
-    else:
-        raise TypeError("The parameter should be of " + str(num_type))
+    return utils.check_num_type(x, num_type, num_cl)
 
 
 def check_x_y(x: Any, y=None):
