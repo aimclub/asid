@@ -121,8 +121,9 @@ def check_sim_metric_list(metric: str, mtype: str):
             raise ValueError("Metric " + str(metric) + " is not implemented.")
 
 
-def check_num_type(x: Any, num_type: type, num_cl: str):
+def tools_check_number(x: Any, num_type: type, num_cl: str):
     """
+    Wrapper for validate_number in utils.
     Validates the type and classification of a numeric parameter.
 
     Parameters:
@@ -134,7 +135,7 @@ def check_num_type(x: Any, num_type: type, num_cl: str):
     - TypeError: If the parameter is not of the specified numeric type.
     - ValueError: If the parameter does not match the specified classification.
     """
-    return utils.check_num_type(x, num_type, num_cl)
+    return utils.validate_number(x, num_type, num_cl)
 
 
 def check_x_y(x: ndarray, y: Union[ndarray, None] = None):

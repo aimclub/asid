@@ -1,7 +1,7 @@
 from typing import Any
 
 
-def check_num_type(x: Any, num_type: type, num_cl: str):
+def validate_number(x: Any, num_type: type, num_cl: str):
     """
     Validates the type and classification of a numeric parameter.
 
