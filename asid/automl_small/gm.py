@@ -1,4 +1,4 @@
-from .tools import choose_and_fit_model, check_gen_model_list, check_sim_metric_list, check_num_type, check_x_y, \
+from .tools import choose_and_fit_model, check_gen_model_list, check_sim_metric_list, tools_check_number, check_x_y, \
     check_gm_fitted
 from .generative_model_estimation import fit_model
 from sklearn.preprocessing import StandardScaler
@@ -65,8 +65,8 @@ class GenerativeModel(object):
     def __init__(self, gen_model_type="optimize", similarity_metric="zu", num_syn_samples=100, hyperopt_time=0):
         check_gen_model_list(gen_model_type)
         check_sim_metric_list(similarity_metric, gen_model_type)
-        check_num_type(num_syn_samples, int, "positive")
-        check_num_type(hyperopt_time, int, "non-negative")
+        tools_check_number(num_syn_samples, int, "positive")
+        tools_check_number(hyperopt_time, int, "non-negative")
         self.gen_model_type = gen_model_type
         self.similarity_metric = similarity_metric
         self.num_syn_samples = num_syn_samples
@@ -134,8 +134,8 @@ class GenerativeModel(object):
             Synthetic sample.
         """
         check_gm_fitted(self)
-        check_num_type(sample_size, int, "positive")
-        check_num_type(random_state, int, "positive")
+        tools_check_number(sample_size, int, "positive")
+        tools_check_number(random_state, int, "positive")
         sampled_data = get_sampled_data(self.gen_model_, sample_size, [random_state],
                                         self.gen_model_label_, self.scaler_)[0]
         print("Synthetic sample is generated. The shape of sampled dataset: ", sampled_data.shape)
