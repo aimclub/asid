@@ -1,5 +1,5 @@
 from .tools_ilc import choose_and_fit_ilc, calc_leaderboard
-from .check_tools import check_num_type, check_eval_metric_list, check_x_y, check_ilc_fitted
+from .check_tools import check_tools_verify_number, check_eval_metric_list, check_x_y, check_ilc_fitted
 from datetime import datetime
 from sklearn import preprocessing
 from numpy import ndarray
@@ -56,8 +56,8 @@ class ImbalancedLearningClassifier(object):
     """
 
     def __init__(self, split_num=5, hyperopt_time=0, eval_metric="f1_macro"):
-        check_num_type(split_num, int, "positive")
-        check_num_type(hyperopt_time, int, "non-negative")
+        check_tools_verify_number(split_num, int, "positive")
+        check_tools_verify_number(hyperopt_time, int, "non-negative")
         check_eval_metric_list(eval_metric)
         self.classifer_ = None
         self.classifer_label_ = None

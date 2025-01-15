@@ -1,5 +1,5 @@
 from .tools_abb import boosting_of_bagging_procedure, get_pred, get_pred_proba, get_feat_imp
-from .check_tools import check_num_type, check_x_y, check_abb_fitted
+from .check_tools import check_tools_verify_number, check_x_y, check_abb_fitted
 from numpy import ndarray
 
 
@@ -26,8 +26,8 @@ class AutoBalanceBoost(object):
     """
 
     def __init__(self, num_iter=40, num_est=16):
-        check_num_type(num_iter, int, "positive")
-        check_num_type(num_est, int, "positive")
+        check_tools_verify_number(num_iter, int, "positive")
+        check_tools_verify_number(num_est, int, "positive")
         self.num_iter = num_iter
         self.num_est = num_est
         self.ensemble_ = None
